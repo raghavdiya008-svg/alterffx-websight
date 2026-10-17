@@ -2,13 +2,16 @@ export interface Project {
   id: string
   title: string
   client: string
-  category: "Commercial" | "Narrative" | "Music Video" | "Short Form"
+  category: "Commercial" | "Narrative" | "Music Video" | "Short Form" | "Motion Graphics" | "YouTube Long Form" | "Podcast Edits" | "Typography"
   year: string
   aspectRatio: string
   duration: string
   resolution: string
   fps: string
   director: string
+  youtubeId?: string
+  reelUrl?: string
+  externalUrl?: string
   colorist?: string
   soundDesigner?: string
   views?: string
@@ -36,6 +39,7 @@ export interface Testimonial {
   project: string
   year: string
   avatarUrl?: string
+  screenshotUrl?: string
 }
 
 export interface ClientLogo {

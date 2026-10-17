@@ -1,44 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-pistachio: #D6DDBF;
-  --color-pistachio-deep: #CBD4B1;
-  --color-pistachio-surface: #E0E6CE;
-  --color-pistachio-card: #E5EBD5;
-  --color-pistachio-elevated: #EEF3DE;
-  --color-pistachio-border: rgba(28, 38, 24, 0.14);
-  --color-pistachio-border-hover: rgba(28, 38, 24, 0.3);
-  --color-pistachio-border-focus: rgba(232, 81, 42, 0.5);
+  --color-warm-bisque: #EDCFB5;
+  --color-primary-mocha: #9A7562;
+  --color-primary-mocha-hover: #86614E;
+  --color-secondary-taupe: #B79F93;
+  --color-secondary-taupe-hover: #A78D80;
+  
+  --color-espresso-ink: #241812;
+  --color-espresso-secondary: #6D5548;
+  --color-espresso-muted: #8C7162;
 
-  --color-forest-ink: #1C2618;
-  --color-forest-secondary: #5E6B4E;
-  --color-forest-muted: #7E8D6C;
-
-  --color-vermilion: #E8512A;
-  --color-vermilion-hover: #CF401B;
-  --color-vermilion-dim: rgba(232, 81, 42, 0.12);
-
-  --color-chart-cyan: #2A7B88;
-  --color-chart-yellow: #B59226;
-  --color-chart-magenta: #9E3D6A;
-
-  --font-serif: "Boska", "Playfair Display", Georgia, serif;
-  --font-sans: "Switzer", system-ui, -apple-system, sans-serif;
+  --font-sans: "Montserrat", "Helvetica Neue", -apple-system, Arial, sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
 }
 
 @layer base {
-  * {
-    border-color: var(--color-pistachio-border);
-  }
-  
   html {
-    font-size: 17px; /* 16px baseline bumped by 2 points for effortless legibility */
+    font-size: 17px;
   }
 
   html, body {
-    background-color: var(--color-pistachio);
-    color: var(--color-forest-ink);
+    background-color: #EDCFB5;
+    color: #241812;
     font-family: var(--font-sans);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -46,16 +30,18 @@
   }
   
   ::selection {
-    background-color: rgba(232, 81, 42, 0.22);
-    color: #1C2618;
+    background-color: rgba(154, 117, 98, 0.25);
+    color: #241812;
   }
 
-  /* Color correction chart / lab paperwork graph grid */
-  .lab-grid {
+  /* Liquid Glass Grid & Shimmer Overlay */
+  .liquid-mesh {
     background-image: 
-      linear-gradient(rgba(28, 38, 24, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(28, 38, 24, 0.035) 1px, transparent 1px);
-    background-size: 32px 32px;
+      radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.45) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(183, 159, 147, 0.3) 0%, transparent 45%),
+      linear-gradient(rgba(154, 117, 98, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(154, 117, 98, 0.04) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
   }
 
   /* GPU-accelerated smooth rendering */
@@ -64,20 +50,50 @@
     transform: translateZ(0);
   }
 
-  /* Sleek paperwork scrollbar */
+  /* Sleek Minimalist Liquid Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #D6DDBF;
+    background: #EDCFB5;
   }
   ::-webkit-scrollbar-thumb {
-    background: #CBD4B1;
-    border: 1px solid rgba(28, 38, 24, 0.15);
+    background: #B79F93;
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #E8512A;
+    background: #9A7562;
   }
+}
+
+/* Liquid Glass Utilities */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 16px 40px -10px rgba(154, 117, 98, 0.12), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.liquid-glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.58) 0%, rgba(247, 233, 220, 0.42) 100%);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 20px 50px -12px rgba(154, 117, 98, 0.16), inset 0 1.5px 1.5px rgba(255, 255, 255, 0.95);
+}
+
+.liquid-glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 24px 60px -10px rgba(154, 117, 98, 0.22), inset 0 1.5px 2px rgba(255, 255, 255, 1);
+}
+
+.liquid-glass-pill {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.85), 0 4px 14px rgba(154, 117, 98, 0.08);
 }

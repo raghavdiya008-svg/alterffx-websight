@@ -1,11 +1,11 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { CLIENT_ROSTER } from "../data/editorData"
-import { ShieldCheck, Cpu, HardDrive, MonitorCheck } from "lucide-react"
+import { HardDrive, Cpu, ShieldCheck, MonitorCheck } from "lucide-react"
 
 export const ClientRoster: React.FC = () => {
   return (
-    <section className="py-16 border-y border-[#1C2618]/15 bg-[#CBD4B1]/40">
+    <section className="py-16 border-y border-white/50 bg-white/20 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         
         {/* Header */}
@@ -17,22 +17,22 @@ export const ClientRoster: React.FC = () => {
           className="flex flex-col md:flex-row md:items-center justify-between gap-4"
         >
           <div>
-            <span className="font-serif italic text-base text-[#5E6B4E] block">
-              Trusted by commercial directors & network showrunners
+            <span className="font-light text-sm text-[#6D5548] block">
+              Trusted by creators, commercial brands & YouTube networks
             </span>
-            <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#1C2618] mt-0.5">
-              Production Houses & Studios Cut in This Suite
+            <h3 className="font-normal text-2xl sm:text-3xl text-[#241812] mt-0.5">
+              Production Styles & Domains Cut in This Suite
             </h3>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-[#5E6B4E]">
-            <span className="w-2 h-2 rounded-full bg-[#E8512A]"></span>
-            <span className="font-semibold text-[#1C2618]">FRAME.IO ENTERPRISE PRO VAULT</span>
+          <div className="flex items-center gap-2 text-xs font-mono text-[#6D5548] liquid-glass-pill px-3.5 py-1.5 rounded-full">
+            <span className="w-2 h-2 rounded-full bg-[#9A7562] animate-pulse"></span>
+            <span className="font-medium text-[#241812]">AFTER EFFECTS 24 ACCELERATED</span>
           </div>
         </motion.div>
 
-        {/* Client Badges Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+        {/* Client Badges Grid in Liquid Glass */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
           {CLIENT_ROSTER.map((client, idx) => (
             <motion.div
               key={idx}
@@ -40,11 +40,11 @@ export const ClientRoster: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.04 }}
-              className="p-3.5 rounded-xl border border-[#1C2618]/15 bg-[#E0E6CE] hover:border-[#E8512A] hover:bg-[#E8EDD7] transition-all flex flex-col justify-between shadow-2xs"
+              className="p-4 rounded-2xl liquid-glass-pill hover:border-white/95 transition-all flex flex-col justify-between shadow-xs"
             >
-              <div className="font-serif text-base font-normal text-[#1C2618] tracking-tight">{client.name}</div>
-              <div className="text-[10px] font-sans text-[#5E6B4E] mt-1">{client.division}</div>
-              <div className="mt-2 text-[9px] font-mono text-[#E8512A] font-bold">
+              <div className="font-medium text-sm text-[#241812] tracking-tight">{client.name}</div>
+              <div className="text-[11px] font-light text-[#6D5548] mt-1">{client.division}</div>
+              <div className="mt-2 text-[10px] font-mono text-[#9A7562] font-semibold">
                 {client.projectCount} DELIVERIES
               </div>
             </motion.div>
@@ -52,36 +52,36 @@ export const ClientRoster: React.FC = () => {
         </div>
 
         {/* Technical Suite Guarantee Strip */}
-        <div className="pt-6 border-t border-[#1C2618]/15 grid grid-cols-2 md:grid-cols-4 gap-6 text-xs font-mono text-[#5E6B4E]">
+        <div className="pt-6 border-t border-white/40 grid grid-cols-2 md:grid-cols-4 gap-6 text-xs font-mono text-[#6D5548]">
           <div className="flex items-center gap-3">
-            <HardDrive className="w-4 h-4 text-[#E8512A]" />
+            <HardDrive className="w-4 h-4 text-[#9A7562]" />
             <div>
-              <div className="text-[#1C2618] font-sans font-medium">120TB NVMe RAID</div>
-              <div className="text-[10px] text-[#5E6B4E]">8K Uncompressed Raw Bandwidth</div>
+              <div className="text-[#241812] font-medium">High-Speed NVMe Storage</div>
+              <div className="text-[10px] text-[#6D5548] font-light">Zero Latency 4K Timeline Scrubbing</div>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <MonitorCheck className="w-4 h-4 text-[#2A7B88]" />
+            <Cpu className="w-4 h-4 text-[#B79F93]" />
             <div>
-              <div className="text-[#1C2618] font-sans font-medium">Flanders Scientific XMP310</div>
-              <div className="text-[10px] text-[#5E6B4E]">100% DCI-P3 Mastering Display</div>
+              <div className="text-[#241812] font-medium">After Effects 24 Rigs</div>
+              <div className="text-[10px] text-[#6D5548] font-light">Multi-Threaded 60fps Renders</div>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <Cpu className="w-4 h-4 text-[#B59226]" />
+            <MonitorCheck className="w-4 h-4 text-[#9A7562]" />
             <div>
-              <div className="text-[#1C2618] font-sans font-medium">DaVinci Resolve Studio 19</div>
-              <div className="text-[10px] text-[#5E6B4E]">Dual RTX 4090 GPU Node</div>
+              <div className="text-[#241812] font-medium">Calibrated Color Grading</div>
+              <div className="text-[10px] text-[#6D5548] font-light">DCI-P3 & Rec.709 Precision</div>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <ShieldCheck className="w-4 h-4 text-[#1C2618]" />
+            <ShieldCheck className="w-4 h-4 text-[#B79F93]" />
             <div>
-              <div className="text-[#1C2618] font-sans font-medium">MPA / TPN Certified</div>
-              <div className="text-[10px] text-[#5E6B4E]">Air-Gapped NDA Asset Vault</div>
+              <div className="text-[#241812] font-medium">Private Cloud Handoff</div>
+              <div className="text-[10px] text-[#6D5548] font-light">Encrypted Google Drive / Frame.io</div>
             </div>
           </div>
         </div>

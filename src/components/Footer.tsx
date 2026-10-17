@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Copy, Check, Calendar, ShieldCheck } from "lucide-react"
+import { Copy, Check, MessageSquare, Zap } from "lucide-react"
 import { soundFx } from "../lib/audioEngine"
 
 interface FooterProps {
@@ -9,7 +9,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => {
   const [copied, setCopied] = useState(false)
-  const email = "julian@vance-editorial.com"
+  const email = "connectwithalter@gmail.com"
 
   const handleCopyEmail = () => {
     soundFx.playTick(1300)
@@ -19,20 +19,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
   }
 
   return (
-    <footer className="border-t border-[#1C2618]/15 bg-[#CBD4B1] text-[#5E6B4E] pt-20 pb-12 px-4 sm:px-6 lg:px-8">
+    <footer className="border-t border-white/50 bg-white/20 backdrop-blur-xl text-[#6D5548] pt-20 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-16">
         
-        {/* Top Call to Action Row */}
-        <div className="p-8 sm:p-12 rounded-3xl border border-[#1C2618]/20 bg-[#E5EBD5] flex flex-col md:flex-row md:items-center justify-between gap-8 relative overflow-hidden shadow-2xs">
+        {/* Top Call to Action Row in Liquid Glass */}
+        <div className="p-8 sm:p-12 rounded-3xl liquid-glass-card flex flex-col md:flex-row md:items-center justify-between gap-8 relative overflow-hidden shadow-2xl">
           <div className="space-y-3 z-10 max-w-xl">
-            <span className="font-serif italic text-base text-[#E8512A] block font-semibold">
-              Have a shoot wrapping this month?
+            <span className="font-light italic text-base text-[#9A7562] block font-semibold">
+              HAVE A PROJECT IN MIND? LET&rsquo;S CREATE TOGETHER.
             </span>
-            <h3 className="font-serif text-3xl sm:text-5xl font-normal text-[#1C2618] tracking-tight leading-tight">
-              Let&rsquo;s cut your next defining commercial or narrative.
+            <h3 className="font-normal text-3xl sm:text-5xl text-[#241812] tracking-tight leading-tight">
+              Ready to elevate your edits to commercial grade?
             </h3>
-            <p className="text-base text-[#5E6B4E] font-sans">
-              Available for commercial offline bookings, narrative feature assemblies, and creator retention consulting across Los Angeles, London, and remote Frame.io pipelines.
+            <p className="text-base text-[#6D5548] font-light leading-relaxed">
+              Accepting commissions for product commercial animations, YouTube long form documentary editing, podcast series, and viral short-form retention hooks.
             </p>
           </div>
 
@@ -42,91 +42,107 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
                 soundFx.playNeuralBurst()
                 onOpenBooking()
               }}
-              className="px-7 py-4 rounded-xl bg-[#E8512A] text-white font-sans font-semibold text-sm uppercase tracking-wider hover:bg-[#CF401B] transition-all shadow-md shadow-[#E8512A]/20 flex items-center justify-center gap-2.5"
+              className="px-7 py-4 rounded-2xl bg-[#9A7562] text-white font-medium text-xs uppercase tracking-wider hover:bg-[#86614E] transition-all shadow-lg shadow-[#9A7562]/20 flex items-center justify-center gap-2.5 cursor-pointer border border-white/20"
             >
-              <Calendar className="w-4 h-4" />
-              <span>Book An Edit Slot</span>
+              <Zap className="w-4 h-4 fill-white" />
+              <span>Commission A Cut</span>
             </button>
 
             <button
               onClick={handleCopyEmail}
-              className="px-6 py-4 rounded-xl border border-[#1C2618]/25 bg-[#D6DDBF] hover:bg-[#E0E6CE] text-[#1C2618] font-sans text-sm font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5"
+              className="px-6 py-4 rounded-2xl liquid-glass-pill hover:bg-white/60 text-[#241812] font-medium text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-white/60"
             >
-              {copied ? <Check className="w-4 h-4 text-[#1C2618]" /> : <Copy className="w-4 h-4" />}
-              <span>{copied ? "Docket Copied!" : "Copy Direct Email"}</span>
+              {copied ? <Check className="w-4 h-4 text-[#241812]" /> : <Copy className="w-4 h-4" />}
+              <span>{copied ? "Email Copied!" : "connectwithalter@gmail.com"}</span>
             </button>
           </div>
         </div>
 
-        {/* Technical Directory Grid with +2pt fonts */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 text-sm font-sans">
+        {/* Technical Directory Grid with Thin Montserrat */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 text-sm">
           
           <div className="md:col-span-4 space-y-4">
             <div className="flex items-center gap-2.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#E8512A]"></span>
-              <span className="font-serif text-3xl font-normal text-[#1C2618]">Julian Vance</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#9A7562]"></span>
+              <span className="font-normal text-3xl text-[#241812]">ALTER</span>
+              <span className="text-[10px] font-mono text-white px-2 py-0.5 rounded-full bg-[#9A7562] font-semibold">AE24</span>
             </div>
             
-            <p className="text-[#5E6B4E] leading-relaxed max-w-sm font-sans text-sm font-normal">
-              Senior Commercial & Narrative Film Editor. Offline pacing, surgical multi-stem sound design, and master color grading for world-class directors and brands.
+            <p className="text-[#6D5548] leading-relaxed max-w-sm font-light text-sm">
+              18 Yo Video editor & motion designer creating cinematic edits, 3D commercial animations, kinetic typography, and YouTube long form using After Effects 24.
             </p>
 
-            <div className="text-xs font-mono text-[#1C2618] flex items-center gap-2 font-bold">
-              <ShieldCheck className="w-4 h-4 text-[#E8512A]" />
-              <span>TPN & MPA SECURITY CERTIFIED SUITE</span>
+            <div className="text-xs font-mono text-[#241812] flex items-center gap-2 font-medium">
+              <span>CONCEPT. EXECUTION. IMPACT.</span>
             </div>
           </div>
 
           <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <div className="space-y-3">
-              <span className="font-serif italic text-base text-[#1C2618] block font-semibold">
-                Suite Navigation
+              <span className="font-medium text-sm text-[#241812] block tracking-wide">
+                Portfolio Navigation
               </span>
-              <ul className="space-y-2.5 text-sm font-medium">
+              <ul className="space-y-2.5 text-sm font-light">
                 <li>
-                  <button onClick={() => onNavClick("works")} className="hover:text-[#1C2618] transition-colors">
-                    Selected Works
+                  <button onClick={() => onNavClick("works")} className="hover:text-[#241812] transition-colors cursor-pointer">
+                    Sample Videos
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => onNavClick("color-grade")} className="hover:text-[#1C2618] transition-colors">
+                  <button onClick={() => onNavClick("color-grade")} className="hover:text-[#241812] transition-colors cursor-pointer">
                     Color Grade Loupe
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => onNavClick("philosophy")} className="hover:text-[#1C2618] transition-colors">
-                    Editorial Craft & Pacing
+                  <button onClick={() => onNavClick("philosophy")} className="hover:text-[#241812] transition-colors cursor-pointer">
+                    What I Offer
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => onNavClick("rates")} className="hover:text-[#1C2618] transition-colors">
-                    Rate Calculator
+                  <button onClick={() => onNavClick("rates")} className="hover:text-[#241812] transition-colors cursor-pointer">
+                    Rates & Intake
                   </button>
                 </li>
               </ul>
             </div>
 
             <div className="space-y-3">
-              <span className="font-serif italic text-base text-[#1C2618] block font-semibold">
-                Edit Suite Hubs
+              <span className="font-medium text-sm text-[#241812] block tracking-wide">
+                Direct Channels
               </span>
-              <ul className="space-y-2 text-[#5E6B4E] text-sm font-medium">
-                <li>Los Angeles, CA (Arts District)</li>
-                <li>London, UK (Soho Cutting Rooms)</li>
-                <li>Remote via Frame.io & Aspera</li>
-                <li className="text-[#1C2618]/70 text-xs pt-1 font-mono font-bold">Timezones: PST & GMT</li>
+              <ul className="space-y-2.5 text-[#6D5548] text-sm font-light">
+                <li>
+                  <a href="https://instagram.com/alter.ffx" target="_blank" rel="noopener noreferrer" className="hover:text-[#241812] transition-colors flex items-center gap-1.5">
+                    <span>Instagram: @alter.ffx</span>
+                  </a>
+                </li>
+                <li>
+                  <span className="hover:text-[#241812] transition-colors">
+                    Discord: @alterffx
+                  </span>
+                </li>
+                <li>
+                  <span className="text-[#6D5548] flex items-center gap-1.5 font-mono text-xs">
+                    <span>Showreels: Native 4K Streams Only</span>
+                  </span>
+                </li>
+                <li>
+                  <a href="https://paypal.me/Priyanshuraikwar01" target="_blank" rel="noopener noreferrer" className="text-[#9A7562] hover:underline font-semibold text-xs font-mono">
+                    Paypal: Priyanshu Raikwar
+                  </a>
+                </li>
               </ul>
             </div>
 
             <div className="space-y-3 col-span-2 sm:col-span-1">
-              <span className="font-serif italic text-base text-[#1C2618] block font-semibold">
-                Technical Certifications
+              <span className="font-medium text-sm text-[#241812] block tracking-wide">
+                Core Stack
               </span>
-              <div className="p-4 rounded-xl border border-[#1C2618]/15 bg-[#D6DDBF] space-y-1.5 text-xs font-mono text-[#5E6B4E] font-medium">
-                <div>• DaVinci Resolve Studio 19</div>
-                <div>• Avid Media Composer Certified</div>
-                <div>• Adobe Premiere Pro / After Effects</div>
-                <div>• Apple ProRes Certified Facility</div>
+              <div className="p-4 rounded-2xl liquid-glass-pill space-y-1.5 text-xs font-mono text-[#6D5548] font-light">
+                <div>• Adobe After Effects 24</div>
+                <div>• 3D Camera Compositing</div>
+                <div>• Kinetic Typography Rigging</div>
+                <div>• Multi-Stem Sound Design</div>
               </div>
             </div>
           </div>
@@ -134,15 +150,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
         </div>
 
         {/* Bottom Timecode Line */}
-        <div className="border-t border-[#1C2618]/15 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#5E6B4E]">
-          <div>
-            © 2026 JULIAN VANCE EDITORIAL LAB. ALL RIGHTS RESERVED.
+        <div className="border-t border-white/40 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#6D5548]">
+          <div className="font-light">
+            © 2026 ALTER (ALTERFFX). ALL RIGHTS RESERVED.
           </div>
 
           <div className="flex items-center gap-4">
-            <span>SMPTE TIME: 24.00 FPS</span>
+            <span className="font-light">ENGINE: AFTER EFFECTS 24</span>
             <span>•</span>
-            <span className="text-[#1C2618] font-bold">REPUTATION BUILT FRAME BY FRAME</span>
+            <span className="text-[#241812] font-semibold">CONCEPT. EXECUTION. IMPACT.</span>
           </div>
         </div>
 

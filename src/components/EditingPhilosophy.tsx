@@ -1,186 +1,189 @@
 import React from "react"
 import { motion } from "framer-motion"
-import { Volume2, Wand2, TrendingUp, Film } from "lucide-react"
+import { Sparkles, Type, Wand2 } from "lucide-react"
 
 export const EditingPhilosophy: React.FC = () => {
   return (
     <section id="philosophy" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
       
-      {/* Section Header with +2pt */}
+      {/* Section Header with Thin Montserrat typography */}
       <motion.div 
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1C2618]/15 pb-8"
+        className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/50 pb-8"
       >
         <div>
           <div className="inline-flex items-center gap-2 mb-2">
-            <Film className="w-4 h-4 text-[#E8512A]" />
-            <span className="font-serif italic text-lg sm:text-xl text-[#5E6B4E]">The cutting discipline & cognitive rhythm</span>
+            <Sparkles className="w-4 h-4 text-[#9A7562]" />
+            <span className="font-light text-base sm:text-lg text-[#6D5548]">WHAT I OFFER // 01</span>
           </div>
-          <h2 className="font-serif text-4xl sm:text-6xl font-normal text-[#1C2618] tracking-tight">
-            How the Story is Engineered
+          <h2 className="font-normal text-4xl sm:text-6xl text-[#241812] tracking-tight">
+            Core Editorial & Motion Services
           </h2>
-          <p className="text-[#5E6B4E] text-base sm:text-lg mt-2 max-w-2xl font-sans font-normal">
-            Great editing is imperceptible while you experience it, but undeniable in its emotional impact. Here is how I approach the timeline.
+          <p className="text-[#6D5548] text-base sm:text-lg mt-2 max-w-2xl font-light">
+            Bespoke motion design, kinetic typography, and high-retention long form editing built with After Effects 24. Designed to capture, hold, and convert viewer attention.
           </p>
         </div>
 
-        <div className="font-serif italic text-base text-[#5E6B4E] self-start md:self-auto font-medium">
-          Avoid flat pacing • Cut with intention
+        <div className="font-mono text-xs uppercase tracking-wider text-[#9A7562] font-semibold self-start md:self-auto liquid-glass-pill px-4 py-2 rounded-full">
+          CONCEPT • EXECUTION • IMPACT
         </div>
       </motion.div>
 
-      {/* Asymmetric Bento Grid */}
+      {/* Asymmetric Bento Grid in Liquid Glass Finish */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         
-        {/* Bento Tile 1: Large 8-column Hero Feature */}
+        {/* Bento Tile 1: Large 8-column Hero Feature - Product Commercial Animations */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5 }}
-          className="md:col-span-8 rounded-3xl border border-[#1C2618]/20 bg-[#E5EBD5] p-8 sm:p-10 flex flex-col justify-between space-y-8 relative overflow-hidden group hover:border-[#E8512A] transition-colors shadow-2xs"
+          className="md:col-span-8 rounded-3xl liquid-glass-card p-8 sm:p-10 flex flex-col justify-between space-y-8 relative overflow-hidden group shadow-xl"
         >
           <div className="space-y-4 z-10">
             <div className="flex items-center justify-between">
-              <span className="font-serif italic text-lg text-[#E8512A] font-medium">Pillar I: Biological Saccades</span>
-              <span className="px-3.5 py-1.5 rounded-full text-xs font-mono bg-[#CBD4B1] text-[#1C2618] border border-[#1C2618]/20 font-bold">
-                +41.8% Retention Lift
+              <span className="font-mono text-xs text-[#9A7562] font-semibold tracking-wider">01 // COMMERCIAL SHOWREEL</span>
+              <span className="px-3.5 py-1.5 rounded-full text-xs font-mono liquid-glass-pill text-[#241812] font-medium">
+                After Effects 24 3D
               </span>
             </div>
 
-            <h3 className="font-serif text-3xl sm:text-4xl xl:text-5xl font-normal text-[#1C2618] leading-snug">
-              Psychological Narrative Pacing & Cognitive Saccades
+            <h3 className="font-normal text-3xl sm:text-4xl xl:text-5xl text-[#241812] leading-snug">
+              Product Commercial Animations & 3D Spatial Renders
             </h3>
 
-            <p className="text-[#5E6B4E] text-base sm:text-lg leading-relaxed max-w-2xl font-sans font-normal">
-              A cut should never occur in a psychological vacuum. I cut on actor eye-blinks, subtle head turns, and natural inhalation cycles. When a cut respects the biological saccade of the human eye, the audience never registers the transition—they only experience the unbroken emotional momentum.
+            <p className="text-[#6D5548] text-base sm:text-lg leading-relaxed max-w-2xl font-light">
+              From 3D product can reveals to dynamic speed ramps and particle bursts. I build commercial animations that elevate everyday brands into cinematic experiences with visceral camera moves and synchronized sound design.
             </p>
           </div>
 
-          {/* Interactive Pacing Wave Diagram (+2pt text) */}
-          <div className="p-4 rounded-2xl border border-[#1C2618]/15 bg-[#CBD4B1] space-y-3 z-10 font-mono text-xs">
-            <div className="flex items-center justify-between text-[#5E6B4E] text-xs font-medium">
-              <span>TENSION & RESOLUTION TIMELINE (BPM PACING CURVE)</span>
-              <span className="text-[#E8512A] font-bold">PEAK AT 00:01:12</span>
+          {/* Interactive Velocity Wave in Liquid Glass */}
+          <div className="p-4 rounded-2xl liquid-glass-pill space-y-3 z-10 font-mono text-xs">
+            <div className="flex items-center justify-between text-[#6D5548] text-xs font-light">
+              <span>AFTER EFFECTS VELOCITY EASING (KEYFRAME ACCELERATION)</span>
+              <span className="text-[#9A7562] font-semibold">300% SPEED RAMP</span>
             </div>
             
-            {/* SVG Wave */}
-            <svg viewBox="0 0 500 60" className="w-full h-12 stroke-[#E8512A] fill-none stroke-[2]">
+            <svg viewBox="0 0 500 60" className="w-full h-12 stroke-[#9A7562] fill-none stroke-[2]">
               <path d="M0 45 Q 60 48, 120 30 T 240 15 T 340 5 T 420 28 T 500 38" />
-              <circle cx="340" cy="5" r="4" className="fill-[#E8512A]" />
+              <circle cx="340" cy="5" r="4" className="fill-[#9A7562]" />
             </svg>
 
-            <div className="flex justify-between text-xs text-[#5E6B4E]">
-              <span>Scene Setup (Resting 60bpm)</span>
-              <span>Subtle Micro-Cuts</span>
-              <span className="text-[#1C2618] font-bold">Climax Hit (132bpm)</span>
-              <span>Cadence Release</span>
+            <div className="flex justify-between text-xs text-[#6D5548]">
+              <span>Camera In (00:00)</span>
+              <span>3D Track Lock</span>
+              <span className="text-[#241812] font-semibold">Impact Hit (Peak G-Force)</span>
+              <span>Smooth Decel</span>
             </div>
           </div>
         </motion.div>
 
-        {/* Bento Tile 2: 4-column Sound Architecture */}
+        {/* Bento Tile 2: 4-column Kinetic Typography */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, delay: 0.08 }}
-          className="md:col-span-4 rounded-3xl border border-[#1C2618]/20 bg-[#E5EBD5] p-8 flex flex-col justify-between space-y-6 hover:border-[#1C2618]/40 transition-colors shadow-2xs"
+          className="md:col-span-4 rounded-3xl liquid-glass-card p-8 flex flex-col justify-between space-y-6 shadow-xl"
         >
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-serif italic text-lg text-[#E8512A] font-medium">Pillar II: Audio Landscape</span>
-              <Volume2 className="w-5 h-5 text-[#1C2618]" />
+              <span className="font-mono text-xs text-[#9A7562] font-semibold tracking-wider">02 // TYPOGRAPHY</span>
+              <Type className="w-5 h-5 text-[#241812]" />
             </div>
 
-            <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#1C2618]">
-              Multi-Stem Audio Architecture
+            <h3 className="font-normal text-2xl sm:text-3xl text-[#241812]">
+              Kinetic Typography & Titles
             </h3>
 
-            <p className="text-[#5E6B4E] text-sm sm:text-base leading-relaxed font-sans font-normal">
-              50% of the image is what you hear. I deliver cuts with fully premixed dialogue stems, custom sub-bass risers, clean Foley, and license-ready temp tracks so the offline cut plays like a finished theatrical film on day one.
+            <p className="text-[#6D5548] text-sm sm:text-base leading-relaxed font-light">
+              Words designed to grab attention. Expression-rigged kinetic title sequences, animated subtitles, and editorial title cards with elastic physics and tactile audio hits.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1] text-xs font-mono space-y-2 text-[#5E6B4E]">
-            <div className="flex justify-between text-[#1C2618] font-bold">
-              <span>Dialogue Polish:</span>
-              <span className="text-[#2A7B88]">iZotope RX 11</span>
+          <div className="p-4 rounded-2xl liquid-glass-pill text-xs font-mono space-y-2 text-[#6D5548]">
+            <div className="flex justify-between text-[#241812] font-medium">
+              <span>Typography Engine:</span>
+              <span className="text-[#9A7562]">Expression Rigged</span>
             </div>
             <div className="flex justify-between">
-              <span>Loudness Target:</span>
-              <span className="text-[#1C2618]">-14.0 LUFS Broadcast</span>
+              <span>Easing Style:</span>
+              <span className="text-[#241812]">Elastic Overshoot</span>
             </div>
           </div>
         </motion.div>
 
-        {/* Bento Tile 3: 4-column Invisible VFX */}
+        {/* Bento Tile 3: 4-column Catchy & Attention Grabbing Scenes */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, delay: 0.12 }}
-          className="md:col-span-4 rounded-3xl border border-[#1C2618]/20 bg-[#E5EBD5] p-8 flex flex-col justify-between space-y-6 hover:border-[#1C2618]/40 transition-colors shadow-2xs"
+          className="md:col-span-4 rounded-3xl liquid-glass-card p-8 flex flex-col justify-between space-y-6 shadow-xl"
         >
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-serif italic text-lg text-[#E8512A] font-medium">Pillar III: Invisible VFX</span>
-              <Wand2 className="w-5 h-5 text-[#B59226]" />
+              <span className="font-mono text-xs text-[#9A7562] font-semibold tracking-wider">03 // VIRAL HOOKS</span>
+              <Wand2 className="w-5 h-5 text-[#B79F93]" />
             </div>
 
-            <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#1C2618]">
-              In-Timeline Invisible VFX
+            <h3 className="font-normal text-2xl sm:text-3xl text-[#241812]">
+              Attention Grabbing Hooks
             </h3>
 
-            <p className="text-[#5E6B4E] text-sm sm:text-base leading-relaxed font-sans font-normal">
-              Screen replacements, rig cleanups, light flicker removals, and optical flow speed ramps executed directly in-timeline. Directors get locked cuts without costly VFX round-trips.
+            <p className="text-[#6D5548] text-sm sm:text-base leading-relaxed font-light">
+              Sub-3-second retention hooks for Reels and Shorts. Sound-designed impacts, optical zoom transitions, and rhythmic audio ducking that stop the scroll instantly.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1] text-xs font-mono text-[#5E6B4E] flex items-center justify-between">
-            <span>Clean Plates & Morph Cuts</span>
-            <span className="text-[#1C2618] font-bold">In-Timeline Execution</span>
+          <div className="p-4 rounded-2xl liquid-glass-pill text-xs font-mono text-[#6D5548] flex items-center justify-between">
+            <span>Scroll-Stop Rate</span>
+            <span className="text-[#9A7562] font-semibold">90%+ 3-Sec Hook</span>
           </div>
         </motion.div>
 
-        {/* Bento Tile 4: Large 8-column High-Retention Digital Storytelling */}
+        {/* Bento Tile 4: Large 8-column YouTube Long Form & Podcast Edits */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, delay: 0.16 }}
-          className="md:col-span-8 rounded-3xl border border-[#1C2618]/20 bg-[#E5EBD5] p-8 sm:p-10 flex flex-col justify-between space-y-6 hover:border-[#E8512A] transition-colors shadow-2xs"
+          className="md:col-span-8 rounded-3xl liquid-glass-card p-8 sm:p-10 flex flex-col justify-between space-y-6 shadow-xl"
         >
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-serif italic text-lg text-[#E8512A] font-medium">Pillar IV: Audience Psychology</span>
-              <TrendingUp className="w-5 h-5 text-[#1C2618]" />
+              <span className="font-mono text-xs text-[#9A7562] font-semibold tracking-wider">04 // LONG FORM & PODCASTS</span>
+              <span className="px-3.5 py-1 rounded-full liquid-glass-pill text-xs font-mono text-[#241812] font-medium">
+                Retention Optimization
+              </span>
             </div>
 
-            <h3 className="font-serif text-3xl sm:text-4xl xl:text-5xl font-normal text-[#1C2618]">
-              High-Retention Digital Narrative Architecture
+            <h3 className="font-normal text-3xl sm:text-4xl text-[#241812]">
+              YouTube Long Form & Podcast Dialogue Mastercuts
             </h3>
 
-            <p className="text-[#5E6B4E] text-base sm:text-lg leading-relaxed max-w-2xl font-sans font-normal">
-              Whether cutting for YouTube, TikTok, or premium connected TV, modern audiences drop off if the central conflict isn&rsquo;t established in the opening 12 seconds. I re-order scenes to build progressive intrigue without resorting to obnoxious clickbait gimmicks.
+            <p className="text-[#6D5548] text-base sm:text-lg leading-relaxed font-light">
+              Multi-camera podcast switching, documentary archival pacing, and contextual infographics that turn 20-minute conversations into high-retention episodic content. Every visual cutaway reinforces the speaker's emotional point.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[#1C2618]/15 text-xs font-mono">
-            <div className="p-4 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
-              <span className="text-xs text-[#5E6B4E] block uppercase font-medium">First 12 Seconds</span>
-              <span className="text-[#1C2618] font-sans font-bold text-sm mt-1 block">Hook & Narrative Stakes</span>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/50 text-xs font-mono">
+            <div className="p-4 rounded-2xl liquid-glass-pill space-y-1">
+              <div className="text-[#6D5548] font-light">AUDIO BALANCE</div>
+              <div className="text-sm font-semibold text-[#241812]">Speech De-Essing & Level</div>
             </div>
-            <div className="p-4 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
-              <span className="text-xs text-[#5E6B4E] block uppercase font-medium">Mid-Point Shift</span>
-              <span className="text-[#E8512A] font-sans font-bold text-sm mt-1 block">Tension Acceleration</span>
+
+            <div className="p-4 rounded-2xl liquid-glass-pill space-y-1">
+              <div className="text-[#6D5548] font-light">RE-HOOK FREQUENCY</div>
+              <div className="text-sm font-semibold text-[#9A7562]">Every 35–45s Pattern</div>
             </div>
-            <div className="p-4 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
-              <span className="text-xs text-[#5E6B4E] block uppercase font-medium">Payoff Resolution</span>
-              <span className="text-[#1C2618] font-sans font-bold text-sm mt-1 block">Emotional Anchor</span>
+
+            <div className="p-4 rounded-2xl liquid-glass-pill space-y-1">
+              <div className="text-[#6D5548] font-light">DELIVERY RESOLUTION</div>
+              <div className="text-sm font-semibold text-[#241812]">4K Master + Social Cuts</div>
             </div>
           </div>
         </motion.div>

@@ -9,6 +9,7 @@ import { Testimonials } from "./components/Testimonials"
 import { RateCalculator } from "./components/RateCalculator"
 import { ProjectModal } from "./components/ProjectModal"
 import { Footer } from "./components/Footer"
+import { StudioAttribution } from "./components/StudioAttribution"
 import { Project } from "./types/editor"
 import { PROJECTS } from "./data/editorData"
 
@@ -41,23 +42,23 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#D6DDBF] text-[#1C2618] flex flex-col font-sans selection:bg-[#E8512A]/25 selection:text-[#1C2618] antialiased overflow-x-hidden relative lab-grid">
+    <div className="min-h-screen bg-[#EDCFB5] text-[#241812] flex flex-col font-sans selection:bg-[#9A7562]/20 selection:text-[#241812] antialiased overflow-x-hidden relative liquid-mesh pb-8">
       
       {/* Top Laboratory Registration Strip */}
-      <div className="w-full bg-[#CBD4B1] border-b border-[#1C2618]/15 px-4 sm:px-6 py-1 text-[10px] font-mono text-[#5E6B4E] flex items-center justify-between">
+      <div className="w-full bg-white/35 backdrop-blur-md border-b border-white/50 px-4 sm:px-6 py-1.5 text-[10px] font-mono text-[#6D5548] flex items-center justify-between shadow-2xs">
         <div className="flex items-center gap-3">
-          <span className="font-semibold text-[#1C2618]">JV_LAB_FORM // 2026-REV-D</span>
+          <span className="font-semibold text-[#241812]">ALTER_STUDIO // AE24</span>
           <span>•</span>
-          <span>COLOR REEL SPEC: D65 / KODAK 2383</span>
+          <span>AFTER EFFECTS 24 // 60FPS 4K UHD</span>
         </div>
         <div className="flex items-center gap-4 hidden md:flex">
-          <div className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-xs bg-[#2A7B88]"></span>
-            <span className="w-2 h-2 rounded-xs bg-[#B59226]"></span>
-            <span className="w-2 h-2 rounded-xs bg-[#9E3D6A]"></span>
-            <span className="w-2 h-2 rounded-xs bg-[#1C2618]"></span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#9A7562]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#B79F93]"></span>
+            <span className="w-2 h-2 rounded-full bg-white/70"></span>
+            <span className="w-2 h-2 rounded-full bg-[#241812]"></span>
           </div>
-          <span>CALIBRATED TO SMPTE RP-207</span>
+          <span>SMPTE RP-207 PRECISION</span>
         </div>
       </div>
 
@@ -97,7 +98,7 @@ export function App() {
         {/* Rate Calculator & Booking Intake Engine */}
         <RateCalculator
           prefilledProject={prefilledProjectForBooking}
-          onBookingSuccess={() => showToast("Booking docket filed. Julian will review your dailies log within 3 hours.")}
+          onBookingSuccess={() => showToast("Booking filed. Alter will review your footage and brief within 2 hours.")}
         />
 
       </main>
@@ -115,10 +116,13 @@ export function App() {
         onOpenBooking={handleOpenBooking}
       />
 
-      {/* Floating Toast Feedback Styled as Lab Log Tag */}
+      {/* Permanent Hardcoded Studio Attribution Watermark & Bottom Bar */}
+      <StudioAttribution />
+
+      {/* Floating Toast Feedback Styled as Liquid Glass Tag */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-lg bg-[#E5EBD5] border border-[#1C2618]/25 text-[#1C2618] text-xs font-mono shadow-xl animate-fade-in backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-[#E8512A] animate-ping"></span>
+        <div className="fixed bottom-20 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl liquid-glass text-[#241812] text-xs font-mono shadow-2xl animate-fade-in">
+          <span className="w-2 h-2 rounded-full bg-[#9A7562] animate-ping"></span>
           <span className="font-semibold">{toastMessage}</span>
         </div>
       )}
