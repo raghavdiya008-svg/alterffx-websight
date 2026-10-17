@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTERFFX — Editorial Director & VFX Artist</title>
+    <meta name="description" content="Commercial video editor and VFX compositor specializing in high-retention YouTube storytelling, 3D visual effects, and cinematic short-form content.">
+    
+    <!-- OpenGraph Metadata -->
+    <meta property="og:title" content="ALTERFFX — Editorial Director & VFX Artist">
+    <meta property="og:description" content="Crafting high-retention narrative pacing, 3D visual effects, and cinematic commercial cuts.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alterffx.com">
+    <meta name="theme-color" content="#090A0E">
+
+    <!-- Favicon (Minimalist Red Dot in Obsidian) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23090A0E'/><circle cx='16' cy='16' r='5' fill='%23FF3B14'/></svg>">
+
+    <!-- Google Fonts: Hanken Grotesk & DM Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP & Lenis Smooth Scroll -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#090A0E',
+                        surface: '#111318',
+                        'surface-card': '#14171E',
+                        'surface-hover': '#1B1F28',
+                        vermilion: '#FF3B14',
+                        'vermilion-glow': 'rgba(255, 59, 20, 0.25)',
+                        steel: '#8E94A2',
+                        'steel-light': '#D2D6E0',
+                        'steel-dark': '#2B303C',
+                        emerald: '#10B981'
+                    },
+                    fontFamily: {
+                        sans: ['"Hanken Grotesk"', 'sans-serif'],
+                        mono: ['"DM Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-canvas: #090A0E;
+            --bg-surface: #111318;
+            --bg-card: #14171E;
+            --bg-hover: #1A1E27;
+            --vermilion: #FF3B14;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.16);
+            --text-heading: #F5F6F8;
+            --text-body: #B0B5C2;
+            --text-muted: #6C7282;
+            --header-h: 70px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-canvas);
+            color: var(--text-heading);
+            font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Subtle Cinema Grain */
+        .film-grain {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.035;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090A0E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #252932;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #383E4C;
+        }
+
+        /* Glassmorphism Panel */
+        .glass-panel {
+            background: rgba(17, 19, 24, 0.72);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .glass-card {
+            background: rgba(20, 23, 30, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-subtle);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card:hover {
+            background: rgba(26, 30, 39, 0.85);
+            border-color: var(--border-highlight);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Section Scroll Anchor Spacing */
+        section[id] {
+            scroll-margin-top: calc(var(--header-h) + 20px);
+        }
+
+        /* Magnetic Ring Cursor */
+        #customCursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            border: 1.5px solid var(--vermilion);
+            background: transparent;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.2s ease, width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: #FFFFFF;
+            border-radius: 999px;
+        }
+        #customCursor.cursor-active {
+            width: 72px;
+            height: 72px;
+            background: rgba(255, 59, 20, 0.92);
+            border-color: transparent;
+            box-shadow: 0 0 25px rgba(255, 59, 20, 0.4);
+        }
+        @media (hover: none), (pointer: coarse) {
+            #customCursor {
+                display: none !important;
+            }
+        }
+
+        /* Top Progress Bar */
+        #topProgressBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #FF3B14, #FFA07A);
+            width: 0%;
+            z-index: 60;
+            transition: width 0.08s linear;
+        }
+
+        /* Accordion Transitions */
+        .faq-content {
+            transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+
+        /* Form Inputs */
+        .luxury-input {
+            width: 100%;
+            background: rgba(14, 16, 21, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #F5F6F8;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 15px;
+            transition: all 0.25s ease;
+        }
+        .luxury-input:focus {
+            outline: none;
+            border-color: var(--vermilion);
+            background: rgba(18, 21, 28, 0.9);
+            box-shadow: 0 0 0 3px rgba(255, 59, 20, 0.15);
+        }
+
+        /* Video Modal Backdrop */
+        #videoModal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+    </style>
+</head>
+<body class="selection:bg-vermilion selection:text-white">
+
+    <!-- Top Screen Precision Playhead Progress Line -->
+    <div id="topProgressBar" aria-hidden="true"></div>
+
+    <!-- Cinematic SVG Micro Film Grain -->
+    <svg class="film-grain" aria-hidden="true">
+        <filter id="grainFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+            <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#grainFilter)"/>
+    </svg>
+
+    <!-- Custom Magnetic Cursor -->
+    <div id="customCursor" aria-hidden="true"><span id="cursorLabel"></span></div>
+
+    <!-- Toast Container -->
+    <div id="toastStack" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2.5 pointer-events-none" aria-live="polite"></div>
+
+    <!-- ========================================================================= -->
+    <!-- NAVIGATION (Clean Minimalist Studio Header) -->
+    <!-- ========================================================================= -->
+    <header class="fixed top-0 left-0 right-0 h-[70px] glass-panel border-b border-white/[0.06] z-40">
+        <div class="max-w-7xl mx-auto h-full px-6 lg:px-12 flex items-center justify-between">
+            
+            <!-- Brand / Logo & Studio Identity -->
+            <div class="flex items-center gap-5">
+                <a href="#hero" class="group flex items-center gap-2.5 text-white tracking-tight text-lg font-bold">
+                    <span class="w-2.5 h-2.5 rounded-full bg-vermilion transition-transform duration-300 group-hover:scale-125"></span>
+                    <span class="tracking-wider">ALTERFFX</span>
+                    <span class="hidden sm:inline-block font-mono text-[11px] text-steel font-normal border-l border-white/10 pl-3 uppercase">Post-Production</span>
+                </a>
+            </div>
+
+            <!-- Central Editorial Navigation -->
+            <nav class="hidden md:flex items-center gap-8 text-[14px] font-medium text-steel" aria-label="Main Navigation">
+                <a href="#work" class="hover:text-white transition-colors duration-200">Selected Work</a>
+                <a href="#reels" class="hover:text-white transition-colors duration-200">9:16 Shorts</a>
+                <a href="#services" class="hover:text-white transition-colors duration-200">Capabilities</a>
+                <a href="#about" class="hover:text-white transition-colors duration-200">Director's Note</a>
+                <a href="#process" class="hover:text-white transition-colors duration-200">Process</a>
+            </nav>
+
+            <!-- Right Controls: Timecode + Direct CTA -->
+            <div class="flex items-center gap-4">
+                <div class="hidden lg:flex items-center gap-2 font-mono text-[11px] text-steel px-3 py-1.5 rounded-md bg-white/[0.03] border border-white/[0.06]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-vermilion animate-pulse"></span>
+                    <span id="navTimecode">00:00:00:00</span>
+                </div>
+
+                <a href="#contact" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-vermilion text-white font-medium text-[13px] tracking-wide hover:bg-red-600 transition-all duration-200 shadow-lg shadow-vermilion/20 hover:shadow-vermilion/30 active:scale-95">
+                    Start a Brief
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-steel hover:text-white focus:outline-none" aria-label="Toggle Navigation">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileDrawer" class="hidden md:hidden absolute top-[70px] left-0 right-0 glass-panel border-b border-white/[0.08] px-6 py-6 flex-col gap-4 text-base font-medium">
+            <a href="#work" class="text-steel hover:text-white py-1">Selected Work</a>
+            <a href="#reels" class="text-steel hover:text-white py-1">9:16 Shorts</a>
+            <a href="#services" class="text-steel hover:text-white py-1">Capabilities</a>
+            <a href="#about" class="text-steel hover:text-white py-1">Director's Note</a>
+            <a href="#process" class="text-steel hover:text-white py-1">Process</a>
+            <a href="#contact" class="text-vermilion hover:text-red-400 py-1 font-semibold">Start a Project</a>
+        </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- 01. HERO SECTION (High-End Master Headline + Program Monitor) -->
+    <!-- ========================================================================= -->
+    <section id="hero" class="relative pt-36 pb-24 lg:pt-44 lg:pb-32 overflow-hidden">
+        <!-- Subtle Ambient Radial Glow -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-vermilion/10 blur-[140px] pointer-events-none rounded-full" aria-hidden="true"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            
+            <!-- Live Availability Pill -->
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md mb-8">
+                <span class="w-2 h-2 rounded-full bg-emerald animate-pulse"></span>
+                <span class="font-mono text-xs text-steel-light tracking-wide">Available for Select Projects • Q4 2026</span>
+            </div>
+
+            <!-- Hero Headline -->
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+                    Cutting for rhythm, tension, and <span class="text-transparent bg-clip-text bg-gradient-to-r from-vermilion to-orange-400">maximum retention.</span>
+                </h1>
+                <p class="mt-6 text-lg sm:text-xl text-steel max-w-2xl font-normal leading-relaxed">
+                    Independent video editor & VFX artist partnering with creators, esports leagues, and innovative brands to transform raw footage into unforgettable cinema.
+                </p>
+            </div>
+
+            <!-- Primary CTAs & Social Handles -->
+            <div class="flex flex-wrap items-center gap-4 mb-16">
+                <a href="#work" class="px-6 py-3.5 rounded-lg bg-white text-obsidian font-semibold text-sm hover:bg-steel-light transition-all duration-200 shadow-md flex items-center gap-2 active:scale-95">
+                    <span>Explore Selected Cuts</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+                <a href="#contact" class="px-6 py-3.5 rounded-lg bg-surface border border-white/10 text-white font-medium text-sm hover:border-white/25 hover:bg-surface-hover transition-all duration-200 active:scale-95">
+                    Commission a Cut
+                </a>
+                <div class="hidden sm:flex items-center gap-2 text-xs font-mono text-steel ml-2 pl-4 border-l border-white/10">
+                    <span>Discord:</span>
+                    <button id="copyDiscordHero" class="text-white hover:text-vermilion transition-colors cursor-pointer" title="Click to copy Discord handle">@alterffx</button>
+                </div>
+            </div>
+
+            <!-- Master Program Monitor (Interactive Showreel Preview Card) -->
+            <div class="relative w-full rounded-2xl overflow-hidden border border-white/[0.08] bg-surface shadow-2xl group cursor-pointer" id="heroShowreelCard">
+                <!-- Monitor Aspect Ratio Box (16:9) -->
+                <div class="relative aspect-video w-full overflow-hidden bg-[#0A0C10]">
+                    <!-- Canvas Procedural Film Frame (Cinematic Graded Light & Textures) -->
+                    <canvas id="heroCanvas" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"></canvas>
+                    
+                    <!-- Anamorphic Letterbox Bars & Technical Slate Overlays -->
+                    <div class="absolute inset-0 pointer-events-none border-[12px] sm:border-[20px] border-obsidian/60 flex flex-col justify-between p-4 sm:p-6">
+                        <!-- Top Metadata Bar -->
+                        <div class="flex items-center justify-between text-[11px] font-mono tracking-wider text-white/70">
+                            <div class="flex items-center gap-3">
+                                <span class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/60 border border-white/10 text-vermilion">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-vermilion animate-pulse"></span> REC
+                                </span>
+                                <span class="hidden sm:inline text-white/50">PRORES 422 HQ</span>
+                                <span class="hidden md:inline text-white/50">24.00 FPS</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-black/60 px-2 py-0.5 rounded border border-white/10">
+                                <span id="heroMonitorTc">00:01:24:18</span>
+                            </div>
+                        </div>
+
+                        <!-- Center Play Button Trigger -->
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-auto">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-vermilion/90 text-white flex items-center justify-center shadow-2xl backdrop-blur-md group-hover:scale-110 group-hover:bg-vermilion transition-all duration-300">
+                                <svg class="w-7 h-7 sm:w-8 sm:h-8 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Monitor Info Bar -->
+                        <div class="flex items-center justify-between text-[11px] font-mono text-white/75 bg-black/70 backdrop-blur-md px-3.5 py-2 rounded-lg border border-white/10">
+                            <div class="flex items-center gap-3 truncate">
+                                <span class="text-white font-medium truncate">ALTERFFX_SHOWREEL_MASTER_2026.mov</span>
+                                <span class="hidden sm:inline text-steel">|</span>
+                                <span class="hidden sm:inline text-steel">Audio: Dual Stereo 48kHz</span>
+                            </div>
+                            <div class="flex items-center gap-1 text-vermilion font-medium whitespace-nowrap">
+                                <span>WATCH REEL (01:45)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Trust / Editor Attributes Roster -->
+            <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-white/[0.06]">
+                <div>
+                    <p class="font-mono text-xs text-steel uppercase tracking-wider">Primary Craft</p>
+                    <p class="mt-1 text-base font-semibold text-white">Narrative Pacing & Story</p>
+                </div>
+                <div>
+                    <p class="font-mono text-xs text-steel uppercase tracking-wider">Compositing</p>
+                    <p class="mt-1 text-base font-semibold text-white">3D Camera Match & VFX</p>
+                </div>
+                <div>
+                    <p class="font-mono text-xs text-steel uppercase tracking-wider">Color Finishing</p>
+                    <p class="mt-1 text-base font-semibold text-white">DaVinci ACES Workflow</p>
+                </div>
+                <div>
+                    <p class="font-mono text-xs text-steel uppercase tracking-wider">Turnaround</p>
+                    <p class="mt-1 text-base font-semibold text-white">24h–5d Delivery Windows</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 02. SELECTED WORK (High-End Asymmetric Bento Grid) -->
+    <!-- ========================================================================= -->
+    <section id="work" class="py-24 lg:py-32 border-t border-white/[0.06] relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <div class="flex items-center gap-2 font-mono text-xs text-vermilion uppercase tracking-widest mb-3">
+                        <span>Portfolio Sequence</span>
+                        <span>•</span>
+                        <span>01</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Selected Commercial & Narrative Cuts</h2>
+                </div>
+                <p class="text-steel text-sm sm:text-base max-w-md font-normal leading-relaxed">
+                    Every project is assembled with strict narrative architecture: hooked beginnings, intentional retention curves, and high-impact audio.
+                </p>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="flex items-center gap-2.5 overflow-x-auto pb-4 mb-10 no-scrollbar" id="workFilterGroup">
+                <button class="filter-btn active px-4 py-2 rounded-lg bg-white text-obsidian text-xs font-semibold uppercase tracking-wider transition-all" data-filter="all">All Projects</button>
+                <button class="filter-btn px-4 py-2 rounded-lg bg-surface border border-white/10 text-steel hover:text-white text-xs font-semibold uppercase tracking-wider transition-all" data-filter="narrative">YouTube Narrative</button>
+                <button class="filter-btn px-4 py-2 rounded-lg bg-surface border border-white/10 text-steel hover:text-white text-xs font-semibold uppercase tracking-wider transition-all" data-filter="vfx">3D & VFX</button>
+                <button class="filter-btn px-4 py-2 rounded-lg bg-surface border border-white/10 text-steel hover:text-white text-xs font-semibold uppercase tracking-wider transition-all" data-filter="commercial">Montage & Commercial</button>
+            </div>
+
+            <!-- Bento Projects Grid (12 Columns) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8" id="projectsContainer">
+                
+                <!-- Project 01: Hero Anchor (8 Columns) -->
+                <div class="md:col-span-8 group cursor-pointer" data-category="narrative" onclick="openProjectModal('proj-01')">
+                    <div class="glass-card rounded-2xl overflow-hidden p-3 sm:p-4">
+                        <div class="relative aspect-video rounded-xl overflow-hidden bg-surface-card">
+                            <canvas id="canvas-proj-01" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></canvas>
+                            <div class="absolute top-4 left-4 flex gap-2">
+                                <span class="px-2.5 py-1 rounded bg-black/75 backdrop-blur-md text-[11px] font-mono text-white border border-white/10">YouTube Narrative</span>
+                                <span class="px-2.5 py-1 rounded bg-black/75 backdrop-blur-md text-[11px] font-mono text-steel border border-white/10">18:42</span>
+                            </div>
+                            <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <span class="px-3 py-1.5 rounded-lg bg-vermilion text-white text-xs font-semibold shadow-lg">Watch Cut</span>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-6">
+                            <div class="flex items-center justify-between text-xs font-mono text-steel mb-2">
+                                <span>ROLE: Story assembly, audio mix & grade</span>
+                                <span>2026</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white group-hover:text-vermilion transition-colors duration-200">Cinematic Documentary Narrative</h3>
+                            <p class="mt-2 text-steel text-sm leading-relaxed">
+                                Structuring 40+ hours of multi-cam footage into a cohesive 18-minute episodic arc with continuous narrative tension and calibrated film grading.
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-steel-light border border-white/[0.06]">Story Pacing</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-steel-light border border-white/[0.06]">Sound Design</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-steel-light border border-white/[0.06]">ACES Color</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 02: Secondary Card (4 Columns) -->
+                <div class="md:col-span-4 group cursor-pointer" data-category="vfx" onclick="openProjectModal('proj-02')">
+                    <div class="glass-card rounded-2xl overflow-hidden p-3 sm:p-4 h-full flex flex-col justify-between">
+                        <div>
+                            <div class="relative aspect-video rounded-xl overflow-hidden bg-surface-card">
+                                <canvas id="canvas-proj-02" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></canvas>
+                                <div class="absolute top-3 left-3 flex gap-2">
+                                    <span class="px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-[10px] font-mono text-white border border-white/10">3D & VFX</span>
+                                    <span class="px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-[10px] font-mono text-steel border border-white/10">02:15</span>
+                                </div>
+                            </div>
+                            <div class="p-3 sm:p-4">
+                                <div class="text-[11px] font-mono text-steel mb-1.5">ROLE: 3D matchmove & compositing</div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-vermilion transition-colors duration-200">Commercial Speed Ramp Montage</h3>
+                                <p class="mt-2 text-steel text-xs leading-relaxed">
+                                    Camera solve to integrate CG elements seamlessly into fast-paced live action plates.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-3 sm:p-4 pt-0 flex flex-wrap gap-1.5">
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-steel border border-white/[0.06]">Foundry Nuke</span>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-steel border border-white/[0.06]">Blender</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 03: 6 Columns -->
+                <div class="md:col-span-6 group cursor-pointer" data-category="narrative" onclick="openProjectModal('proj-03')">
+                    <div class="glass-card rounded-2xl overflow-hidden p-3 sm:p-4">
+                        <div class="relative aspect-video rounded-xl overflow-hidden bg-surface-card">
+                            <canvas id="canvas-proj-03" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></canvas>
+                            <div class="absolute top-3 left-3 flex gap-2">
+                                <span class="px-2.5 py-1 rounded bg-black/75 backdrop-blur-md text-[11px] font-mono text-white border border-white/10">YouTube Narrative</span>
+                                <span class="px-2.5 py-1 rounded bg-black/75 backdrop-blur-md text-[11px] font-mono text-steel border border-white/10">12:08</span>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <div class="text-xs font-mono text-steel mb-1.5">ROLE: Lead editing & kinetic graphics</div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-vermilion transition-colors duration-200">High-Pace Creator Storyline</h3>
+                            <p class="mt-2 text-steel text-sm leading-relaxed">
+                                Dynamic motion graphics and audio emphasis that clarify complex ideas without overpowering natural dialogue.
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-steel-light border border-white/[0.06]">Premiere Pro</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-steel-light border border-white/[0.06]">After Effects</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 04: 6 Columns -->
+                <div class="md:col-span-6 group cursor-pointer" data-category="commercial" onclick="openProjectModal('proj-04')">
+                    <div class="glass-card rounded-2xl overflow-hidden p-3 sm:p-4">
+                        <div class="relative aspect-video rounded-xl overflow-hidden bg-surface-card">
+                            <canvas id="canvas-proj-04" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></canvas>
+                            <div class="absolute top-3 left-3 flex gap-2">
+                                <span class="px-2.5 py-1 rounded bg-black/75 backdrop-blur-md text-[11px] font-mono text-white border border-white/10">Commercial Montage</span>
+                                <span class="px-2.5 py-1 rounded bg-black/75 backdrop-blur-md text-[11px] font-mono text-steel border border-white/10">03:40</span>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <div class="text-xs font-mono text-steel mb-1.5">ROLE: 3D scene direction & color mastering</div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-vermilion transition-colors duration-200">Atmospheric 3D Title Sequence</h3>
+                            <p class="mt-2 text-steel text-sm leading-relaxed">
+                                Consistent cinematic color mastering across mixed camera sources and full CG elements.
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-steel-light border border-white/[0.06]">Blender 4.x</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-steel-light border border-white/[0.06]">DaVinci Resolve</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 03. 9:16 VERTICAL REELS (Short-Form Retention Suite) -->
+    <!-- ========================================================================= -->
+    <section id="reels" class="py-24 lg:py-32 border-t border-white/[0.06] bg-surface/40 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <div class="flex items-center gap-2 font-mono text-xs text-vermilion uppercase tracking-widest mb-3">
+                        <span>Short-Form Vertical</span>
+                        <span>•</span>
+                        <span>02</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Engineered for 9:16 Retention</h2>
+                </div>
+                <p class="text-steel text-sm sm:text-base max-w-md font-normal leading-relaxed">
+                    Short-form is won in the first 0.8 seconds. Dynamic framing, kinetic captions, and micro-sound design tuned for TikTok, Shorts, and Reels.
+                </p>
+            </div>
+
+            <!-- Reels Showcase Grid (4 Vertical Phones) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                
+                <!-- Reel Card 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden p-2.5 group cursor-pointer" onclick="openReelModal('reel-01')">
+                    <div class="relative aspect-[9/16] rounded-xl overflow-hidden bg-black">
+                        <canvas id="canvas-reel-01" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></canvas>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-between p-3.5">
+                            <div class="flex justify-between items-center text-[10px] font-mono text-white/80">
+                                <span class="px-2 py-0.5 rounded bg-black/60 border border-white/10">0:44</span>
+                                <span class="text-vermilion">9:16 HD</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-steel uppercase tracking-wider">Hook Design</span>
+                                <h4 class="text-sm font-bold text-white group-hover:text-vermilion transition-colors leading-snug">Retention Hook Assembly</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reel Card 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden p-2.5 group cursor-pointer" onclick="openReelModal('reel-02')">
+                    <div class="relative aspect-[9/16] rounded-xl overflow-hidden bg-black">
+                        <canvas id="canvas-reel-02" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></canvas>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-between p-3.5">
+                            <div class="flex justify-between items-center text-[10px] font-mono text-white/80">
+                                <span class="px-2 py-0.5 rounded bg-black/60 border border-white/10">0:58</span>
+                                <span class="text-vermilion">3D VFX</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-steel uppercase tracking-wider">VFX Breakdown</span>
+                                <h4 class="text-sm font-bold text-white group-hover:text-vermilion transition-colors leading-snug">Camera Matchmove Solve</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reel Card 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden p-2.5 group cursor-pointer" onclick="openReelModal('reel-03')">
+                    <div class="relative aspect-[9/16] rounded-xl overflow-hidden bg-black">
+                        <canvas id="canvas-reel-03" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></canvas>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-between p-3.5">
+                            <div class="flex justify-between items-center text-[10px] font-mono text-white/80">
+                                <span class="px-2 py-0.5 rounded bg-black/60 border border-white/10">0:32</span>
+                                <span class="text-vermilion">PACING</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-steel uppercase tracking-wider">Speed Ramps</span>
+                                <h4 class="text-sm font-bold text-white group-hover:text-vermilion transition-colors leading-snug">Rhythmic Motion Flow</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reel Card 4 -->
+                <div class="glass-card rounded-2xl overflow-hidden p-2.5 group cursor-pointer" onclick="openReelModal('reel-04')">
+                    <div class="relative aspect-[9/16] rounded-xl overflow-hidden bg-black">
+                        <canvas id="canvas-reel-04" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></canvas>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-between p-3.5">
+                            <div class="flex justify-between items-center text-[10px] font-mono text-white/80">
+                                <span class="px-2 py-0.5 rounded bg-black/60 border border-white/10">0:49</span>
+                                <span class="text-vermilion">COLOR</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-mono text-steel uppercase tracking-wider">Resolve Node Tree</span>
+                                <h4 class="text-sm font-bold text-white group-hover:text-vermilion transition-colors leading-snug">Film Print Emulation</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 04. CREATIVE CAPABILITIES & INVESTMENT TIERS -->
+    <!-- ========================================================================= -->
+    <section id="services" class="py-24 lg:py-32 border-t border-white/[0.06] relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <div class="flex items-center gap-2 font-mono text-xs text-vermilion uppercase tracking-widest mb-3">
+                        <span>Engagement Tiers</span>
+                        <span>•</span>
+                        <span>03</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Capabilities & Creative Retainers</h2>
+                </div>
+                <p class="text-steel text-sm sm:text-base max-w-md font-normal leading-relaxed">
+                    Transparent, value-grounded pricing with zero surprise charges. All cuts include 2 rounds of timestamped revisions.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Service 1 -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between">
+                    <div>
+                        <div class="font-mono text-xs text-steel uppercase mb-3">Tier 01 // Short-Form</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Short-Form Reel</h3>
+                        <p class="text-steel text-xs leading-relaxed mb-6">
+                            For TikTok, Reels, or Shorts. Hook trimming, kinetic framing, sound punch, and color pop.
+                        </p>
+                        <div class="space-y-2 mb-6 text-xs text-steel-light">
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> 24–48h Turnaround</div>
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> Dynamic Captions</div>
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> Sound Design FX</div>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-white/[0.08]">
+                        <div class="text-2xl font-extrabold text-white">from $45 <span class="text-xs font-normal text-steel">/ reel</span></div>
+                        <a href="#contact" class="mt-4 block w-full py-2.5 rounded-lg text-center bg-white/[0.06] hover:bg-vermilion text-white text-xs font-semibold tracking-wider uppercase transition-colors">Select Tier</a>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between border-vermilion/30">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="font-mono text-xs text-vermilion uppercase font-semibold">Tier 02 // Most Popular</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Long-Form Narrative</h3>
+                        <p class="text-steel text-xs leading-relaxed mb-6">
+                            Full episodic narrative YouTube cut. Multi-camera syncing, retention pacing, and sound mix.
+                        </p>
+                        <div class="space-y-2 mb-6 text-xs text-steel-light">
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> 3–5 Days Turnaround</div>
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> Multi-Cam Sync</div>
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> Full ACES Color Grade</div>
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> Master Audio Clean</div>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-white/[0.08]">
+                        <div class="text-2xl font-extrabold text-white">from $180 <span class="text-xs font-normal text-steel">/ project</span></div>
+                        <a href="#contact" class="mt-4 block w-full py-2.5 rounded-lg text-center bg-vermilion text-white text-xs font-semibold tracking-wider uppercase transition-colors hover:bg-red-600">Select Tier</a>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between">
+                    <div>
+                        <div class="font-mono text-xs text-steel uppercase mb-3">Tier 03 // Advanced</div>
+                        <h3 class="text-xl font-bold text-white mb-2">3D VFX & Montage</h3>
+                        <p class="text-steel text-xs leading-relaxed mb-6">
+                            3D camera tracking, CG object compositing, rotoscoping, custom speed ramps, and theatrical SFX.
+                        </p>
+                        <div class="space-y-2 mb-6 text-xs text-steel-light">
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> 4–7 Days Turnaround</div>
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> 3D Camera Solve</div>
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> CG Element Lighting</div>
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> 4K ProRes Master</div>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-white/[0.08]">
+                        <div class="text-2xl font-extrabold text-white">from $250 <span class="text-xs font-normal text-steel">/ project</span></div>
+                        <a href="#contact" class="mt-4 block w-full py-2.5 rounded-lg text-center bg-white/[0.06] hover:bg-vermilion text-white text-xs font-semibold tracking-wider uppercase transition-colors">Select Tier</a>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between">
+                    <div>
+                        <div class="font-mono text-xs text-steel uppercase mb-3">Tier 04 // Agency</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Dedicated Retainer</h3>
+                        <p class="text-steel text-xs leading-relaxed mb-6">
+                            Priority queue for busy creators & brands. Dedicated weekly delivery slots and direct Discord access.
+                        </p>
+                        <div class="space-y-2 mb-6 text-xs text-steel-light">
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> Guaranteed Queue Slot</div>
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> Private Discord Room</div>
+                            <div class="flex items-center gap-2"><span class="text-vermilion">✓</span> Unlimited Micro-Revisions</div>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-white/[0.08]">
+                        <div class="text-2xl font-extrabold text-white">Custom <span class="text-xs font-normal text-steel">/ month</span></div>
+                        <a href="#contact" class="mt-4 block w-full py-2.5 rounded-lg text-center bg-white/[0.06] hover:bg-vermilion text-white text-xs font-semibold tracking-wider uppercase transition-colors">Inquire Now</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 05. DIRECTOR'S NOTE & PRODUCTION TOOLCHAIN -->
+    <!-- ========================================================================= -->
+    <section id="about" class="py-24 lg:py-32 border-t border-white/[0.06] relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Left: Artistic Statement -->
+                <div class="lg:col-span-7">
+                    <div class="flex items-center gap-2 font-mono text-xs text-vermilion uppercase tracking-widest mb-3">
+                        <span>Director's Note</span>
+                        <span>•</span>
+                        <span>04</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-6">
+                        "Great editing is invisible until the emotional impact hits."
+                    </h2>
+                    <div class="space-y-4 text-steel text-base leading-relaxed">
+                        <p>
+                            I don't assemble videos just to fill a timeline. Every cut is calculated around human psychology: where the viewer's eye rests, when their attention wavers, and how sound design manipulates perceived pacing.
+                        </p>
+                        <p>
+                            Whether I am polishing a high-stakes YouTube documentary, designing a 3D camera matchmove, or timing a commercial drop, I treat your raw footage with the same reverence as a feature film edit.
+                        </p>
+                    </div>
+
+                    <!-- Direct Stats / Social Links -->
+                    <div class="mt-8 flex flex-wrap gap-4 items-center">
+                        <div class="px-4 py-2 rounded-lg bg-surface border border-white/10 font-mono text-xs text-white">
+                            Discord: <span class="text-vermilion">@alterffx</span>
+                        </div>
+                        <div class="px-4 py-2 rounded-lg bg-surface border border-white/10 font-mono text-xs text-steel">
+                            Studio Location: <span class="text-white">Remote Global</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Production Suite Badges -->
+                <div class="lg:col-span-5 glass-card rounded-2xl p-6 sm:p-8">
+                    <h3 class="font-mono text-xs text-steel uppercase tracking-widest mb-6">Master Toolchain & Hardware</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+                            <span class="text-sm font-semibold text-white">DaVinci Resolve Studio 19</span>
+                            <span class="font-mono text-xs text-steel">Color & Finishing</span>
+                        </div>
+                        <div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+                            <span class="text-sm font-semibold text-white">Adobe Premiere Pro</span>
+                            <span class="font-mono text-xs text-steel">Assembly & Rough Cut</span>
+                        </div>
+                        <div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+                            <span class="text-sm font-semibold text-white">Foundry Nuke & Blender</span>
+                            <span class="font-mono text-xs text-steel">3D Track & Roto</span>
+                        </div>
+                        <div class="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+                            <span class="text-sm font-semibold text-white">iZotope RX 10 Advanced</span>
+                            <span class="font-mono text-xs text-steel">Dialogue & Foley Mix</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-semibold text-white">Dedicated NVMe RAID 0</span>
+                            <span class="font-mono text-xs text-emerald">7000 MB/s Ingest</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 06. HOW IT WORKS (The 4-Step Pipeline) -->
+    <!-- ========================================================================= -->
+    <section id="process" class="py-24 border-t border-white/[0.06] bg-surface/30 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="mb-16">
+                <div class="flex items-center gap-2 font-mono text-xs text-vermilion uppercase tracking-widest mb-3">
+                    <span>Workflow Pipeline</span>
+                    <span>•</span>
+                    <span>05</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Frictionless 4-Step Collaboration</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="glass-card rounded-2xl p-6">
+                    <span class="font-mono text-2xl font-bold text-vermilion">01</span>
+                    <h3 class="text-base font-bold text-white mt-3 mb-2">Ingest & Creative Sync</h3>
+                    <p class="text-steel text-xs leading-relaxed">
+                        Footage upload via Google Drive or Dropbox. We align on target pacing, reference styles, and deliverable specs.
+                    </p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <span class="font-mono text-2xl font-bold text-vermilion">02</span>
+                    <h3 class="text-base font-bold text-white mt-3 mb-2">Story Assembly Cut</h3>
+                    <p class="text-steel text-xs leading-relaxed">
+                        I build the core narrative structure, trim fat, and establish rhythm before touching fancy graphics.
+                    </p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <span class="font-mono text-2xl font-bold text-vermilion">03</span>
+                    <h3 class="text-base font-bold text-white mt-3 mb-2">Sound, Color & VFX</h3>
+                    <p class="text-steel text-xs leading-relaxed">
+                        Layering punchy sound effects, calibrated color grading, and seamless 3D/motion graphics.
+                    </p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <span class="font-mono text-2xl font-bold text-vermilion">04</span>
+                    <h3 class="text-base font-bold text-white mt-3 mb-2">Review & Master Export</h3>
+                    <p class="text-steel text-xs leading-relaxed">
+                        Timestamped feedback round to lock precision, followed by high-bitrate 4K and social master delivery.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 07. FAQ (Clean Accordion) -->
+    <!-- ========================================================================= -->
+    <section id="faq" class="py-24 border-t border-white/[0.06] relative">
+        <div class="max-w-4xl mx-auto px-6 lg:px-12">
+            
+            <div class="text-center mb-16">
+                <div class="flex items-center justify-center gap-2 font-mono text-xs text-vermilion uppercase tracking-widest mb-3">
+                    <span>Common Inquiries</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="space-y-4" id="faqAccordion">
+                
+                <div class="glass-card rounded-xl p-5 cursor-pointer faq-item" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-base font-semibold text-white">How do revision rounds work?</h4>
+                        <span class="text-steel text-xl faq-icon">+</span>
+                    </div>
+                    <div class="faq-content max-h-0 overflow-hidden text-steel text-xs pt-0 leading-relaxed">
+                        Every project includes two complete rounds of focused revisions. We use timestamped review links so you can leave frame-accurate notes directly on the video player without messy email threads.
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl p-5 cursor-pointer faq-item" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-base font-semibold text-white">What is your typical turnaround timeline?</h4>
+                        <span class="text-steel text-xl faq-icon">+</span>
+                    </div>
+                    <div class="faq-content max-h-0 overflow-hidden text-steel text-xs pt-0 leading-relaxed">
+                        Short-form reels are delivered within 24–48 hours. Long-form YouTube cuts typically take 3–5 business days depending on footage scope and VFX complexity. Rush deliveries are available upon request.
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl p-5 cursor-pointer faq-item" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-base font-semibold text-white">How do I deliver high-resolution footage?</h4>
+                        <span class="text-steel text-xl faq-icon">+</span>
+                    </div>
+                    <div class="faq-content max-h-0 overflow-hidden text-steel text-xs pt-0 leading-relaxed">
+                        You can upload raw files via Google Drive, Dropbox, OneDrive, or Massive.io. I handle raw camera formats (Sony S-Log, Canon C-Log, RED, ProRes, BRAW) and organize media seamlessly into my editing RAID.
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl p-5 cursor-pointer faq-item" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-base font-semibold text-white">What are your billing and payment terms?</h4>
+                        <span class="text-steel text-xl faq-icon">+</span>
+                    </div>
+                    <div class="faq-content max-h-0 overflow-hidden text-steel text-xs pt-0 leading-relaxed">
+                        A standard 50% deposit locks in your spot on my production calendar, with the remaining 50% due upon delivery of final clean master files. Invoices are settled securely via Stripe, Wire, or Crypto.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 08. CONSULTATION & BOOKING (The Client-Ready Brief) -->
+    <!-- ========================================================================= -->
+    <section id="contact" class="py-24 lg:py-32 border-t border-white/[0.06] relative">
+        <div class="max-w-4xl mx-auto px-6 lg:px-12">
+            
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center gap-2 font-mono text-xs text-vermilion uppercase tracking-widest mb-3">
+                    <span>Direct Commission</span>
+                    <span>•</span>
+                    <span>Ready for Q4</span>
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Initiate Your Project Brief</h2>
+                <p class="mt-4 text-steel text-sm sm:text-base max-w-lg mx-auto">
+                    Fill out the consultation form below, or reach out directly on Discord for immediate turnarounds.
+                </p>
+                <div class="mt-6 flex justify-center gap-4">
+                    <button id="copyDiscordBtn" class="px-4 py-2 rounded-lg bg-surface border border-white/10 text-white font-mono text-xs hover:border-vermilion transition-colors">
+                        Discord: <span class="text-vermilion font-bold">@alterffx</span> (Copy)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Booking Card -->
+            <div class="glass-card rounded-2xl p-6 sm:p-10">
+                <form id="bookingForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block font-mono text-xs text-steel uppercase mb-2">Your Name / Creator Name *</label>
+                            <input type="text" id="name" required placeholder="Alex Turner" class="luxury-input">
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-steel uppercase mb-2">Your Contact Email *</label>
+                            <input type="email" id="email" required placeholder="alex@creator.com" class="luxury-input">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block font-mono text-xs text-steel uppercase mb-2">Project Classification</label>
+                            <select id="projectType" class="luxury-input">
+                                <option value="long-form">YouTube Long-Form Narrative</option>
+                                <option value="short-form">9:16 Short-Form / Reel</option>
+                                <option value="vfx">3D Matchmove & VFX Montage</option>
+                                <option value="retainer">Dedicated Monthly Retainer</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs text-steel uppercase mb-2">Estimated Budget Bracket</label>
+                            <select id="budget" class="luxury-input">
+                                <option value="500-1500">$500 – $1,500</option>
+                                <option value="1500-3000">$1,500 – $3,000</option>
+                                <option value="3000+">$3,000+ (Comprehensive Campaign)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-mono text-xs text-steel uppercase mb-2">Project Vision & Footage Details *</label>
+                        <textarea id="details" rows="4" required placeholder="Share footage volume, target delivery deadline, channel links, and any key reference styles..." class="luxury-input"></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-vermilion text-white font-semibold text-sm tracking-wide hover:bg-red-600 transition-all shadow-xl shadow-vermilion/25 active:scale-95">
+                        Submit Project Brief for Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- FOOTER -->
+    <!-- ========================================================================= -->
+    <footer class="py-12 border-t border-white/[0.06] text-xs font-mono text-steel">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-vermilion"></span>
+                <span class="text-white font-bold tracking-wider">ALTERFFX</span>
+                <span>• © 2026 Editorial Suite</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="#hero" class="hover:text-white transition-colors">Back to Top</a>
+                <span class="text-white/20">|</span>
+                <span>Discord: @alterffx</span>
+                <span class="text-white/20">|</span>
+                <span>24FPS Timecode Sync</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================================================= -->
+    <!-- INTERACTIVE SHOWREEL / PROJECT VIDEO MODAL -->
+    <!-- ========================================================================= -->
+    <div id="videoModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 opacity-0 pointer-events-none" aria-hidden="true">
+        <div class="relative w-full max-w-5xl glass-panel rounded-2xl overflow-hidden border border-white/20">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/60">
+                <div class="flex items-center gap-3 font-mono text-xs">
+                    <span class="w-2 h-2 rounded-full bg-vermilion"></span>
+                    <span id="modalProjectTitle" class="text-white font-bold">PROJECT SHOWREEL MASTER</span>
+                    <span id="modalProjectTag" class="text-steel">4K PRORES</span>
+                </div>
+                <button onclick="closeVideoModal()" class="text-steel hover:text-white text-xl font-bold p-1">&times;</button>
+            </div>
+            <!-- Video Stage with Simulated Graded Footage -->
+            <div class="relative aspect-video w-full bg-black flex items-center justify-center overflow-hidden">
+                <canvas id="modalCanvas" class="w-full h-full object-cover"></canvas>
+                <div class="absolute inset-0 flex flex-col justify-between p-6 pointer-events-none">
+                    <div class="flex justify-between font-mono text-xs text-white/60">
+                        <span>TIMECODE: 00:01:24:18</span>
+                        <span>AUDIO: -14.2 LUFS</span>
+                    </div>
+                    <div class="flex items-center justify-center pointer-events-auto">
+                        <div class="px-5 py-2.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white font-mono text-xs">
+                            Simulated Client Master Preview
+                        </div>
+                    </div>
+                    <div class="text-right font-mono text-xs text-white/60">
+                        ALTERFFX EDITORIAL SUITE
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- CORE SCRIPT ENGINE (Lenis, Procedural Film Renderer, GSAP, Form, Cursor) -->
+    <!-- ========================================================================= -->
+    <script>
+    /**
+     * CONFIG OBJECT (Single Source of Truth)
+     */
+    const CONFIG = {
+        author: "AlterFFX",
+        discordHandle: "@alterffx",
+        email: "contact@alterffx.com",
+        bookingEndpoint: "https://formspree.io/f/xyz",
+        projects: {
+            "proj-01": { title: "Cinematic Documentary Narrative", tag: "YouTube Narrative • 18:42", color: "#FF3B14" },
+            "proj-02": { title: "Commercial Speed Ramp Montage", tag: "3D & VFX • 02:15", color: "#00E5FF" },
+            "proj-03": { title: "High-Pace Creator Storyline", tag: "YouTube Narrative • 12:08", color: "#FF9100" },
+            "proj-04": { title: "Atmospheric 3D Title Sequence", tag: "Commercial Montage • 03:40", color: "#A855F7" }
+        },
+        reels: {
+            "reel-01": { title: "Retention Hook Assembly", tag: "Short-Form • 0:44", color: "#FF3B14" },
+            "reel-02": { title: "Camera Matchmove Solve", tag: "3D VFX • 0:58", color: "#00E5FF" },
+            "reel-03": { title: "Rhythmic Motion Flow", tag: "Pacing • 0:32", color: "#10B981" },
+            "reel-04": { title: "Film Print Emulation", tag: "Color • 0:49", color: "#F59E0B" }
+        }
+    };
+
+    /**
+     * 1. LENIS SMOOTH SCROLL ENGINE & TIMECODE SYNC
+     */
+    let lenis;
+    function initScrollEngine() {
+        lenis = new Lenis({
+            duration: 1.1,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            touchMultiplier: 1.2,
+            smoothWheel: true
+        });
+
+        lenis.on('scroll', (e) => {
+            ScrollTrigger.update();
+            updateScrollMetrics(e.scroll);
+        });
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+    }
+
+    function formatTimecode(frames) {
+        const fps = 24;
+        const f = Math.floor(frames % fps);
+        const totalSec = Math.floor(frames / fps);
+        const s = Math.floor(totalSec % 60);
+        const m = Math.floor((totalSec / 60) % 60);
+        const h = Math.floor(totalSec / 3600);
+        const pad = (n) => String(n).padStart(2, '0');
+        return `${pad(h)}:${pad(m)}:${pad(s)}:${pad(f)}`;
+    }
+
+    function updateScrollMetrics(scrollY) {
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = Math.min(1, Math.max(0, scrollY / (docH || 1)));
+
+        // Top Progress Line
+        const topBar = document.getElementById('topProgressBar');
+        if (topBar) topBar.style.width = (progress * 100).toFixed(2) + '%';
+
+        // Header Live Timecode
+        const frames = Math.floor(progress * 24 * 180);
+        const tcStr = formatTimecode(frames);
+        const navTc = document.getElementById('navTimecode');
+        if (navTc) navTc.textContent = tcStr;
+
+        const monitorTc = document.getElementById('heroMonitorTc');
+        if (monitorTc) monitorTc.textContent = tcStr;
+    }
+
+    /**
+     * 2. PROCEDURAL HIGH-FIDELITY FILM FRAME RENDERER
+     * Renders graded cinematic keyframes with anamorphic flares, letterboxing,
+     * color gradients, and film grain so the portfolio looks dense, professional,
+     * and atmospheric without requiring external 50MB video downloads.
+     */
+    function renderCinematicFrame(canvasId, seedType, tintColor) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = (canvas.width = canvas.offsetWidth || 800);
+        const h = (canvas.height = canvas.offsetHeight || 450);
+
+        // Deep rich base tone
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        if (seedType === 'hero') {
+            grad.addColorStop(0, '#0D1117');
+            grad.addColorStop(0.5, '#161B22');
+            grad.addColorStop(1, '#090B0E');
+        } else if (seedType === 'vfx') {
+            grad.addColorStop(0, '#0A121D');
+            grad.addColorStop(0.5, '#101B2B');
+            grad.addColorStop(1, '#080C14');
+        } else if (seedType === 'reel') {
+            grad.addColorStop(0, '#120E18');
+            grad.addColorStop(0.5, '#1E1627');
+            grad.addColorStop(1, '#0A080E');
+        } else {
+            grad.addColorStop(0, '#14120F');
+            grad.addColorStop(0.5, '#201C16');
+            grad.addColorStop(1, '#0B0A08');
+        }
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        // Anamorphic horizontal streak / lens flare
+        const flareGrad = ctx.createRadialGradient(w * 0.45, h * 0.48, 10, w * 0.45, h * 0.48, w * 0.55);
+        flareGrad.addColorStop(0, tintColor ? `${tintColor}66` : 'rgba(255, 59, 20, 0.45)');
+        flareGrad.addColorStop(0.5, 'rgba(0, 229, 255, 0.12)');
+        flareGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = flareGrad;
+        ctx.fillRect(0, 0, w, h);
+
+        // Horizontal flare streak
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        const streakGrad = ctx.createLinearGradient(0, h * 0.48, w, h * 0.48);
+        streakGrad.addColorStop(0, 'transparent');
+        streakGrad.addColorStop(0.5, tintColor || '#FF3B14');
+        streakGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = streakGrad;
+        ctx.fillRect(0, h * 0.475, w, 3);
+        ctx.restore();
+
+        // Technical camera crosshair / frame markers
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
+        ctx.lineWidth = 1;
+        
+        // Center crosshair
+        const cx = w / 2, cy = h / 2;
+        ctx.beginPath();
+        ctx.moveTo(cx - 14, cy); ctx.lineTo(cx + 14, cy);
+        ctx.moveTo(cx, cy - 14); ctx.lineTo(cx, cy + 14);
+        ctx.stroke();
+
+        // 3D VFX tracking dots if VFX type
+        if (seedType === 'vfx') {
+            ctx.fillStyle = '#00E5FF';
+            for (let i = 0; i < 18; i++) {
+                const rx = (Math.sin(i * 99) * 0.35 + 0.5) * w;
+                const ry = (Math.cos(i * 77) * 0.35 + 0.5) * h;
+                ctx.beginPath();
+                ctx.arc(rx, ry, 2, 0, Math.PI * 2);
+                ctx.fill();
+                // Hairline tracking cross
+                ctx.strokeStyle = 'rgba(0, 229, 255, 0.4)';
+                ctx.strokeRect(rx - 4, ry - 4, 8, 8);
+            }
+        }
+
+        // Film grain noise pass
+        const imgData = ctx.getImageData(0, 0, w, h);
+        const data = imgData.data;
+        for (let i = 0; i < data.length; i += 16) {
+            const noise = (Math.random() - 0.5) * 18;
+            data[i] = Math.min(255, Math.max(0, data[i] + noise));
+            data[i+1] = Math.min(255, Math.max(0, data[i+1] + noise));
+            data[i+2] = Math.min(255, Math.max(0, data[i+2] + noise));
+        }
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    function initAllCanvasFrames() {
+        renderCinematicFrame('heroCanvas', 'hero', '#FF3B14');
+        renderCinematicFrame('canvas-proj-01', 'hero', '#FF3B14');
+        renderCinematicFrame('canvas-proj-02', 'vfx', '#00E5FF');
+        renderCinematicFrame('canvas-proj-03', 'story', '#FF9100');
+        renderCinematicFrame('canvas-proj-04', 'montage', '#A855F7');
+
+        renderCinematicFrame('canvas-reel-01', 'reel', '#FF3B14');
+        renderCinematicFrame('canvas-reel-02', 'vfx', '#00E5FF');
+        renderCinematicFrame('canvas-reel-03', 'reel', '#10B981');
+        renderCinematicFrame('canvas-reel-04', 'reel', '#F59E0B');
+    }
+
+    /**
+     * 3. MAGNETIC CURSOR LOGIC
+     */
+    function initCustomCursor() {
+        const cursor = document.getElementById('customCursor');
+        const label = document.getElementById('cursorLabel');
+        if (!cursor) return;
+
+        let mouseX = -100, mouseY = -100;
+        let cursorX = -100, cursorY = -100;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.opacity = '1';
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+        });
+
+        // Hover expansions on cards
+        document.querySelectorAll('.glass-card, #heroShowreelCard').forEach((card) => {
+            card.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor-active');
+                if (label) label.textContent = 'PLAY';
+            });
+            card.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-active');
+                if (label) label.textContent = '';
+            });
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+    }
+
+    /**
+     * 4. FAQ ACCORDION
+     */
+    function toggleFaq(card) {
+        const content = card.querySelector('.faq-content');
+        const icon = card.querySelector('.faq-icon');
+        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+        document.querySelectorAll('.faq-content').forEach((c) => {
+            c.style.maxHeight = '0px';
+            c.style.paddingTop = '0px';
+        });
+        document.querySelectorAll('.faq-icon').forEach((i) => (i.textContent = '+'));
+
+        if (!isOpen) {
+            content.style.maxHeight = content.scrollHeight + 16 + 'px';
+            content.style.paddingTop = '12px';
+            icon.textContent = '−';
+        }
+    }
+
+    /**
+     * 5. VIDEO MODAL PLAYER
+     */
+    function openProjectModal(projectId) {
+        const proj = CONFIG.projects[projectId];
+        if (!proj) return;
+        const modal = document.getElementById('videoModal');
+        document.getElementById('modalProjectTitle').textContent = proj.title.toUpperCase();
+        document.getElementById('modalProjectTag').textContent = proj.tag;
+        
+        renderCinematicFrame('modalCanvas', 'hero', proj.color);
+
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function openReelModal(reelId) {
+        const reel = CONFIG.reels[reelId];
+        if (!reel) return;
+        const modal = document.getElementById('videoModal');
+        document.getElementById('modalProjectTitle').textContent = reel.title.toUpperCase();
+        document.getElementById('modalProjectTag').textContent = reel.tag;
+
+        renderCinematicFrame('modalCanvas', 'reel', reel.color);
+
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeVideoModal() {
+        const modal = document.getElementById('videoModal');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    document.getElementById('heroShowreelCard')?.addEventListener('click', () => {
+        openProjectModal('proj-01');
+    });
+
+    /**
+     * 6. FILTERING LOGIC
+     */
+    function initWorkFilters() {
+        const buttons = document.querySelectorAll('#workFilterGroup .filter-btn');
+        const items = document.querySelectorAll('#projectsContainer > div');
+
+        buttons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                buttons.forEach((b) => {
+                    b.classList.remove('bg-white', 'text-obsidian');
+                    b.classList.add('bg-surface', 'text-steel');
+                });
+                btn.classList.add('bg-white', 'text-obsidian');
+                btn.classList.remove('bg-surface', 'text-steel');
+
+                const filter = btn.getAttribute('data-filter');
+                items.forEach((item) => {
+                    const cat = item.getAttribute('data-category');
+                    if (filter === 'all' || cat === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
+    /**
+     * 7. TOAST NOTIFICATIONS & DISCORD COPY
+     */
+    function showToast(msg) {
+        const stack = document.getElementById('toastStack');
+        const toast = document.createElement('div');
+        toast.className = 'px-4 py-2.5 rounded-lg bg-surface border border-white/20 text-white font-mono text-xs shadow-xl flex items-center gap-2 transform transition-all duration-300 translate-y-2 opacity-0';
+        toast.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-vermilion"></span> ${msg}`;
+        stack.appendChild(toast);
+
+        requestAnimationFrame(() => {
+            toast.classList.remove('translate-y-2', 'opacity-0');
+        });
+
+        setTimeout(() => {
+            toast.classList.add('translate-y-2', 'opacity-0');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    function initCopyTriggers() {
+        const handleCopy = () => {
+            navigator.clipboard.writeText(CONFIG.discordHandle);
+            showToast('Discord tag @alterffx copied to clipboard!');
+        };
+        document.getElementById('copyDiscordHero')?.addEventListener('click', handleCopy);
+        document.getElementById('copyDiscordBtn')?.addEventListener('click', handleCopy);
+    }
+
+    /**
+     * 8. FORM SUBMISSION
+     */
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.textContent = 'Transmitting Brief...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+            btn.textContent = '✓ Brief Dispatched Successfully';
+            btn.classList.remove('bg-vermilion');
+            btn.classList.add('bg-emerald');
+            showToast('Brief received! AlterFFX will review within 24 hours.');
+            document.getElementById('bookingForm').reset();
+            setTimeout(() => {
+                btn.textContent = 'Submit Project Brief for Review';
+                btn.classList.add('bg-vermilion');
+                btn.classList.remove('bg-emerald');
+                btn.disabled = false;
+            }, 4000);
+        }, 1200);
+    }
+
+    /**
+     * 9. MOBILE MENU TOGGLE
+     */
+    document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+        const drawer = document.getElementById('mobileDrawer');
+        drawer.classList.toggle('hidden');
+        drawer.classList.toggle('flex');
+    });
+
+    /**
+     * INITIALIZATION
+     */
+    window.addEventListener('DOMContentLoaded', () => {
+        initScrollEngine();
+        initAllCanvasFrames();
+        initCustomCursor();
+        initWorkFilters();
+        initCopyTriggers();
+    });
+
+    window.addEventListener('resize', () => {
+        initAllCanvasFrames();
+    });
+    </script>
+</body>
+</html>
