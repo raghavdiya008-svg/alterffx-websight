@@ -138,7 +138,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
 
           {/* Exact Description Provided by Alter */}
           <p className="text-[#6D5548] text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl font-light">
-            18-year-old video editor passionate about creating cinematic edits, faceless content, talking-head videos, gaming edits, commercials, music videos, and YouTube Shorts &amp; long-form videos. Always learning, experimenting, and bringing ideas to life through After Effects 24.
+            18-year-old video editor passionate about creating cinematic edits, faceless content, talking-head videos, gaming edits, commercials, music videos, and YouTube Shorts &amp; long-form videos. Always learning, experimenting, and bringing ideas to life through After Effects &amp; Premiere Pro.
           </p>
 
           {/* Primary Action Buttons */}

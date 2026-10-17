@@ -69,7 +69,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
             </div>
             
             <p className="text-[#6D5548] leading-relaxed max-w-sm font-light text-sm">
-              18-year-old video editor passionate about creating cinematic edits, faceless content, talking-head videos, gaming edits, commercials, music videos, and YouTube content in After Effects 24.
+              18-year-old video editor passionate about creating cinematic edits, faceless content, talking-head videos, gaming edits, commercials, music videos, and YouTube content in After Effects &amp; Premiere Pro.
             </p>
 
             <div className="text-xs font-mono text-[#6D5548] flex items-center gap-2 font-medium">
@@ -139,7 +139,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
                 Core Stack
               </span>
               <div className="p-4 rounded-2xl liquid-glass-pill space-y-1.5 text-xs font-sans text-[#6D5548] font-normal">
-                <div>• Adobe After Effects 24</div>
+                <div>• Adobe After Effects &amp; Premiere Pro</div>
                 <div>• 3D Camera Compositing</div>
                 <div>• Kinetic Typography Rigging</div>
                 <div>• Multi-Stem Sound Design</div>
