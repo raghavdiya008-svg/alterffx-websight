@@ -18,9 +18,9 @@ export const StudioAttribution: React.FC = () => {
 
   const DISCORD_HANDLE = "alter.ffx"
   const DISCORD_NAME = "Alter"
-  const INSTA_HANDLE = "@alterffx"
+  const INSTA_HANDLE = "@alter.ffx"
   const INSTA_NAME = "Alter"
-  const INSTA_URL = "https://instagram.com/alterffx"
+  const INSTA_URL = "https://www.instagram.com/alter.ffx/"
 
   const handleCopyDiscord = (e: React.MouseEvent) => {
     e.stopPropagation()

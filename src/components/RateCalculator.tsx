@@ -323,11 +323,21 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
           </div>
 
           {/* Quick Direct Connect Drawer */}
-          <div className="p-5 rounded-2xl liquid-glass-pill flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans">
-            <div className="flex items-center gap-3">
+          <div className="p-4 sm:p-5 rounded-2xl liquid-glass-pill flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans">
+            <div className="flex flex-wrap items-center gap-2.5">
               <MessageSquare className="w-4 h-4 text-[#9A7562]" />
-              <span className="text-[#6D5548] font-normal">Prefer direct chat? Ping Alter on Discord:</span>
-              <span className="text-[#241812] font-semibold">alter.ffx</span>
+              <span className="text-[#6D5548] font-normal">Direct connect:</span>
+              <span className="text-[#241812] font-semibold">Discord: alter.ffx</span>
+              <span className="text-[#B79F93]">•</span>
+              <a 
+                href="https://www.instagram.com/alter.ffx/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-[#9A7562] hover:underline font-semibold flex items-center gap-1 transition-colors"
+              >
+                <span>Instagram: @alter.ffx</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
 
             <button

@@ -112,13 +112,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
               </span>
               <ul className="space-y-2.5 text-[#6D5548] text-sm font-normal font-sans">
                 <li>
-                  <a href="https://instagram.com/alterffx" target="_blank" rel="noopener noreferrer" className="hover:text-[#241812] transition-colors flex items-center gap-1.5">
-                    <span>Instagram: @alterffx</span>
+                  <a href="https://www.instagram.com/alter.ffx/" target="_blank" rel="noopener noreferrer" className="hover:text-[#241812] transition-colors flex items-center gap-1.5">
+                    <span>Instagram: @alter.ffx</span>
                   </a>
                 </li>
                 <li>
                   <span className="hover:text-[#241812] transition-colors">
-                    Discord: alter.ffx (@alterffx)
+                    Discord: alter.ffx
                   </span>
                 </li>
                 <li>
