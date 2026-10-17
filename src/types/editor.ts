@@ -10,6 +10,7 @@ export interface Project {
   fps: string
   director: string
   youtubeId?: string
+  videoSrc?: string
   reelUrl?: string
   externalUrl?: string
   colorist?: string

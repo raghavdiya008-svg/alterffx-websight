@@ -31,6 +31,8 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
   // Intake Form State
   const [clientName, setClientName] = useState("")
   const [contactHandle, setContactHandle] = useState("")
+  const [selectedBudget, setSelectedBudget] = useState<string>("$300–$600")
+  const [customBudgetInput, setCustomBudgetInput] = useState<string>("")
   const [projectBrief, setProjectBrief] = useState(prefilledProject ? `Interested in commissioning an edit similar to ${prefilledProject}.` : "")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -44,7 +46,7 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
 
   const handleCopyDiscord = () => {
     soundFx.playTick(1200)
-    navigator.clipboard.writeText("@alterffx")
+    navigator.clipboard.writeText("alter.ffx")
     setCopiedDiscord(true)
     setTimeout(() => setCopiedDiscord(false), 2500)
   }
@@ -96,7 +98,7 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
         "Tactile sub-bass hits & organic foley sound design",
         "Master ProRes 422 HQ + 9:16 vertical social cutdown"
       ],
-      turnaround: "48 Hours Guaranteed"
+      turnaround: "2–3 Days Turnaround"
     },
     {
       id: "longform" as const,
@@ -171,7 +173,7 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
         </div>
 
         {/* Live Capacity Pill */}
-        <div className="flex items-center gap-2 text-xs font-mono text-[#241812] font-medium liquid-glass-pill px-4 py-2 rounded-full self-start md:self-auto shadow-xs">
+        <div className="flex items-center gap-2 text-xs font-sans text-[#241812] font-semibold liquid-glass-pill px-4 py-2 rounded-full self-start md:self-auto shadow-xs">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>CURRENT STATUS: 2 OF 4 PRODUCTION SLOTS OPEN</span>
         </div>
@@ -182,7 +184,7 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
         
         {/* Left Column: Scope Selector Cards & Custom Needs Builder */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="text-xs font-mono text-[#6D5548] font-light flex items-center justify-between">
+          <div className="text-xs font-sans text-[#6D5548] font-medium flex items-center justify-between">
             <span>SELECT YOUR PROJECT SCOPE</span>
             <span className="text-[#9A7562] font-semibold">AFTER EFFECTS 24 PIPELINE</span>
           </div>
@@ -196,26 +198,26 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
                   soundFx.playTick(1000)
                   setSelectedTier(tier.id)
                 }}
-                className={`p-5 sm:p-6 rounded-3xl transition-all cursor-pointer border flex flex-col justify-between ${
+                className={`p-5 sm:p-6 rounded-3xl transition-all cursor-pointer border flex flex-col justify-between font-sans ${
                   selectedTier === tier.id
                     ? "liquid-glass-card border-[#9A7562] shadow-xl ring-1 ring-[#9A7562]/40"
                     : "liquid-glass hover:bg-white/55 border-white/60"
                 }`}
               >
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start justify-between gap-4 font-sans">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2.5">
-                      <span className="font-mono text-xs text-[#9A7562] font-bold">{tier.num} //</span>
+                      <span className="font-sans text-xs text-[#9A7562] font-bold">{tier.num} //</span>
                       <h3 className="font-normal text-xl sm:text-2xl text-[#241812]">
                         {tier.title}
                       </h3>
                     </div>
-                    <p className="text-xs font-mono text-[#6D5548] font-light">
+                    <p className="text-xs font-sans text-[#6D5548] font-normal">
                       {tier.subtitle}
                     </p>
                   </div>
 
-                  <span className={`px-3 py-1 rounded-full text-xs font-mono font-medium transition-colors shrink-0 ${
+                  <span className={`px-3 py-1 rounded-full text-xs font-sans font-medium transition-colors shrink-0 ${
                     selectedTier === tier.id 
                       ? "bg-[#9A7562] text-white" 
                       : "bg-white/60 text-[#6D5548]"
@@ -226,15 +228,15 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
 
                 {/* Scope Details (Expands when active) */}
                 {selectedTier === tier.id && (
-                  <div className="mt-4 pt-4 border-t border-white/50 space-y-3 font-mono text-xs text-[#6D5548] animate-fade-in">
-                    <div className="text-[11px] text-[#241812] font-semibold">
+                  <div className="mt-4 pt-4 border-t border-white/50 space-y-3 font-sans text-xs text-[#6D5548] animate-fade-in">
+                    <div className="text-[12px] text-[#241812] font-semibold tracking-wide">
                       INCLUDED DELIVERABLES & CRAFT:
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
                       {tier.deliverables.map((item, idx) => (
                         <div key={idx} className="flex items-center gap-2">
                           <Check className="w-3.5 h-3.5 text-[#9A7562] shrink-0" />
-                          <span className="font-light">{item}</span>
+                          <span className="font-normal text-[#4A372D]">{item}</span>
                         </div>
                       ))}
                     </div>
@@ -245,15 +247,15 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
           </div>
 
           {/* Interactive Custom Requirements & Specific Needs Selector */}
-          <div className="p-6 rounded-3xl liquid-glass-card space-y-4 border border-white/70">
+          <div className="p-6 rounded-3xl liquid-glass-card space-y-4 border border-white/70 font-sans">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[#9A7562]" />
-                <span className="font-normal text-base text-[#241812]">
+                <span className="font-medium text-base text-[#241812]">
                   Select or Type Custom Needs
                 </span>
               </div>
-              <span className="text-[11px] font-mono text-[#6D5548]">
+              <span className="text-[11px] font-sans text-[#6D5548] font-medium">
                 {selectedNeeds.length} Selected
               </span>
             </div>
@@ -267,9 +269,9 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
                     key={need}
                     type="button"
                     onClick={() => toggleNeed(need)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer flex items-center gap-1.5 border ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-sans transition-all cursor-pointer flex items-center gap-1.5 border ${
                       isSelected
-                        ? "bg-[#9A7562] text-white border-[#9A7562] shadow-sm"
+                        ? "bg-[#9A7562] text-white border-[#9A7562] shadow-sm font-medium"
                         : "bg-white/40 hover:bg-white/70 text-[#6D5548] border-white/60"
                     }`}
                   >
@@ -291,7 +293,7 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
               />
               <button
                 type="submit"
-                className="px-4 py-2 rounded-xl bg-[#9A7562] hover:bg-[#86614E] text-white text-xs font-mono font-medium flex items-center gap-1 transition-all cursor-pointer shrink-0 shadow-sm"
+                className="px-4 py-2 rounded-xl bg-[#9A7562] hover:bg-[#86614E] text-white text-xs font-sans font-medium flex items-center gap-1 transition-all cursor-pointer shrink-0 shadow-sm"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Need</span>
@@ -304,7 +306,7 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
                 {selectedNeeds.map((need) => (
                   <span 
                     key={need}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#9A7562]/15 text-[#9A7562] border border-[#9A7562]/30 text-[11px] font-mono"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#9A7562]/15 text-[#9A7562] border border-[#9A7562]/30 text-[11px] font-sans font-medium"
                   >
                     <span>{need}</span>
                     <button 
@@ -321,11 +323,11 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
           </div>
 
           {/* Quick Direct Connect Drawer */}
-          <div className="p-5 rounded-2xl liquid-glass-pill flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+          <div className="p-5 rounded-2xl liquid-glass-pill flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans">
             <div className="flex items-center gap-3">
               <MessageSquare className="w-4 h-4 text-[#9A7562]" />
-              <span className="text-[#6D5548] font-light">Prefer direct chat? Ping me on Discord:</span>
-              <span className="text-[#241812] font-bold">@alterffx</span>
+              <span className="text-[#6D5548] font-normal">Prefer direct chat? Ping Alter on Discord:</span>
+              <span className="text-[#241812] font-semibold">alter.ffx</span>
             </div>
 
             <button
@@ -335,7 +337,7 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
               {copiedDiscord ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Copied @alterffx</span>
+                  <span>Copied alter.ffx</span>
                 </>
               ) : (
                 <>
@@ -374,23 +376,23 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
               <form onSubmit={handleSubmit} className="space-y-4">
                 
                 {/* Active Scope Summary Pill */}
-                <div className="p-3 rounded-xl bg-white/40 border border-white/50 text-xs font-mono flex items-center justify-between">
-                  <span className="text-[#6D5548]">Target Package:</span>
+                <div className="p-3 rounded-xl bg-white/40 border border-white/50 text-xs font-sans flex items-center justify-between">
+                  <span className="text-[#6D5548] font-normal">Target Package:</span>
                   <span className="text-[#241812] font-semibold">{activeTierData.title}</span>
                 </div>
 
                 {/* Included Custom Needs Tag Indicator */}
                 {selectedNeeds.length > 0 && (
-                  <div className="p-3 rounded-xl bg-[#9A7562]/10 border border-[#9A7562]/25 text-xs font-mono text-[#241812]">
-                    <div className="text-[10px] text-[#9A7562] font-semibold mb-1">ATTACHED CUSTOM REQUIREMENTS ({selectedNeeds.length}):</div>
-                    <div className="text-[11px] font-light text-[#6D5548] line-clamp-2">
+                  <div className="p-3 rounded-xl bg-[#9A7562]/10 border border-[#9A7562]/25 text-xs font-sans text-[#241812]">
+                    <div className="text-[11px] text-[#9A7562] font-semibold mb-1">ATTACHED CUSTOM REQUIREMENTS ({selectedNeeds.length}):</div>
+                    <div className="text-xs font-normal text-[#6D5548] line-clamp-2">
                       {selectedNeeds.join(" • ")}
                     </div>
                   </div>
                 )}
 
                 <div className="space-y-1">
-                  <label className="text-[#6D5548] text-xs font-mono font-medium block">
+                  <label className="text-[#6D5548] text-xs font-sans font-medium block">
                     Your Name / Creator Channel
                   </label>
                   <input
@@ -399,12 +401,12 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
                     placeholder="e.g. Alex / Apex Media"
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
-                    className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] focus:outline-none focus:border-[#9A7562] font-sans text-sm"
+                    className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] focus:outline-none focus:border-[#9A7562] font-sans text-base sm:text-sm"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[#6D5548] text-xs font-mono font-medium block">
+                  <label className="text-[#6D5548] text-xs font-sans font-medium block">
                     Discord Handle or Email
                   </label>
                   <input
@@ -413,12 +415,52 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
                     placeholder="@username or alex@channel.com"
                     value={contactHandle}
                     onChange={(e) => setContactHandle(e.target.value)}
-                    className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] focus:outline-none focus:border-[#9A7562] font-sans text-sm"
+                    className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] focus:outline-none focus:border-[#9A7562] font-sans text-base sm:text-sm"
                   />
                 </div>
 
+                {/* Estimated Budget Selector with Custom Option */}
+                <div className="space-y-1.5">
+                  <label className="text-[#6D5548] text-xs font-sans font-medium flex items-center justify-between">
+                    <span>Estimated Budget</span>
+                    <span className="text-[11px] text-[#9A7562] font-normal">Select or customize</span>
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {["$150–$300", "$300–$600", "$600–$1,200", "Custom"].map((budget) => (
+                      <button
+                        key={budget}
+                        type="button"
+                        onClick={() => {
+                          soundFx.playTick(1050)
+                          setSelectedBudget(budget)
+                        }}
+                        className={`py-2 px-2.5 rounded-xl text-xs font-sans transition-all cursor-pointer border text-center ${
+                          selectedBudget === budget
+                            ? "bg-[#9A7562] text-white border-[#9A7562] shadow-sm font-medium"
+                            : "bg-white/40 hover:bg-white/70 text-[#6D5548] border-white/60 font-normal"
+                        }`}
+                      >
+                        {budget === "Custom" ? "Custom Budget" : budget}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Custom Budget Input Field */}
+                  {selectedBudget === "Custom" && (
+                    <div className="pt-1.5 animate-fade-in">
+                      <input
+                        type="text"
+                        placeholder="Enter your target budget (e.g. $250 / video or $1,500/mo)..."
+                        value={customBudgetInput}
+                        onChange={(e) => setCustomBudgetInput(e.target.value)}
+                        className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2 text-[#241812] placeholder:text-[#6D5548]/60 focus:outline-none focus:border-[#9A7562] font-sans text-base sm:text-xs"
+                      />
+                    </div>
+                  )}
+                </div>
+
                 <div className="space-y-1">
-                  <label className="text-[#6D5548] text-xs font-mono font-medium block">
+                  <label className="text-[#6D5548] text-xs font-sans font-medium block">
                     Project Brief & Custom Requirements
                   </label>
                   <textarea
@@ -426,7 +468,7 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
                     placeholder="Provide Google Drive footage links, video concept, reference cuts, custom duration, or specific instructions..."
                     value={projectBrief}
                     onChange={(e) => setProjectBrief(e.target.value)}
-                    className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] placeholder:text-[#6D5548]/60 focus:outline-none focus:border-[#9A7562] font-sans text-sm resize-none"
+                    className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] placeholder:text-[#6D5548]/60 focus:outline-none focus:border-[#9A7562] font-sans text-base sm:text-sm resize-none"
                   />
                 </div>
 
@@ -447,8 +489,8 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
                   </button>
                 </div>
 
-                {/* Direct SLA Guarantee */}
-                <div className="pt-2 text-[11px] font-mono text-[#6D5548] text-center font-light flex items-center justify-center gap-2">
+                {/* Direct Response Commitment */}
+                <div className="pt-2 text-[11px] font-sans text-[#6D5548] text-center font-normal flex items-center justify-center gap-2">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#9A7562]" />
                   <span>Direct Editor Contact • Response Within 2h</span>
                 </div>

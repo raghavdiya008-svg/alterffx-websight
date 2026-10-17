@@ -3,7 +3,8 @@ import { Play, ShieldCheck, Sparkles, Layers } from "lucide-react"
 import { soundFx } from "../lib/audioEngine"
 
 interface CloakedVideoPlayerProps {
-  youtubeId: string
+  youtubeId?: string
+  videoSrc?: string
   title: string
   category?: string
   duration?: string
@@ -15,7 +16,8 @@ interface CloakedVideoPlayerProps {
 }
 
 export const CloakedVideoPlayer: React.FC<CloakedVideoPlayerProps> = ({
-  youtubeId,
+  youtubeId = "EPU8ivyiWHI",
+  videoSrc,
   title,
   category = "Motion Graphics",
   duration = "00:48",
@@ -35,12 +37,6 @@ export const CloakedVideoPlayer: React.FC<CloakedVideoPlayerProps> = ({
   }
 
   // Hardened Cloaked Embed URL parameters
-  // modestbranding=1: hides YouTube logo in control bar
-  // rel=0: no external recommended videos
-  // iv_load_policy=3: removes annotations
-  // showinfo=0: legacy flag
-  // playsinline=1: inline mobile playback
-  // disablekb=0: allows keyboard controls
   const embedUrl = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&controls=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1`
 
   return (
@@ -50,18 +46,36 @@ export const CloakedVideoPlayer: React.FC<CloakedVideoPlayerProps> = ({
     >
       {isPlaying ? (
         <div className="relative w-full h-full overflow-hidden">
-          {/* 
-            ====================================================================
-            CLOAKED VIDEO EMBED ENGINE (NO YOUTUBE BRANDING / NO CHANNEL LEAKS)
-            ====================================================================
-          */}
-          <iframe
-            src={embedUrl}
-            title={title}
-            className="w-full h-full border-0 absolute inset-0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+          {videoSrc ? (
+            /* Native HTML5 High-Performance Video Player with Zero Third-Party Branding */
+            <div className="relative w-full h-full bg-black flex items-center justify-center">
+              <video
+                src={videoSrc}
+                controls
+                autoPlay
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-contain bg-black"
+                onPlay={() => {
+                  setIsPlaying(true)
+                  if (onPlayChange) onPlayChange(true)
+                }}
+              />
+            </div>
+          ) : (
+            <>
+              {/* 
+                ====================================================================
+                CLOAKED VIDEO EMBED ENGINE (NO YOUTUBE BRANDING / NO CHANNEL LEAKS)
+                ====================================================================
+              */}
+              <iframe
+                src={embedUrl}
+                title={title}
+                className="w-full h-full border-0 absolute inset-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
 
           {/* 
             1. TOP BRAND SHIELD (Blocks YouTube Title, Channel Avatar & Share Link)
@@ -116,11 +130,13 @@ export const CloakedVideoPlayer: React.FC<CloakedVideoPlayerProps> = ({
           */}
           <div 
             onClick={(e) => e.stopPropagation()}
-            className="absolute bottom-2.5 left-2 sm:left-4 z-30 pointer-events-auto px-2.5 py-1 rounded-md bg-black/90 backdrop-blur-md border border-white/20 text-[10px] font-mono text-white/80 font-medium flex items-center gap-1.5 cursor-default select-none hidden sm:flex"
+            className="absolute bottom-2.5 left-2 sm:left-4 z-30 pointer-events-auto px-2.5 py-1 rounded-md bg-black/90 backdrop-blur-md border border-white/20 text-[10px] font-sans text-white/80 font-medium flex items-center gap-1.5 cursor-default select-none hidden sm:flex"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#9A7562]"></span>
             <span>TIMECODE // {duration}</span>
           </div>
+            </>
+          )}
         </div>
       ) : (
         /* Poster Preview Canvas with Launch Action */
@@ -134,7 +150,7 @@ export const CloakedVideoPlayer: React.FC<CloakedVideoPlayerProps> = ({
             />
           ) : (
             <div className="w-full h-full bg-black/90 flex items-center justify-center">
-              <span className="font-mono text-xs text-[#EDCFB5]">ALTER VIDEO MASTER</span>
+              <span className="font-sans text-xs text-[#EDCFB5]">ALTER VIDEO MASTER</span>
             </div>
           )}
 
@@ -142,7 +158,7 @@ export const CloakedVideoPlayer: React.FC<CloakedVideoPlayerProps> = ({
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/60 pointer-events-none"></div>
 
           {/* Top Left Spec HUD */}
-          <div className="absolute top-4 left-4 flex items-center gap-2 text-xs font-mono px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white font-medium z-10">
+          <div className="absolute top-4 left-4 flex items-center gap-2 text-xs font-sans px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white font-medium z-10">
             <span className="w-2 h-2 rounded-full bg-[#9A7562] animate-ping"></span>
             <span>AFTER EFFECTS 24</span>
             <span>•</span>
@@ -159,7 +175,7 @@ export const CloakedVideoPlayer: React.FC<CloakedVideoPlayerProps> = ({
           </button>
 
           {/* Bottom HUD */}
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-mono text-white/95 font-medium z-10">
+          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-sans text-white/95 font-medium z-10">
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#EDCFB5]"></span>
               <span>STREAM HIGH-RETENTION CUT</span>

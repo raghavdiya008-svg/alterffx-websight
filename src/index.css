@@ -34,7 +34,7 @@
     color: #241812;
   }
 
-  /* Analog Film Grain Texture Overlay */
+  /* Rough Rugged Heavy-Stock Paper Texture Overlay (GPU Accelerated & Tiled for 120 FPS Mobile Smoothness) */
   body::before {
     content: "";
     position: fixed;
@@ -42,20 +42,25 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.038'/%3E%3C/svg%3E");
+    background-image: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 380 380' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperFiber'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.032' numOctaves='3' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23fff' surfaceScale='2.2' result='light'%3E%3CfeDistantLight azimuth='50' elevation='48'/%3E%3C/feDiffuseLighting%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.88'/%3E%3CfeFuncG type='linear' slope='0.88'/%3E%3CfeFuncB type='linear' slope='0.88'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperFiber)' opacity='0.20'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperGrit'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.14   0 0 0 0 0.09   0 0 0 0 0.06  0 0 0 0.14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperGrit)' opacity='0.7'/%3E%3C/svg%3E");
+    background-repeat: repeat, repeat;
+    background-size: 380px 380px, 180px 180px;
     pointer-events: none;
     z-index: 999;
     mix-blend-mode: multiply;
+    transform: translateZ(0);
+    will-change: transform;
+    contain: strict;
   }
 
-  /* Liquid Glass Grid & Shimmer Overlay */
+  /* Tactile Rugged Paper Texture & Shimmer Overlay */
   .liquid-mesh {
     background-image: 
-      radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.55) 0%, transparent 45%),
-      radial-gradient(circle at 88% 82%, rgba(183, 159, 147, 0.35) 0%, transparent 50%),
-      linear-gradient(rgba(154, 117, 98, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(154, 117, 98, 0.05) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+      radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.45) 0%, transparent 55%),
+      radial-gradient(circle at 82% 85%, rgba(183, 159, 147, 0.3) 0%, transparent 60%),
+      radial-gradient(circle at 50% 50%, rgba(237, 207, 181, 0.4) 0%, transparent 70%);
   }
 
   /* GPU-accelerated smooth rendering */

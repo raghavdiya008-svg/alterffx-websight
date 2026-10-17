@@ -52,7 +52,7 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#EDCFB5] text-[#241812] flex flex-col font-sans selection:bg-[#9A7562]/20 selection:text-[#241812] antialiased overflow-x-hidden relative liquid-mesh pb-8">
+    <div className="min-h-screen bg-[#EDCFB5] text-[#241812] flex flex-col font-sans selection:bg-[#9A7562]/20 selection:text-[#241812] antialiased overflow-x-hidden relative liquid-mesh pb-12 sm:pb-10">
       
       {/* Living Ambient Liquid Background Mesh */}
       <AmbientLiquidBackground />

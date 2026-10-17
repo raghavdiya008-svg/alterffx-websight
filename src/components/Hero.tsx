@@ -55,30 +55,30 @@ const InteractiveNLEMonitor = memo(({ onLaunchTheater }: { onLaunchTheater?: () 
       />
 
       {/* Technical Pipeline Inspector (Grounded in Real Craft) */}
-      <div className="space-y-2 pt-1 font-mono text-xs">
-        <div className="flex items-center justify-between text-[#6D5548] pb-1 border-b border-white/30">
-          <span className="font-light">PIPELINE ARCHITECTURE</span>
-          <span className="text-[#9A7562] font-medium">AFTER EFFECTS 24.3</span>
+      <div className="space-y-2 pt-1 font-sans text-xs">
+        <div className="flex items-center justify-between text-[#6D5548] pb-1 border-b border-white/30 text-[11px] font-medium">
+          <span className="tracking-wide">PIPELINE ARCHITECTURE</span>
+          <span className="text-[#9A7562] font-semibold">AFTER EFFECTS 24.3</span>
         </div>
 
         <div className="grid grid-cols-2 gap-2 text-[11px]">
           <div className="p-2.5 rounded-xl bg-white/40 border border-white/40 space-y-1">
-            <span className="text-[#6D5548] block text-[10px]">3D COMPOSITING</span>
+            <span className="text-[#6D5548] block text-[10px] uppercase tracking-wide">3D COMPOSITING</span>
             <span className="text-[#241812] font-semibold">C4D + Element 3D Passes</span>
           </div>
 
           <div className="p-2.5 rounded-xl bg-white/40 border border-white/40 space-y-1">
-            <span className="text-[#6D5548] block text-[10px]">COLOR PIPELINE</span>
+            <span className="text-[#6D5548] block text-[10px] uppercase tracking-wide">COLOR PIPELINE</span>
             <span className="text-[#241812] font-semibold">High-Contrast Commercial</span>
           </div>
 
           <div className="p-2.5 rounded-xl bg-white/40 border border-white/40 space-y-1">
-            <span className="text-[#6D5548] block text-[10px]">MOTION RIGGING</span>
+            <span className="text-[#6D5548] block text-[10px] uppercase tracking-wide">MOTION RIGGING</span>
             <span className="text-[#241812] font-semibold">Expression Easing Curves</span>
           </div>
 
           <div className="p-2.5 rounded-xl bg-white/40 border border-white/40 space-y-1">
-            <span className="text-[#6D5548] block text-[10px]">AUDIO MASTERING</span>
+            <span className="text-[#6D5548] block text-[10px] uppercase tracking-wide">AUDIO MASTERING</span>
             <span className="text-[#241812] font-semibold">-14 LUFS Stereo Sync</span>
           </div>
         </div>
@@ -120,20 +120,20 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
         >
           
           {/* Eyebrow Label in Liquid Glass Pill */}
-          <div className="inline-flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <span className="w-2.5 h-2.5 rounded-full bg-[#9A7562]"></span>
             <span className="font-mono text-xs font-medium text-[#241812] uppercase tracking-wider liquid-glass-pill px-3 py-1 rounded-full">
               ALTERFFX // AE24
             </span>
-            <span className="text-[#B79F93]">•</span>
-            <span className="font-light text-base sm:text-lg text-[#6D5548]">
+            <span className="text-[#B79F93] hidden xs:inline">•</span>
+            <span className="font-light text-sm sm:text-lg text-[#6D5548]">
               Cinematic Edits & Motion Design
             </span>
           </div>
 
           {/* Main Title Provided by Alter */}
-          <h1 className="font-normal text-5xl sm:text-7xl xl:text-8xl tracking-tight text-[#241812] leading-[1.02]">
-            I can make it <span className="font-light italic text-[#9A7562]">work.</span>
+          <h1 className="font-normal text-4xl sm:text-7xl xl:text-8xl tracking-tight text-[#241812] leading-[1.08] sm:leading-[1.02]">
+            I can make it <span className="font-bold not-italic text-[#9A7562]">work.</span>
           </h1>
 
           {/* Exact Description Provided by Alter */}
@@ -142,13 +142,13 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
           </p>
 
           {/* Primary Action Buttons */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-2">
             <button
               onClick={() => {
                 soundFx.playNeuralBurst()
                 onWatchReel()
               }}
-              className="px-7 py-4 rounded-2xl bg-[#9A7562] text-white font-medium text-sm tracking-wide uppercase hover:bg-[#86614E] transition-all duration-200 flex items-center gap-3 shadow-lg shadow-[#9A7562]/25 active:scale-95 group cursor-pointer border border-white/20"
+              className="w-full sm:w-auto px-7 py-3.5 sm:py-4 rounded-2xl bg-[#9A7562] text-white font-medium text-xs sm:text-sm tracking-wide uppercase hover:bg-[#86614E] transition-all duration-200 flex items-center justify-center gap-3 shadow-lg shadow-[#9A7562]/25 active:scale-95 group cursor-pointer border border-white/20"
             >
               <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Play className="w-3.5 h-3.5 fill-white text-white ml-0.5" />
@@ -161,7 +161,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
                 soundFx.playTick(1000)
                 onExploreWorks()
               }}
-              className="px-7 py-4 rounded-2xl liquid-glass hover:bg-white/60 text-[#241812] font-medium text-sm tracking-wide uppercase transition-all flex items-center gap-2.5 shadow-xs cursor-pointer border border-[#B79F93]/40"
+              className="w-full sm:w-auto px-7 py-3.5 sm:py-4 rounded-2xl liquid-glass hover:bg-white/60 text-[#241812] font-medium text-xs sm:text-sm tracking-wide uppercase transition-all flex items-center justify-center gap-2.5 shadow-xs cursor-pointer border border-[#B79F93]/40"
             >
               <Film className="w-4 h-4 text-[#9A7562]" />
               <span>Explore Works</span>
@@ -172,7 +172,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
                 soundFx.playTick(1200)
                 onOpenBooking()
               }}
-              className="px-5 py-4 text-[#6D5548] hover:text-[#241812] font-medium text-sm tracking-wide uppercase transition-colors cursor-pointer"
+              className="w-full sm:w-auto text-center px-5 py-3 text-[#6D5548] hover:text-[#241812] font-medium text-xs sm:text-sm tracking-wide uppercase transition-colors cursor-pointer"
             >
               Commission Inquiry
             </button>

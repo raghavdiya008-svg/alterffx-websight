@@ -324,8 +324,9 @@ export const CinematicTheater: React.FC<CinematicTheaterProps> = ({
 
               {/* Cloaked Video Player with Hardened Top & Bottom Shields */}
               <CloakedVideoPlayer
-                key={videoId}
+                key={activeProject.id}
                 youtubeId={videoId}
+                videoSrc={activeProject.videoSrc}
                 title={videoTitle}
                 category={videoCategory}
                 duration={videoDuration}

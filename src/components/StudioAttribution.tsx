@@ -16,7 +16,7 @@ export const StudioAttribution: React.FC = () => {
   const [copiedDiscord, setCopiedDiscord] = useState(false)
   const [copiedInsta, setCopiedInsta] = useState(false)
 
-  const DISCORD_HANDLE = "@alterffx"
+  const DISCORD_HANDLE = "alter.ffx"
   const DISCORD_NAME = "Alter"
   const INSTA_HANDLE = "@alterffx"
   const INSTA_NAME = "Alter"
@@ -25,7 +25,7 @@ export const StudioAttribution: React.FC = () => {
   const handleCopyDiscord = (e: React.MouseEvent) => {
     e.stopPropagation()
     soundFx.playTick(1300)
-    navigator.clipboard.writeText(DISCORD_HANDLE)
+    navigator.clipboard.writeText("alter.ffx")
     setCopiedDiscord(true)
     setTimeout(() => setCopiedDiscord(false), 2500)
   }
@@ -143,26 +143,26 @@ export const StudioAttribution: React.FC = () => {
               </div>
 
               {/* Direct Social Contact Cards (Discord & Instagram) */}
-              <div className="space-y-3 pt-2">
-                <div className="text-xs font-mono text-[#6D5548] uppercase tracking-wider font-medium">
+              <div className="space-y-3 pt-2 font-sans">
+                <div className="text-xs font-sans text-[#6D5548] uppercase tracking-wider font-semibold">
                   DIRECT CONTACT CHANNELS (REPLY WITHIN 2 HOURS)
                 </div>
 
                 {/* Discord Channel Card */}
-                <div className="p-4 rounded-2xl liquid-glass-pill flex items-center justify-between gap-4 shadow-xs hover:border-white transition-all">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-11 h-11 rounded-xl bg-[#5865F2] text-white flex items-center justify-center shadow-md">
-                      <MessageSquare className="w-6 h-6" />
+                <div className="p-3.5 sm:p-4 rounded-2xl liquid-glass-pill flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs hover:border-white transition-all">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#5865F2] text-white flex items-center justify-center shadow-md shrink-0">
+                      <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <div>
-                      <div className="text-xs font-mono text-[#6D5548] font-medium">DISCORD DIRECT</div>
-                      <div className="text-base font-mono font-semibold text-[#241812]">{DISCORD_HANDLE}</div>
+                      <div className="text-[11px] sm:text-xs font-sans text-[#6D5548] font-medium">DISCORD DIRECT ({DISCORD_NAME})</div>
+                      <div className="text-sm sm:text-base font-sans font-semibold text-[#241812]">{DISCORD_HANDLE}</div>
                     </div>
                   </div>
 
                   <button
                     onClick={handleCopyDiscord}
-                    className="px-4 py-2 rounded-xl bg-[#9A7562] text-white hover:bg-[#86614E] text-xs font-mono font-medium uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer border border-white/20"
+                    className="w-full sm:w-auto justify-center px-4 py-2 rounded-xl bg-[#9A7562] text-white hover:bg-[#86614E] text-xs font-sans font-medium uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer border border-white/20"
                   >
                     {copiedDiscord ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedDiscord ? "Copied!" : "Copy Tag"}</span>
@@ -170,21 +170,21 @@ export const StudioAttribution: React.FC = () => {
                 </div>
 
                 {/* Instagram Channel Card */}
-                <div className="p-4 rounded-2xl liquid-glass-pill flex items-center justify-between gap-4 shadow-xs hover:border-white transition-all">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#FD1D1D] via-[#E1306C] to-[#405DE6] text-white flex items-center justify-center shadow-md">
-                      <InstagramIcon className="w-6 h-6" />
+                <div className="p-3.5 sm:p-4 rounded-2xl liquid-glass-pill flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs hover:border-white transition-all">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-[#FD1D1D] via-[#E1306C] to-[#405DE6] text-white flex items-center justify-center shadow-md shrink-0">
+                      <InstagramIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <div>
-                      <div className="text-xs font-mono text-[#6D5548] font-medium">INSTAGRAM DM</div>
-                      <div className="text-base font-mono font-semibold text-[#241812]">{INSTA_HANDLE}</div>
+                      <div className="text-[11px] sm:text-xs font-sans text-[#6D5548] font-medium">INSTAGRAM DM ({INSTA_NAME})</div>
+                      <div className="text-sm sm:text-base font-sans font-semibold text-[#241812]">{INSTA_HANDLE}</div>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
                     <button
                       onClick={handleCopyInsta}
-                      className="px-3.5 py-2 rounded-xl liquid-glass text-[#241812] text-xs font-mono font-medium uppercase tracking-wider hover:bg-white/70 transition-all flex items-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer"
+                      className="flex-1 sm:flex-none justify-center px-3.5 py-2 rounded-xl liquid-glass text-[#241812] text-xs font-sans font-medium uppercase tracking-wider hover:bg-white/70 transition-all flex items-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer"
                     >
                       {copiedInsta ? <Check className="w-3.5 h-3.5 text-[#9A7562]" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedInsta ? "Copied!" : "Copy"}</span>
@@ -194,7 +194,7 @@ export const StudioAttribution: React.FC = () => {
                       href={INSTA_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3.5 py-2 rounded-xl bg-[#9A7562] text-white hover:bg-[#86614E] text-xs font-mono font-medium uppercase tracking-wider transition-all flex items-center gap-1 shadow-sm active:scale-95 cursor-pointer border border-white/20"
+                      className="flex-1 sm:flex-none justify-center px-3.5 py-2 rounded-xl bg-[#9A7562] text-white hover:bg-[#86614E] text-xs font-sans font-medium uppercase tracking-wider transition-all flex items-center gap-1 shadow-sm active:scale-95 cursor-pointer border border-white/20"
                     >
                       <span>Send DM</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />

@@ -110,7 +110,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
               <span className="font-medium text-sm text-[#241812] block tracking-wide">
                 Direct Channels
               </span>
-              <ul className="space-y-2.5 text-[#6D5548] text-sm font-light">
+              <ul className="space-y-2.5 text-[#6D5548] text-sm font-normal font-sans">
                 <li>
                   <a href="https://instagram.com/alterffx" target="_blank" rel="noopener noreferrer" className="hover:text-[#241812] transition-colors flex items-center gap-1.5">
                     <span>Instagram: @alterffx</span>
@@ -118,27 +118,27 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
                 </li>
                 <li>
                   <span className="hover:text-[#241812] transition-colors">
-                    Discord: @alterffx
+                    Discord: alter.ffx (@alterffx)
                   </span>
                 </li>
                 <li>
-                  <span className="text-[#6D5548] flex items-center gap-1.5 font-mono text-xs">
-                    <span>Showreels: Native 4K Streams Only</span>
+                  <span className="text-[#6D5548] flex items-center gap-1.5 text-xs">
+                    <span>Showreels: Native 4K Streams</span>
                   </span>
                 </li>
                 <li>
-                  <a href="https://paypal.me/Priyanshuraikwar01" target="_blank" rel="noopener noreferrer" className="text-[#9A7562] hover:underline font-semibold text-xs font-mono">
+                  <a href="https://paypal.me/Priyanshuraikwar01" target="_blank" rel="noopener noreferrer" className="text-[#9A7562] hover:underline font-semibold text-xs font-sans">
                     Paypal: Priyanshu Raikwar
                   </a>
                 </li>
               </ul>
             </div>
 
-            <div className="space-y-3 col-span-2 sm:col-span-1">
+            <div className="space-y-3 col-span-2 sm:col-span-1 font-sans">
               <span className="font-medium text-sm text-[#241812] block tracking-wide">
                 Core Stack
               </span>
-              <div className="p-4 rounded-2xl liquid-glass-pill space-y-1.5 text-xs font-mono text-[#6D5548] font-light">
+              <div className="p-4 rounded-2xl liquid-glass-pill space-y-1.5 text-xs font-sans text-[#6D5548] font-normal">
                 <div>• Adobe After Effects 24</div>
                 <div>• 3D Camera Compositing</div>
                 <div>• Kinetic Typography Rigging</div>
