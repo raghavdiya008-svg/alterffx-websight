@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Calculator, Check, ShieldCheck, ArrowRight, Zap } from "lucide-react"
+import React, { useState, useEffect } from "react"
+import { ShieldCheck, ArrowRight, Zap, Check, MessageSquare, Copy, ExternalLink, Calendar, Plus, X, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
 import { soundFx } from "../lib/audioEngine"
 
@@ -8,44 +8,68 @@ interface RateCalculatorProps {
   onBookingSuccess: () => void
 }
 
-export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject, onBookingSuccess }) => {
-  const [projectType, setProjectType] = useState<"commercial" | "narrative" | "creator" | "podcast">("commercial")
-  const [turnaround, setTurnaround] = useState<"standard" | "priority" | "rush">("standard")
-  const [soundDesign, setSoundDesign] = useState(true)
-  const [motionGraphics, setMotionGraphics] = useState(true)
-  const [socialCuts, setSocialCuts] = useState(false)
-  const [rawHours, setRawHours] = useState(4)
+const AVAILABLE_NEEDS = [
+  "3D Camera Tracking",
+  "Kinetic Typography Rig",
+  "Dynamic Speed Ramping",
+  "Frame-Synced Sub-Bass Foley",
+  "Color Grading (Rec.709)",
+  "9:16 Vertical Social Cutdown",
+  "24h Priority Turnaround",
+  "Raw .aep Project Comps",
+  "Multi-Cam Podcast Sync",
+  "Monthly Creator Retainer"
+]
 
-  // Booking Form State
-  const [producerName, setProducerName] = useState("")
-  const [email, setEmail] = useState("")
-  const [productionCompany, setProductionCompany] = useState("")
-  const [targetDate, setTargetDate] = useState("")
-  const [notes, setNotes] = useState(prefilledProject ? `Interested in commissioning an edit similar to ${prefilledProject}.` : "")
+export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject, onBookingSuccess }) => {
+  const [selectedTier, setSelectedTier] = useState<"commercial" | "longform" | "kinetic" | "custom">("commercial")
+  
+  // Custom Needs & Requirements Tags
+  const [selectedNeeds, setSelectedNeeds] = useState<string[]>([])
+  const [customNeedInput, setCustomNeedInput] = useState("")
+
+  // Intake Form State
+  const [clientName, setClientName] = useState("")
+  const [contactHandle, setContactHandle] = useState("")
+  const [projectBrief, setProjectBrief] = useState(prefilledProject ? `Interested in commissioning an edit similar to ${prefilledProject}.` : "")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [copiedDiscord, setCopiedDiscord] = useState(false)
 
-  // Rate Math in USD / EUR
-  const baseRates = {
-    commercial: 1850,
-    narrative: 2400,
-    creator: 1200,
-    podcast: 950
+  useEffect(() => {
+    if (prefilledProject) {
+      setProjectBrief(`Interested in commissioning an edit similar to ${prefilledProject}.`)
+    }
+  }, [prefilledProject])
+
+  const handleCopyDiscord = () => {
+    soundFx.playTick(1200)
+    navigator.clipboard.writeText("@alterffx")
+    setCopiedDiscord(true)
+    setTimeout(() => setCopiedDiscord(false), 2500)
   }
 
-  const turnaroundMultipliers = {
-    standard: 1.0,
-    priority: 1.25,
-    rush: 1.5
+  const toggleNeed = (need: string) => {
+    soundFx.playTick(1050)
+    setSelectedNeeds(prev => 
+      prev.includes(need) ? prev.filter(n => n !== need) : [...prev, need]
+    )
   }
 
-  let totalEstimate = baseRates[projectType]
-  if (soundDesign) totalEstimate += 350
-  if (motionGraphics) totalEstimate += 450
-  if (socialCuts) totalEstimate += 250
-  if (rawHours > 3) totalEstimate += (rawHours - 3) * 90
+  const handleAddCustomNeed = (e: React.FormEvent) => {
+    e.preventDefault()
+    const trimmed = customNeedInput.trim()
+    if (trimmed && !selectedNeeds.includes(trimmed)) {
+      soundFx.playNeuralBurst()
+      setSelectedNeeds(prev => [...prev, trimmed])
+      setCustomNeedInput("")
+    }
+  }
 
-  totalEstimate = Math.round(totalEstimate * turnaroundMultipliers[turnaround])
+  const handleRemoveNeed = (need: string) => {
+    soundFx.playTick(950)
+    setSelectedNeeds(prev => prev.filter(n => n !== need))
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -56,8 +80,69 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
       setIsSubmitting(false)
       setSubmitted(true)
       onBookingSuccess()
-    }, 1000)
+    }, 900)
   }
+
+  const tiers = [
+    {
+      id: "commercial" as const,
+      num: "01",
+      title: "3D Commercial & Product Motion",
+      subtitle: "30s–60s High-Octane Commercials",
+      idealFor: "Brands, product launches, 3D reveals & hardware animations",
+      deliverables: [
+        "Full 3D Element/C4D multi-pass compositing",
+        "Dynamic velocity speed ramps & camera tracking",
+        "Tactile sub-bass hits & organic foley sound design",
+        "Master ProRes 422 HQ + 9:16 vertical social cutdown"
+      ],
+      turnaround: "48 Hours Guaranteed"
+    },
+    {
+      id: "longform" as const,
+      num: "02",
+      title: "High-Retention YouTube Long Form",
+      subtitle: "8–20 Minute Gaming, Faceless & Storytelling",
+      idealFor: "Top YouTube creators, gaming channels, faceless video essays",
+      deliverables: [
+        "Psychological pattern interrupt pacing every 4–6s",
+        "Custom kinetic infographics & paper texture animation",
+        "Dynamic speaker punch-ins & vocal compression",
+        "Full master render + textless stem version"
+      ],
+      turnaround: "3–5 Days Turnaround"
+    },
+    {
+      id: "kinetic" as const,
+      num: "03",
+      title: "Kinetic Typography & Motion Rig",
+      subtitle: "Bespoke Titles & Essential Graphics",
+      idealFor: "Music videos, editorial title sequences, motion packages",
+      deliverables: [
+        "Expression-driven kinetic type with elastic overshoot",
+        "Custom glint, particle bursts & deep glow curves",
+        "Alpha channel ProRes 4444 transparent assets",
+        "Includes After Effects 24 project comps"
+      ],
+      turnaround: "24–48 Hours Turnaround"
+    },
+    {
+      id: "custom" as const,
+      num: "04",
+      title: "Custom Scope & Specific Needs",
+      subtitle: "Tailored Format, Retainer, or Bespoke Cut",
+      idealFor: "Podcasts, multi-cam flows, viral shorts batch, or monthly retainer",
+      deliverables: [
+        "Custom workflow configured to your exact timeline & requirements",
+        "Direct 1-on-1 collaboration with Alter via Discord or Telegram",
+        "Tailored revisions & rush delivery options",
+        "Full master exports + raw .aep project comps upon request"
+      ],
+      turnaround: "Flexible / Rush Available"
+    }
+  ]
+
+  const activeTierData = tiers.find((t) => t.id === selectedTier) || tiers[0]
 
   return (
     <section id="rates" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
@@ -72,319 +157,304 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
       >
         <div>
           <div className="inline-flex items-center gap-2 mb-2">
-            <Calculator className="w-4 h-4 text-[#9A7562]" />
+            <Calendar className="w-4 h-4 text-[#9A7562]" />
             <span className="font-light text-base sm:text-lg text-[#6D5548]">
-              COMMISSION ESTIMATOR & INTAKE DOCKET
+              PRODUCTION DOCKET // COMMISSION AVAILABILITY
             </span>
           </div>
           <h2 className="font-normal text-4xl sm:text-6xl text-[#241812] tracking-tight">
-            Transparent Project Rates
+            Commission Intake
           </h2>
           <p className="text-[#6D5548] text-base sm:text-lg mt-2 max-w-2xl font-light">
-            Configure your deliverables below to generate a transparent project docket for commercial animation, YouTube long form, or viral short form.
+            I accept a select number of commercial and YouTube commissions per production cycle. Choose a package below or configure your custom needs.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono text-[#241812] font-medium liquid-glass-pill px-4 py-2 rounded-full">
-          <ShieldCheck className="w-4 h-4 text-[#9A7562]" />
-          <span>FIXED SCOPE GUARANTEE</span>
+        {/* Live Capacity Pill */}
+        <div className="flex items-center gap-2 text-xs font-mono text-[#241812] font-medium liquid-glass-pill px-4 py-2 rounded-full self-start md:self-auto shadow-xs">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>CURRENT STATUS: 2 OF 4 PRODUCTION SLOTS OPEN</span>
         </div>
       </motion.div>
 
-      {/* Main Calculator Grid in Liquid Glass */}
+      {/* Main Commission Grid in Liquid Glass */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* Left Column: Interactive Options */}
-        <div className="lg:col-span-7 rounded-3xl liquid-glass-card p-6 sm:p-10 shadow-2xl space-y-8">
-          
-          {/* Step 1: Project Format */}
-          <div className="space-y-3">
-            <label className="text-xs font-mono text-[#6D5548] font-medium flex items-center justify-between">
-              <span>01 // SELECT PROJECT DELIVERABLE TYPE</span>
-              <span className="text-[#9A7562] font-semibold">{projectType.toUpperCase()}</span>
-            </label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              {[
-                { id: "commercial", label: "Commercial 3D", sub: "Product / Brand" },
-                { id: "narrative", label: "Storytelling", sub: "Cinematic Arc" },
-                { id: "creator", label: "YouTube Long", sub: "Retention Pacing" },
-                { id: "podcast", label: "Podcast Cut", sub: "Multi-Cam Flow" }
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => {
-                    soundFx.playTick(950)
-                    setProjectType(item.id as any)
-                  }}
-                  className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
-                    projectType === item.id
-                      ? "bg-[#9A7562] text-white border-white/40 shadow-md shadow-[#9A7562]/20"
-                      : "liquid-glass-pill text-[#6D5548] hover:text-[#241812] hover:border-white/90"
-                  }`}
-                >
-                  <div className="text-xs font-medium tracking-tight">{item.label}</div>
-                  <div className={`text-[10px] mt-0.5 font-light ${projectType === item.id ? "text-white/80" : "text-[#6D5548]/70"}`}>{item.sub}</div>
-                </button>
-              ))}
-            </div>
+        {/* Left Column: Scope Selector Cards & Custom Needs Builder */}
+        <div className="lg:col-span-7 space-y-6">
+          <div className="text-xs font-mono text-[#6D5548] font-light flex items-center justify-between">
+            <span>SELECT YOUR PROJECT SCOPE</span>
+            <span className="text-[#9A7562] font-semibold">AFTER EFFECTS 24 PIPELINE</span>
           </div>
 
-          {/* Step 2: Turnaround Velocity */}
-          <div className="space-y-3">
-            <label className="text-xs font-mono text-[#6D5548] font-medium flex items-center justify-between">
-              <span>02 // TURNAROUND VELOCITY SCHEDULE</span>
-              <span className="text-[#9A7562] font-semibold">{turnaround.toUpperCase()}</span>
-            </label>
-            <div className="grid grid-cols-3 gap-2.5">
-              {[
-                { id: "standard", label: "Standard Delivery", days: "3–5 Days", mult: "1.0x" },
-                { id: "priority", label: "Priority Fast", days: "48 Hours", mult: "+25%" },
-                { id: "rush", label: "Rush Sprint", days: "24 Hours", mult: "+50%" }
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => {
-                    soundFx.playTick(1100)
-                    setTurnaround(item.id as any)
-                  }}
-                  className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
-                    turnaround === item.id
-                      ? "bg-[#9A7562] text-white border-white/40 shadow-md shadow-[#9A7562]/20"
-                      : "liquid-glass-pill text-[#6D5548] hover:text-[#241812] hover:border-white/90"
-                  }`}
-                >
-                  <div className="text-xs font-medium">{item.label}</div>
-                  <div className="flex items-center justify-between text-[10px] mt-1 font-mono">
-                    <span className={turnaround === item.id ? "text-white/80" : "text-[#6D5548]"}>{item.days}</span>
-                    <span className={turnaround === item.id ? "text-white font-bold" : "text-[#9A7562] font-semibold"}>{item.mult}</span>
+          {/* Scope Cards */}
+          <div className="space-y-3.5">
+            {tiers.map((tier) => (
+              <div
+                key={tier.id}
+                onClick={() => {
+                  soundFx.playTick(1000)
+                  setSelectedTier(tier.id)
+                }}
+                className={`p-5 sm:p-6 rounded-3xl transition-all cursor-pointer border flex flex-col justify-between ${
+                  selectedTier === tier.id
+                    ? "liquid-glass-card border-[#9A7562] shadow-xl ring-1 ring-[#9A7562]/40"
+                    : "liquid-glass hover:bg-white/55 border-white/60"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2.5">
+                      <span className="font-mono text-xs text-[#9A7562] font-bold">{tier.num} //</span>
+                      <h3 className="font-normal text-xl sm:text-2xl text-[#241812]">
+                        {tier.title}
+                      </h3>
+                    </div>
+                    <p className="text-xs font-mono text-[#6D5548] font-light">
+                      {tier.subtitle}
+                    </p>
                   </div>
-                </button>
-              ))}
-            </div>
-          </div>
 
-          {/* Step 3: Production Inclusions */}
-          <div className="space-y-3">
-            <label className="text-xs font-mono text-[#6D5548] font-medium">
-              03 // FINISHING PASSES & DELIVERABLE ADD-ONS
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  soundFx.playTick(1200)
-                  setSoundDesign(!soundDesign)
-                }}
-                className={`p-4 rounded-2xl border flex items-center justify-between transition-all cursor-pointer ${
-                  soundDesign
-                    ? "liquid-glass-card border-[#9A7562] text-[#241812] shadow-xs"
-                    : "liquid-glass-pill text-[#6D5548]"
-                }`}
-              >
-                <div className="text-left">
-                  <div className="text-xs font-medium">Tactile Sound Design</div>
-                  <div className="text-[10px] text-[#6D5548] mt-0.5 font-light">Sub-hits & Foley</div>
+                  <span className={`px-3 py-1 rounded-full text-xs font-mono font-medium transition-colors shrink-0 ${
+                    selectedTier === tier.id 
+                      ? "bg-[#9A7562] text-white" 
+                      : "bg-white/60 text-[#6D5548]"
+                  }`}>
+                    {tier.turnaround}
+                  </span>
                 </div>
-                <div className={`w-5 h-5 rounded-lg flex items-center justify-center border transition-colors ${soundDesign ? "bg-[#9A7562] border-[#9A7562] text-white" : "border-white/70"}`}>
-                  {soundDesign && <Check className="w-3.5 h-3.5" />}
-                </div>
-              </button>
 
-              <button
-                type="button"
-                onClick={() => {
-                  soundFx.playTick(1250)
-                  setMotionGraphics(!motionGraphics)
-                }}
-                className={`p-4 rounded-2xl border flex items-center justify-between transition-all cursor-pointer ${
-                  motionGraphics
-                    ? "liquid-glass-card border-[#9A7562] text-[#241812] shadow-xs"
-                    : "liquid-glass-pill text-[#6D5548]"
-                }`}
-              >
-                <div className="text-left">
-                  <div className="text-xs font-medium">Kinetic Motion & 3D</div>
-                  <div className="text-[10px] text-[#6D5548] mt-0.5 font-light">After Effects 24</div>
-                </div>
-                <div className={`w-5 h-5 rounded-lg flex items-center justify-center border transition-colors ${motionGraphics ? "bg-[#9A7562] border-[#9A7562] text-white" : "border-white/70"}`}>
-                  {motionGraphics && <Check className="w-3.5 h-3.5" />}
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  soundFx.playTick(1300)
-                  setSocialCuts(!socialCuts)
-                }}
-                className={`p-4 rounded-2xl border flex items-center justify-between transition-all cursor-pointer ${
-                  socialCuts
-                    ? "liquid-glass-card border-[#9A7562] text-[#241812] shadow-xs"
-                    : "liquid-glass-pill text-[#6D5548]"
-                }`}
-              >
-                <div className="text-left">
-                  <div className="text-xs font-medium">9:16 Social Cutdowns</div>
-                  <div className="text-[10px] text-[#6D5548] mt-0.5 font-light">Reels & TikTok Cuts</div>
-                </div>
-                <div className={`w-5 h-5 rounded-lg flex items-center justify-center border transition-colors ${socialCuts ? "bg-[#9A7562] border-[#9A7562] text-white" : "border-white/70"}`}>
-                  {socialCuts && <Check className="w-3.5 h-3.5" />}
-                </div>
-              </button>
-            </div>
-          </div>
-
-          {/* Step 4: Raw Footage Volume Slider */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-xs font-mono text-[#6D5548]">
-              <span>04 // ESTIMATED RAW FOOTAGE VOLUME</span>
-              <span className="text-[#241812] font-semibold">{rawHours} HOURS OF DAILIES</span>
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="15"
-              step="1"
-              value={rawHours}
-              onChange={(e) => {
-                setRawHours(parseInt(e.target.value))
-                soundFx.playTick(900 + parseInt(e.target.value) * 30, 0.01)
-              }}
-              className="w-full accent-[#9A7562] cursor-pointer bg-white/40 h-2.5 rounded-lg"
-            />
-            <div className="flex justify-between text-xs text-[#6D5548] font-mono font-light">
-              <span>1 Hour (Single Cam)</span>
-              <span>8 Hours (Multi-Cam)</span>
-              <span>15+ Hours (Extensive)</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column: Dynamic Price Summary & Direct Intake Form */}
-        <div className="lg:col-span-5 space-y-6">
-          
-          {/* Realtime Estimate Summary Card in Liquid Glass */}
-          <div className="rounded-3xl liquid-glass-card p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden border border-white/80">
-            <div className="flex items-center justify-between border-b border-white/50 pb-4">
-              <div>
-                <span className="font-light text-xs text-[#9A7562] block uppercase tracking-wider font-semibold">
-                  ESTIMATED PROJECT SCOPE
-                </span>
-                <div className="text-5xl sm:text-6xl font-light text-[#241812] mt-1">
-                  ${totalEstimate.toLocaleString()}
-                </div>
+                {/* Scope Details (Expands when active) */}
+                {selectedTier === tier.id && (
+                  <div className="mt-4 pt-4 border-t border-white/50 space-y-3 font-mono text-xs text-[#6D5548] animate-fade-in">
+                    <div className="text-[11px] text-[#241812] font-semibold">
+                      INCLUDED DELIVERABLES & CRAFT:
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                      {tier.deliverables.map((item, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <Check className="w-3.5 h-3.5 text-[#9A7562] shrink-0" />
+                          <span className="font-light">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-              <span className="px-3 py-1 rounded-full bg-[#9A7562]/15 border border-[#9A7562]/30 text-xs font-mono text-[#9A7562] font-semibold">
-                FIXED RATE
+            ))}
+          </div>
+
+          {/* Interactive Custom Requirements & Specific Needs Selector */}
+          <div className="p-6 rounded-3xl liquid-glass-card space-y-4 border border-white/70">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#9A7562]" />
+                <span className="font-normal text-base text-[#241812]">
+                  Select or Type Custom Needs
+                </span>
+              </div>
+              <span className="text-[11px] font-mono text-[#6D5548]">
+                {selectedNeeds.length} Selected
               </span>
             </div>
 
-            {/* Breakdown List */}
-            <div className="space-y-2.5 text-xs font-mono text-[#6D5548]">
-              <div className="flex justify-between">
-                <span>Base Editorial & Assembly:</span>
-                <span className="text-[#241812] font-semibold">${baseRates[projectType].toLocaleString()}</span>
+            {/* Quick Toggleable Need Pills */}
+            <div className="flex flex-wrap gap-2">
+              {AVAILABLE_NEEDS.map((need) => {
+                const isSelected = selectedNeeds.includes(need)
+                return (
+                  <button
+                    key={need}
+                    type="button"
+                    onClick={() => toggleNeed(need)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer flex items-center gap-1.5 border ${
+                      isSelected
+                        ? "bg-[#9A7562] text-white border-[#9A7562] shadow-sm"
+                        : "bg-white/40 hover:bg-white/70 text-[#6D5548] border-white/60"
+                    }`}
+                  >
+                    <span>{isSelected ? "✓" : "+"}</span>
+                    <span>{need}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Custom Need Input Field */}
+            <form onSubmit={handleAddCustomNeed} className="flex items-center gap-2 pt-2 border-t border-white/40">
+              <input
+                type="text"
+                placeholder="Type any other custom need (e.g. 3D Logo Reveal, Multi-Cam Cut, 48h Delivery)..."
+                value={customNeedInput}
+                onChange={(e) => setCustomNeedInput(e.target.value)}
+                className="flex-1 bg-white/40 border border-white/60 rounded-xl px-3.5 py-2 text-xs font-sans text-[#241812] placeholder:text-[#6D5548]/60 focus:outline-none focus:border-[#9A7562]"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 rounded-xl bg-[#9A7562] hover:bg-[#86614E] text-white text-xs font-mono font-medium flex items-center gap-1 transition-all cursor-pointer shrink-0 shadow-sm"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Add Need</span>
+              </button>
+            </form>
+
+            {/* Selected Custom Needs Display */}
+            {selectedNeeds.length > 0 && (
+              <div className="pt-2 flex flex-wrap gap-1.5">
+                {selectedNeeds.map((need) => (
+                  <span 
+                    key={need}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#9A7562]/15 text-[#9A7562] border border-[#9A7562]/30 text-[11px] font-mono"
+                  >
+                    <span>{need}</span>
+                    <button 
+                      type="button" 
+                      onClick={() => handleRemoveNeed(need)}
+                      className="hover:text-[#241812] cursor-pointer"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                ))}
               </div>
-              {soundDesign && (
-                <div className="flex justify-between">
-                  <span>Tactile Sound Design & Mix:</span>
-                  <span className="text-[#241812] font-semibold">+$350</span>
-                </div>
-              )}
-              {motionGraphics && (
-                <div className="flex justify-between">
-                  <span>3D Motion & Typography:</span>
-                  <span className="text-[#9A7562] font-semibold">+$450</span>
-                </div>
-              )}
-              {socialCuts && (
-                <div className="flex justify-between">
-                  <span>Vertical Social Cutdowns:</span>
-                  <span className="text-[#241812] font-semibold">+$250</span>
-                </div>
-              )}
-              {turnaround !== "standard" && (
-                <div className="flex justify-between text-[#9A7562] font-semibold">
-                  <span>Schedule Velocity ({turnaround.toUpperCase()}):</span>
-                  <span>+{Math.round((turnaroundMultipliers[turnaround] - 1) * 100)}%</span>
-                </div>
-              )}
+            )}
+          </div>
+
+          {/* Quick Direct Connect Drawer */}
+          <div className="p-5 rounded-2xl liquid-glass-pill flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+            <div className="flex items-center gap-3">
+              <MessageSquare className="w-4 h-4 text-[#9A7562]" />
+              <span className="text-[#6D5548] font-light">Prefer direct chat? Ping me on Discord:</span>
+              <span className="text-[#241812] font-bold">@alterffx</span>
             </div>
 
-            {/* Inclusions Guarantee */}
-            <div className="p-4 rounded-2xl liquid-glass-pill text-xs font-mono text-[#6D5548] space-y-1 font-light">
-              <div>✓ Unlimited micro-tweaks until final cut lock</div>
-              <div>✓ 4K ProRes master + web/mobile optimized exports</div>
-              <div>✓ Full stem audio delivery (Foley, dialogue, music)</div>
+            <button
+              onClick={handleCopyDiscord}
+              className="px-4 py-2 rounded-xl bg-white/60 hover:bg-white text-[#241812] border border-white/70 transition-all flex items-center gap-1.5 cursor-pointer shrink-0 font-medium shadow-2xs"
+            >
+              {copiedDiscord ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Copied @alterffx</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 text-[#9A7562]" />
+                  <span>Copy Discord Tag</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Right Column: Direct Intake Docket Form */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="rounded-3xl liquid-glass-card p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden border border-white/80">
+            <div className="border-b border-white/50 pb-4 space-y-1">
+              <span className="font-light text-xs text-[#9A7562] block uppercase tracking-wider font-semibold font-mono">
+                COMMISSION INTAKE DOCKET
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-normal text-[#241812]">
+                Reserve Your Edit Slot
+              </h3>
+              <p className="text-xs text-[#6D5548] font-light">
+                Fill out your details below or provide a drive link. I review all project scopes within 2 hours.
+              </p>
             </div>
 
-            {/* Booking Form */}
             {submitted ? (
-              <div className="p-6 rounded-2xl liquid-glass border border-[#9A7562] text-center space-y-2 animate-fade-in">
-                <span className="w-8 h-8 rounded-full bg-[#9A7562] text-white flex items-center justify-center mx-auto text-sm font-bold">✓</span>
-                <div className="font-medium text-base text-[#241812]">Intake Docket Filed</div>
-                <p className="text-xs text-[#6D5548] font-light">
-                  Alter will review your project scope and get in touch within 2 hours.
+              <div className="p-8 rounded-2xl liquid-glass border border-[#9A7562] text-center space-y-3 animate-fade-in">
+                <span className="w-10 h-10 rounded-full bg-[#9A7562] text-white flex items-center justify-center mx-auto text-base font-bold shadow-md">✓</span>
+                <div className="font-medium text-lg text-[#241812]">Inquiry Successfully Filed</div>
+                <p className="text-xs text-[#6D5548] font-light max-w-sm mx-auto">
+                  Your project scope for <span className="font-semibold text-[#241812]">{activeTierData.title}</span> has been received. I will reach out directly on Discord / Email within 2 hours.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label className="text-[#6D5548] text-xs font-medium">Your Name / Handle</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Alex (Discord)"
-                      value={producerName}
-                      onChange={(e) => setProducerName(e.target.value)}
-                      className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] focus:outline-none focus:border-[#9A7562] font-sans text-sm"
-                    />
+              <form onSubmit={handleSubmit} className="space-y-4">
+                
+                {/* Active Scope Summary Pill */}
+                <div className="p-3 rounded-xl bg-white/40 border border-white/50 text-xs font-mono flex items-center justify-between">
+                  <span className="text-[#6D5548]">Target Package:</span>
+                  <span className="text-[#241812] font-semibold">{activeTierData.title}</span>
+                </div>
+
+                {/* Included Custom Needs Tag Indicator */}
+                {selectedNeeds.length > 0 && (
+                  <div className="p-3 rounded-xl bg-[#9A7562]/10 border border-[#9A7562]/25 text-xs font-mono text-[#241812]">
+                    <div className="text-[10px] text-[#9A7562] font-semibold mb-1">ATTACHED CUSTOM REQUIREMENTS ({selectedNeeds.length}):</div>
+                    <div className="text-[11px] font-light text-[#6D5548] line-clamp-2">
+                      {selectedNeeds.join(" • ")}
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <label className="text-[#6D5548] text-xs font-medium">Email / Discord Tag</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="alex@studio.com or @alex"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] focus:outline-none focus:border-[#9A7562] font-sans text-sm"
-                    />
-                  </div>
+                )}
+
+                <div className="space-y-1">
+                  <label className="text-[#6D5548] text-xs font-mono font-medium block">
+                    Your Name / Creator Channel
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Alex / Apex Media"
+                    value={clientName}
+                    onChange={(e) => setClientName(e.target.value)}
+                    className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] focus:outline-none focus:border-[#9A7562] font-sans text-sm"
+                  />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[#6D5548] text-xs font-medium">Project Notes / Footage Link</label>
+                  <label className="text-[#6D5548] text-xs font-mono font-medium block">
+                    Discord Handle or Email
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="@username or alex@channel.com"
+                    value={contactHandle}
+                    onChange={(e) => setContactHandle(e.target.value)}
+                    className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] focus:outline-none focus:border-[#9A7562] font-sans text-sm"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[#6D5548] text-xs font-mono font-medium block">
+                    Project Brief & Custom Requirements
+                  </label>
                   <textarea
-                    rows={2}
-                    placeholder="Brief description of video, references, and target deadline..."
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
+                    rows={3}
+                    placeholder="Provide Google Drive footage links, video concept, reference cuts, custom duration, or specific instructions..."
+                    value={projectBrief}
+                    onChange={(e) => setProjectBrief(e.target.value)}
                     className="w-full bg-white/40 border border-white/60 rounded-xl px-4 py-2.5 text-[#241812] placeholder:text-[#6D5548]/60 focus:outline-none focus:border-[#9A7562] font-sans text-sm resize-none"
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 rounded-2xl bg-[#9A7562] text-white font-medium text-sm tracking-wide uppercase hover:bg-[#86614E] transition-all flex items-center justify-center gap-2.5 shadow-lg shadow-[#9A7562]/25 active:scale-98 cursor-pointer border border-white/20"
-                >
-                  {isSubmitting ? (
-                    <span>Confirming Scope...</span>
-                  ) : (
-                    <>
-                      <span>Lock In Availability for This Scope</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 rounded-2xl bg-[#9A7562] text-white font-medium text-sm tracking-wide uppercase hover:bg-[#86614E] transition-all flex items-center justify-center gap-2.5 shadow-lg shadow-[#9A7562]/25 active:scale-98 cursor-pointer border border-white/20"
+                  >
+                    {isSubmitting ? (
+                      <span>Transmitting Inquiry...</span>
+                    ) : (
+                      <>
+                        <span>Submit Project Scope</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Direct SLA Guarantee */}
+                <div className="pt-2 text-[11px] font-mono text-[#6D5548] text-center font-light flex items-center justify-center gap-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#9A7562]" />
+                  <span>Direct Editor Contact • Response Within 2h</span>
+                </div>
               </form>
             )}
           </div>
-
         </div>
 
       </div>

@@ -17,8 +17,10 @@ export const StudioAttribution: React.FC = () => {
   const [copiedInsta, setCopiedInsta] = useState(false)
 
   const DISCORD_HANDLE = "@alterffx"
-  const INSTA_HANDLE = "@alter.ffx"
-  const INSTA_URL = "https://instagram.com/alter.ffx"
+  const DISCORD_NAME = "Alter"
+  const INSTA_HANDLE = "@alterffx"
+  const INSTA_NAME = "Alter"
+  const INSTA_URL = "https://instagram.com/alterffx"
 
   const handleCopyDiscord = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -55,10 +57,10 @@ export const StudioAttribution: React.FC = () => {
       >
         <div className="flex items-center gap-2.5 overflow-hidden">
           <span className="w-2 h-2 rounded-full bg-[#9A7562] animate-pulse"></span>
-          <span className="font-semibold tracking-wider text-white">ALTERFFX STUDIOS</span>
+          <span className="font-semibold tracking-wider text-white">PORTFOLIO ARCHITECTURE</span>
           <span className="hidden sm:inline text-[#EDCFB5]/40">•</span>
           <span className="hidden sm:inline text-[#EDCFB5]/80 font-light">
-            Handcrafted High-Impact Editorial Web Systems
+            Bespoke High-Impact Web Systems for Elite Editors
           </span>
         </div>
 
@@ -67,7 +69,7 @@ export const StudioAttribution: React.FC = () => {
             Want a portfolio like this?
           </span>
           <span className="px-2.5 py-0.5 rounded-full bg-[#9A7562] text-white font-medium uppercase tracking-wider text-[9px] hover:bg-[#86614E] transition-colors flex items-center gap-1 border border-white/20 shadow-xs">
-            <span>Contact Us</span>
+            <span>Get Yours</span>
             <ArrowUpRight className="w-2.5 h-2.5" />
           </span>
         </div>
@@ -88,9 +90,9 @@ export const StudioAttribution: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-1.5 text-xs font-mono font-medium tracking-tight">
-            <span className="text-[#6D5548] font-light">Made by</span>
+            <span className="text-[#6D5548] font-light">Engineered by</span>
             <span className="text-[#241812] group-hover:text-[#9A7562] transition-colors font-semibold">
-              ALTERFFX
+              STUDIO
             </span>
           </div>
 

@@ -4,31 +4,9 @@ import { motion } from "framer-motion"
 import { soundFx } from "../lib/audioEngine"
 import { CloakedVideoPlayer } from "./CloakedVideoPlayer"
 
-// Isolated Memoized NLE Monitor with Liquid Glass Finish
-const InteractiveNLEMonitor = memo(() => {
+// Director's Screening Slate with Liquid Glass Finish
+const InteractiveNLEMonitor = memo(({ onLaunchTheater }: { onLaunchTheater?: () => void }) => {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [scrubberPos, setScrubberPos] = useState(38)
-
-  useEffect(() => {
-    if (!isPlaying) return
-    const interval = setInterval(() => {
-      setScrubberPos((prev) => (prev >= 98 ? 2 : prev + 0.8))
-    }, 60)
-    return () => clearInterval(interval)
-  }, [isPlaying])
-
-  const handleScrub = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const clickX = e.clientX - rect.left
-    const newPos = Math.max(0, Math.min(100, (clickX / rect.width) * 100))
-    setScrubberPos(newPos)
-    soundFx.playTick(800 + newPos * 10, 0.02)
-  }
-
-  const totalFrames = Math.floor((scrubberPos / 100) * 2400)
-  const seconds = Math.floor(totalFrames / 60)
-  const frames = totalFrames % 60
-  const formattedTC = `00:00:${seconds.toString().padStart(2, "0")}:${frames.toString().padStart(2, "0")}`
 
   return (
     <div className="rounded-3xl liquid-glass-card p-5 sm:p-6 shadow-2xl space-y-4 overflow-hidden relative">
@@ -38,15 +16,30 @@ const InteractiveNLEMonitor = memo(() => {
       <div className="absolute bottom-3 left-3 text-xs font-mono text-[#241812]/20 select-none">+</div>
       <div className="absolute bottom-3 right-3 text-xs font-mono text-[#241812]/20 select-none">+</div>
 
-      {/* Monitor Header */}
+      {/* Monitor Header Slate */}
       <div className="flex items-center justify-between border-b border-white/50 pb-3 text-xs font-mono">
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#9A7562] animate-ping"></span>
-          <span className="text-[#241812] font-semibold tracking-wide">SEQ: MONSTER_COMMERCIAL_AE24</span>
+          <span className="w-2.5 h-2.5 rounded-full bg-[#9A7562] animate-pulse"></span>
+          <span className="text-[#241812] font-semibold tracking-wide">CANONICAL REEL // 2026</span>
         </div>
-        <span className="text-[#241812] liquid-glass-pill px-3 py-1 rounded-full font-semibold">
-          {formattedTC}
-        </span>
+        <div className="flex items-center gap-2">
+          {onLaunchTheater && (
+            <button
+              onClick={() => {
+                soundFx.playNeuralBurst()
+                onLaunchTheater()
+              }}
+              className="text-[#241812] hover:text-[#9A7562] liquid-glass-pill px-2.5 py-1 rounded-full font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+              title="Launch full lights-off cinema screening"
+            >
+              <Film className="w-3 h-3 text-[#9A7562]" />
+              <span className="hidden sm:inline">Cinema View</span>
+            </button>
+          )}
+          <span className="text-[#241812] liquid-glass-pill px-2.5 py-1 rounded-full font-semibold hidden sm:inline">
+            60.00 FPS UHD
+          </span>
+        </div>
       </div>
 
       {/* Video Preview Canvas with Cloaked Video Player (Shields YouTube branding, channel links, and watermark clickouts) */}
@@ -61,68 +54,45 @@ const InteractiveNLEMonitor = memo(() => {
         onPlayChange={(playing) => setIsPlaying(playing)}
       />
 
-      {/* Interactive Timeline Tracks (Scrubbable) */}
-      <div className="space-y-2 pt-1">
-        <div className="flex items-center justify-between text-xs font-mono text-[#6D5548]">
-          <span className="font-light">NLE MULTI-TRACK BUS (SCRUBBABLE)</span>
-          <span className="text-[#9A7562] font-medium">60.00 FPS UHD</span>
+      {/* Technical Pipeline Inspector (Grounded in Real Craft) */}
+      <div className="space-y-2 pt-1 font-mono text-xs">
+        <div className="flex items-center justify-between text-[#6D5548] pb-1 border-b border-white/30">
+          <span className="font-light">PIPELINE ARCHITECTURE</span>
+          <span className="text-[#9A7562] font-medium">AFTER EFFECTS 24.3</span>
         </div>
 
-        <div 
-          onClick={handleScrub}
-          className="relative h-28 w-full bg-white/35 backdrop-blur-md rounded-2xl border border-white/50 p-2 cursor-ew-resize overflow-hidden flex flex-col justify-between shadow-inner"
-        >
-          {/* Track V2 */}
-          <div className="h-5 w-full bg-white/40 rounded-lg flex gap-1.5 p-0.5 border border-white/40">
-            <div className="w-[28%] bg-[#9A7562] rounded text-[9px] font-mono text-white px-1.5 flex items-center overflow-hidden font-medium">3D_CAN_PASS</div>
-            <div className="w-[10%] bg-transparent"></div>
-            <div className="w-[28%] bg-[#B79F93] rounded text-[9px] font-mono text-white px-1.5 flex items-center overflow-hidden font-medium">PARTICLE_BURST</div>
-            <div className="w-[34%] bg-[#9A7562] rounded text-[9px] font-mono text-white px-1.5 flex items-center overflow-hidden font-medium">SPEED_RAMP_300%</div>
+        <div className="grid grid-cols-2 gap-2 text-[11px]">
+          <div className="p-2.5 rounded-xl bg-white/40 border border-white/40 space-y-1">
+            <span className="text-[#6D5548] block text-[10px]">3D COMPOSITING</span>
+            <span className="text-[#241812] font-semibold">C4D + Element 3D Passes</span>
           </div>
 
-          {/* Track V1 */}
-          <div className="h-6 w-full bg-white/50 rounded-lg flex gap-1.5 p-0.5 border border-white/50">
-            <div className="w-[35%] bg-[#241812] rounded text-[10px] font-mono text-[#EDCFB5] px-1.5 flex items-center overflow-hidden font-medium">AE24_COMP_01</div>
-            <div className="w-[25%] bg-[#6D5548] rounded text-[10px] font-mono text-white px-1.5 flex items-center overflow-hidden font-medium">3D_CAMERA_TRACK</div>
-            <div className="w-[40%] bg-[#241812] rounded text-[10px] font-mono text-[#EDCFB5] px-1.5 flex items-center overflow-hidden font-medium">COLOR_GRADE_FIN</div>
+          <div className="p-2.5 rounded-xl bg-white/40 border border-white/40 space-y-1">
+            <span className="text-[#6D5548] block text-[10px]">COLOR PIPELINE</span>
+            <span className="text-[#241812] font-semibold">High-Contrast Commercial</span>
           </div>
 
-          {/* Track A1 */}
-          <div className="h-5 w-full bg-white/40 rounded-lg flex gap-1.5 p-0.5 border border-white/40">
-            <div className="w-[60%] bg-[#B79F93] rounded text-[9px] font-mono text-white px-1.5 flex items-center overflow-hidden font-medium">SUB_BASS_DROP_TACTILE</div>
+          <div className="p-2.5 rounded-xl bg-white/40 border border-white/40 space-y-1">
+            <span className="text-[#6D5548] block text-[10px]">MOTION RIGGING</span>
+            <span className="text-[#241812] font-semibold">Expression Easing Curves</span>
           </div>
 
-          {/* Track A2 */}
-          <div className="h-5 w-full bg-white/40 rounded-lg flex gap-1.5 p-0.5 border border-white/40">
-            <div className="w-full bg-[#9A7562] rounded text-[9px] font-mono text-white px-1.5 flex items-center overflow-hidden font-medium">PRODUCT_REVEAL_SYNTH_STEM</div>
-          </div>
-
-          {/* Moving Liquid Scrubber */}
-          <div 
-            className="absolute top-0 bottom-0 w-0.5 bg-[#9A7562] z-20 pointer-events-none transition-all duration-75 shadow-sm"
-            style={{ left: `${scrubberPos}%` }}
-          >
-            <div className="w-3.5 h-3.5 bg-[#9A7562] border border-white rounded-full -translate-x-1.5 -translate-y-1 shadow-md"></div>
+          <div className="p-2.5 rounded-xl bg-white/40 border border-white/40 space-y-1">
+            <span className="text-[#6D5548] block text-[10px]">AUDIO MASTERING</span>
+            <span className="text-[#241812] font-semibold">-14 LUFS Stereo Sync</span>
           </div>
         </div>
       </div>
 
-      {/* Stereo Audio VU Meters */}
+      {/* Live Master Feed Status */}
       <div className="border-t border-white/40 pt-3 flex items-center justify-between text-xs font-mono">
         <span className="text-[#6D5548] flex items-center gap-1.5 font-light">
-          <span className="w-2 h-2 rounded-full bg-[#9A7562]"></span>
-          <span>MASTER STEREO (-14.0 LUFS)</span>
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>NATIVE 4K STREAM READY</span>
         </span>
-        <div className="flex items-center gap-1">
-          <span className="text-[10px] font-bold text-[#6D5548]">L</span>
-          <div className="w-16 h-1.5 bg-white/50 rounded-full overflow-hidden flex border border-white/40">
-            <div className="w-[75%] bg-[#9A7562]"></div>
-          </div>
-          <span className="text-[10px] font-bold text-[#6D5548] ml-1">R</span>
-          <div className="w-16 h-1.5 bg-white/50 rounded-full overflow-hidden flex border border-white/40">
-            <div className="w-[70%] bg-[#9A7562]"></div>
-          </div>
-        </div>
+        <span className="text-[11px] text-[#9A7562] font-semibold">
+          RUN TIME // 00:48:00
+        </span>
       </div>
     </div>
   )
@@ -161,14 +131,14 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
             </span>
           </div>
 
-          {/* Huge Minimalist Headline with Regular Weight and Thin Italic Accent */}
+          {/* Main Title Provided by Alter */}
           <h1 className="font-normal text-5xl sm:text-7xl xl:text-8xl tracking-tight text-[#241812] leading-[1.02]">
-            Concept. Execution. <span className="font-light italic text-[#9A7562]">Impact.</span>
+            I can make it <span className="font-light italic text-[#9A7562]">work.</span>
           </h1>
 
-          {/* Direct Copy with Thin Montserrat */}
-          <p className="text-[#6D5548] text-lg sm:text-xl leading-relaxed max-w-2xl font-light">
-            An 18-year-old video editor & motion designer crafting cinematic edits, 3D product commercial animations, kinetic typography, and high-retention YouTube long form using After Effects 24. Transforming raw vision into high-impact visual stories.
+          {/* Exact Description Provided by Alter */}
+          <p className="text-[#6D5548] text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl font-light">
+            18-year-old video editor passionate about creating cinematic edits, faceless content, talking-head videos, gaming edits, commercials, music videos, and YouTube Shorts &amp; long-form videos. Always learning, experimenting, and bringing ideas to life through After Effects 24.
           </p>
 
           {/* Primary Action Buttons */}
@@ -183,7 +153,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
               <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Play className="w-3.5 h-3.5 fill-white text-white ml-0.5" />
               </div>
-              <span>Watch Commercial Reel (0:48)</span>
+              <span>Watch Reel (0:48)</span>
             </button>
 
             <button
@@ -194,7 +164,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
               className="px-7 py-4 rounded-2xl liquid-glass hover:bg-white/60 text-[#241812] font-medium text-sm tracking-wide uppercase transition-all flex items-center gap-2.5 shadow-xs cursor-pointer border border-[#B79F93]/40"
             >
               <Film className="w-4 h-4 text-[#9A7562]" />
-              <span>Explore Sample Videos</span>
+              <span>Explore Works</span>
             </button>
 
             <button
@@ -204,28 +174,8 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
               }}
               className="px-5 py-4 text-[#6D5548] hover:text-[#241812] font-medium text-sm tracking-wide uppercase transition-colors cursor-pointer"
             >
-              Start A Project
+              Commission Inquiry
             </button>
-          </div>
-
-          {/* Metric Strip in Liquid Glass Panels */}
-          <div className="pt-8 border-t border-white/50 grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="liquid-glass-pill p-4 rounded-2xl text-center sm:text-left">
-              <div className="text-3xl sm:text-4xl font-light text-[#241812]">60+</div>
-              <div className="text-[11px] font-mono text-[#6D5548] mt-1 font-medium uppercase">Projects Done</div>
-            </div>
-            <div className="liquid-glass-pill p-4 rounded-2xl text-center sm:text-left">
-              <div className="text-3xl sm:text-4xl font-light text-[#9A7562]">500K+</div>
-              <div className="text-[11px] font-mono text-[#6D5548] mt-1 font-medium uppercase">Organic Views</div>
-            </div>
-            <div className="liquid-glass-pill p-4 rounded-2xl text-center sm:text-left">
-              <div className="text-3xl sm:text-4xl font-light text-[#241812]">AE 24</div>
-              <div className="text-[11px] font-mono text-[#6D5548] mt-1 font-medium uppercase">Primary Engine</div>
-            </div>
-            <div className="liquid-glass-pill p-4 rounded-2xl text-center sm:text-left">
-              <div className="text-3xl sm:text-4xl font-light text-[#9A7562]">24h</div>
-              <div className="text-[11px] font-mono text-[#6D5548] mt-1 font-medium uppercase">Rapid Delivery</div>
-            </div>
           </div>
         </motion.div>
 
@@ -236,7 +186,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-5 relative"
         >
-          <InteractiveNLEMonitor />
+          <InteractiveNLEMonitor onLaunchTheater={onWatchReel} />
         </motion.div>
 
       </div>

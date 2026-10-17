@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { X, Play, Pause, ArrowRight, Sparkles } from "lucide-react"
+import { X, Play, Pause, ArrowRight, Sparkles, Film } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Project } from "../types/editor"
 import { soundFx } from "../lib/audioEngine"
@@ -9,21 +9,13 @@ interface ProjectModalProps {
   project: Project | null
   onClose: () => void
   onBookProject: (projectTitle: string) => void
+  onOpenTheater?: (project: Project) => void
 }
 
-export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, onBookProject }) => {
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [dialogueActive, setDialogueActive] = useState(true)
-  const [foleyActive, setFoleyActive] = useState(true)
-  const [musicActive, setMusicActive] = useState(true)
+export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, onBookProject, onOpenTheater }) => {
   const [activeTab, setActiveTab] = useState<"edl" | "specs">("edl")
 
   if (!project) return null
-
-  const handlePlayToggle = () => {
-    soundFx.playTick(1200)
-    setIsPlaying(!isPlaying)
-  }
 
   const sampleEdlCuts = [
     { num: "01", tc: "00:00:00:00", type: "Hard Cut", desc: "Establishing 3D Product Motion / Hook Opening" },
@@ -59,16 +51,32 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               </div>
             </div>
 
-            <button
-              onClick={() => {
-                soundFx.playTick(900)
-                onClose()
-              }}
-              aria-label="Close modal"
-              className="p-2.5 rounded-full liquid-glass-pill hover:border-[#9A7562] text-[#241812] transition-all cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              {onOpenTheater && (
+                <button
+                  onClick={() => {
+                    soundFx.playNeuralBurst()
+                    onOpenTheater(project)
+                  }}
+                  className="px-3.5 py-2 rounded-full liquid-glass-pill hover:border-[#9A7562] text-xs font-mono text-[#241812] flex items-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+                  title="Expand to Full Theatrical Screening Mode (Lights Off)"
+                >
+                  <Film className="w-3.5 h-3.5 text-[#9A7562]" />
+                  <span className="hidden sm:inline">Cinema Mode</span>
+                </button>
+              )}
+
+              <button
+                onClick={() => {
+                  soundFx.playTick(900)
+                  onClose()
+                }}
+                aria-label="Close modal"
+                className="p-2.5 rounded-full liquid-glass-pill hover:border-[#9A7562] text-[#241812] transition-all cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Modal Body: Scrollable */}
@@ -85,58 +93,45 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               autoPlay={true}
             />
 
-            {/* Interactive Multi-Stem Audio Mixer Strip in Liquid Glass */}
-            <div className="p-5 rounded-2xl liquid-glass-pill space-y-3.5">
+            {/* Authentic After Effects Compositing Architecture */}
+            <div className="p-5 rounded-2xl liquid-glass-pill space-y-3 font-mono text-xs">
               <div className="flex items-center justify-between text-xs font-mono">
-                <span className="text-[#6D5548] font-medium">MULTI-STEM AUDIO BUS (SOLO / MUTE)</span>
-                <span className="text-[#241812] font-semibold">LCR + SUB PREMIXED</span>
+                <span className="text-[#6D5548] font-light">AFTER EFFECTS COMPOSITING STACK</span>
+                <span className="text-[#9A7562] font-semibold">4K 60.00 FPS DCI</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                <button
-                  onClick={() => {
-                    soundFx.playTick(1000)
-                    setDialogueActive(!dialogueActive)
-                  }}
-                  className={`p-3.5 rounded-xl border text-xs font-mono flex items-center justify-between transition-all cursor-pointer ${
-                    dialogueActive 
-                      ? "border-[#9A7562] bg-white/60 text-[#241812] font-semibold shadow-xs" 
-                      : "border-white/40 bg-white/20 text-[#6D5548]/50 line-through"
-                  }`}
-                >
-                  <span>STEM A1: DIALOGUE / VO</span>
-                  <span className={`w-2 h-2 rounded-full ${dialogueActive ? "bg-[#9A7562]" : "bg-transparent"}`}></span>
-                </button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px]">
+                <div className="p-3 rounded-xl bg-white/40 border border-white/40 flex items-start gap-2.5">
+                  <span className="px-1.5 py-0.5 rounded bg-[#9A7562] text-white font-bold text-[10px]">L01</span>
+                  <div>
+                    <div className="font-semibold text-[#241812]">3D Camera Track & Null Rig</div>
+                    <div className="text-[#6D5548] text-[10px] font-light">3D spatial solve with coordinate anchoring for titles & lighting passes</div>
+                  </div>
+                </div>
 
-                <button
-                  onClick={() => {
-                    soundFx.playTick(1050)
-                    setFoleyActive(!foleyActive)
-                  }}
-                  className={`p-3.5 rounded-xl border text-xs font-mono flex items-center justify-between transition-all cursor-pointer ${
-                    foleyActive 
-                      ? "border-[#9A7562] bg-white/60 text-[#241812] font-semibold shadow-xs" 
-                      : "border-white/40 bg-white/20 text-[#6D5548]/50 line-through"
-                  }`}
-                >
-                  <span>STEM A2: TACTILE FOLEY</span>
-                  <span className={`w-2 h-2 rounded-full ${foleyActive ? "bg-[#B79F93]" : "bg-transparent"}`}></span>
-                </button>
+                <div className="p-3 rounded-xl bg-white/40 border border-white/40 flex items-start gap-2.5">
+                  <span className="px-1.5 py-0.5 rounded bg-[#9A7562] text-white font-bold text-[10px]">L02</span>
+                  <div>
+                    <div className="font-semibold text-[#241812]">Dynamic Speed Ramp Matrix</div>
+                    <div className="text-[#6D5548] text-[10px] font-light">Custom velocity curves easing from 300% to 60fps on impact hits</div>
+                  </div>
+                </div>
 
-                <button
-                  onClick={() => {
-                    soundFx.playTick(1100)
-                    setMusicActive(!musicActive)
-                  }}
-                  className={`p-3.5 rounded-xl border text-xs font-mono flex items-center justify-between transition-all cursor-pointer ${
-                    musicActive 
-                      ? "border-[#9A7562] bg-white/60 text-[#241812] font-semibold shadow-xs" 
-                      : "border-white/40 bg-white/20 text-[#6D5548]/50 line-through"
-                  }`}
-                >
-                  <span>STEM A3: MUSIC SCORE</span>
-                  <span className={`w-2 h-2 rounded-full ${musicActive ? "bg-[#9A7562]" : "bg-transparent"}`}></span>
-                </button>
+                <div className="p-3 rounded-xl bg-white/40 border border-white/40 flex items-start gap-2.5">
+                  <span className="px-1.5 py-0.5 rounded bg-[#9A7562] text-white font-bold text-[10px]">L03</span>
+                  <div>
+                    <div className="font-semibold text-[#241812]">Kinetic Typography Expressions</div>
+                    <div className="text-[#6D5548] text-[10px] font-light">Expression-rigged titles with elastic overshoot & motion blur</div>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-white/40 border border-white/40 flex items-start gap-2.5">
+                  <span className="px-1.5 py-0.5 rounded bg-[#9A7562] text-white font-bold text-[10px]">L04</span>
+                  <div>
+                    <div className="font-semibold text-[#241812]">Master Stereo & Sub-Bass Foley</div>
+                    <div className="text-[#6D5548] text-[10px] font-light">Frame-accurate tactile sub hits, risers, and -14.0 LUFS dialogue mixing</div>
+                  </div>
+                </div>
               </div>
             </div>
 

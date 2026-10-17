@@ -40,6 +40,7 @@ export interface Testimonial {
   year: string
   avatarUrl?: string
   screenshotUrl?: string
+  platform?: string
 }
 
 export interface ClientLogo {

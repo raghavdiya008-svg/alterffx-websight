@@ -6,21 +6,35 @@ import { soundFx } from "../lib/audioEngine"
 export const ColorGradeLoupe: React.FC = () => {
   const [sliderPos, setSliderPos] = useState(52) // percentage 0 - 100
   const [activeProfile, setActiveProfile] = useState<"kodak" | "technicolor" | "monochrome">("kodak")
-  const animFrameRef = useRef<number | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isDraggingRef = useRef(false)
 
-  // Smooth 60fps loupe drag using requestAnimationFrame
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const newPos = Math.max(5, Math.min(95, (x / rect.width) * 100))
-    
-    if (animFrameRef.current) {
-      cancelAnimationFrame(animFrameRef.current)
-    }
-    animFrameRef.current = requestAnimationFrame(() => {
-      setSliderPos(newPos)
-    })
+  const updatePosition = useCallback((clientX: number) => {
+    if (!containerRef.current) return
+    const rect = containerRef.current.getBoundingClientRect()
+    const x = clientX - rect.left
+    const newPos = Math.max(2, Math.min(98, (x / rect.width) * 100))
+    setSliderPos(newPos)
   }, [])
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current = true
+    e.currentTarget.setPointerCapture(e.pointerId)
+    updatePosition(e.clientX)
+  }
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (isDraggingRef.current || e.buttons === 1) {
+      updatePosition(e.clientX)
+    }
+  }
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current = false
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    } catch (_) {}
+  }
 
   const profiles = {
     kodak: {
@@ -65,7 +79,7 @@ export const ColorGradeLoupe: React.FC = () => {
             Before & After Color Science
           </h2>
           <p className="text-[#6D5548] text-base sm:text-lg mt-2 max-w-2xl font-light">
-            Drag the liquid loupe divider to inspect how flat camera renders and 3D passes are calibrated into high-impact commercial masters.
+            Drag the loupe divider across the still frame. The picture stays stationary while revealing the before and after color grade.
           </p>
         </div>
 
@@ -120,56 +134,63 @@ export const ColorGradeLoupe: React.FC = () => {
           </div>
         </div>
 
-        {/* The Split Drag Canvas with hardware acceleration */}
+        {/* The Split Drag Canvas: Image Stays Completely Still (No Zooming) */}
         <div
-          onMouseMove={handleMouseMove}
-          className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black cursor-ew-resize select-none border border-white/50 shadow-inner will-change-transform"
+          ref={containerRef}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black cursor-ew-resize select-none border border-white/50 shadow-inner"
+          style={{ touchAction: "none" }}
         >
-          {/* Base Layer: Raw Log */}
-          <div className="absolute inset-0 w-full h-full">
+          {/* Base Layer: Raw Log (Stationary, 100% scale, no zoom) */}
+          <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none">
             <img
               src="https://img.youtube.com/vi/EPU8ivyiWHI/maxresdefault.jpg"
               alt="Raw Log Plate"
-              className="w-full h-full object-cover filter contrast-75 brightness-110 saturate-25"
+              draggable={false}
+              className="w-full h-full object-cover filter contrast-75 brightness-110 saturate-25 pointer-events-none select-none transform-none transition-none scale-100"
             />
             {/* Raw Tag */}
-            <div className="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-black/80 border border-white/20 text-xs font-mono text-white backdrop-blur-md font-medium">
+            <div className="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-black/80 border border-white/20 text-xs font-mono text-white backdrop-blur-md font-medium select-none pointer-events-none">
               RAW LOG (UNGRADED 3D PASS)
             </div>
           </div>
 
-          {/* Top Layer: Final Master Grade */}
+          {/* Top Layer: Final Master Grade with Polygon Clip Path (Stationary, 100% scale, no zoom) */}
           <div
-            className="absolute inset-0 h-full overflow-hidden will-change-[width]"
-            style={{ width: `${sliderPos}%` }}
+            className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none"
+            style={{ 
+              clipPath: `polygon(0 0, ${sliderPos}% 0, ${sliderPos}% 100%, 0 100%)`,
+              WebkitClipPath: `polygon(0 0, ${sliderPos}% 0, ${sliderPos}% 100%, 0 100%)`
+            }}
           >
-            <div className="relative w-full h-full" style={{ width: "100%", minWidth: "100%" }}>
-              <img
-                src="https://img.youtube.com/vi/EPU8ivyiWHI/maxresdefault.jpg"
-                alt="Finished Master Grade"
-                className={`w-full h-full object-cover ${
-                  activeProfile === "monochrome" 
-                    ? "filter grayscale contrast-125 brightness-95" 
-                    : activeProfile === "technicolor"
-                    ? "filter saturate-150 contrast-110"
-                    : "filter contrast-110 saturate-110"
-                }`}
-                style={{ width: "100vw", maxWidth: "none", minWidth: "100%" }}
-              />
-            </div>
+            <img
+              src="https://img.youtube.com/vi/EPU8ivyiWHI/maxresdefault.jpg"
+              alt="Finished Master Grade"
+              draggable={false}
+              className={`w-full h-full object-cover pointer-events-none select-none transform-none transition-none scale-100 ${
+                activeProfile === "monochrome" 
+                  ? "filter grayscale contrast-125 brightness-95" 
+                  : activeProfile === "technicolor"
+                  ? "filter saturate-150 contrast-110"
+                  : "filter contrast-110 saturate-110"
+              }`}
+            />
             
             {/* Graded Tag */}
-            <div className="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-[#9A7562]/90 border border-white/40 text-xs font-mono text-white backdrop-blur-md font-medium shadow-md">
+            <div className="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-[#9A7562]/90 border border-white/40 text-xs font-mono text-white backdrop-blur-md font-medium shadow-md select-none pointer-events-none">
               FINISHED COMMERCIAL GRADE
             </div>
           </div>
 
-          {/* Divider Handle with Liquid Glass Ring */}
+          {/* Divider Line & Touch Drag Handle */}
           <div
-            className="absolute top-0 bottom-0 w-0.5 bg-white/90 z-20 pointer-events-none shadow-[0_0_16px_rgba(255,255,255,0.9)]"
+            className="absolute top-0 bottom-0 w-0.5 bg-white z-20 pointer-events-none shadow-[0_0_16px_rgba(255,255,255,0.95)]"
             style={{ left: `${sliderPos}%` }}
           >
-            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-11 h-11 rounded-full liquid-glass border-2 border-white shadow-2xl flex items-center justify-center text-[#241812] text-xs font-mono font-bold">
+            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-11 h-11 rounded-full bg-white/95 text-[#241812] border-2 border-[#9A7562] shadow-2xl flex items-center justify-center text-xs font-mono font-bold select-none">
               ↔
             </div>
           </div>
@@ -183,7 +204,7 @@ export const ColorGradeLoupe: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2 text-[#9A7562] font-semibold shrink-0">
-            <span>POSITION: {Math.round(sliderPos)}%</span>
+            <span>SPLIT: {Math.round(sliderPos)}%</span>
             <span>•</span>
             <span>4K 60FPS MASTER</span>
           </div>

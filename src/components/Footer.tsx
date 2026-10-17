@@ -32,7 +32,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
               Ready to elevate your edits to commercial grade?
             </h3>
             <p className="text-base text-[#6D5548] font-light leading-relaxed">
-              Accepting commissions for product commercial animations, YouTube long form documentary editing, podcast series, and viral short-form retention hooks.
+              Accepting commissions for product commercial animations, gaming montages, faceless high-retention channels, and viral short-form hooks.
             </p>
           </div>
 
@@ -69,11 +69,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
             </div>
             
             <p className="text-[#6D5548] leading-relaxed max-w-sm font-light text-sm">
-              18 Yo Video editor & motion designer creating cinematic edits, 3D commercial animations, kinetic typography, and YouTube long form using After Effects 24.
+              18-year-old video editor passionate about creating cinematic edits, faceless content, talking-head videos, gaming edits, commercials, music videos, and YouTube content in After Effects 24.
             </p>
 
-            <div className="text-xs font-mono text-[#241812] flex items-center gap-2 font-medium">
-              <span>CONCEPT. EXECUTION. IMPACT.</span>
+            <div className="text-xs font-mono text-[#6D5548] flex items-center gap-2 font-medium">
+              <span>MOTION DESIGN & EDITORIAL SUITE</span>
             </div>
           </div>
 
@@ -112,8 +112,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
               </span>
               <ul className="space-y-2.5 text-[#6D5548] text-sm font-light">
                 <li>
-                  <a href="https://instagram.com/alter.ffx" target="_blank" rel="noopener noreferrer" className="hover:text-[#241812] transition-colors flex items-center gap-1.5">
-                    <span>Instagram: @alter.ffx</span>
+                  <a href="https://instagram.com/alterffx" target="_blank" rel="noopener noreferrer" className="hover:text-[#241812] transition-colors flex items-center gap-1.5">
+                    <span>Instagram: @alterffx</span>
                   </a>
                 </li>
                 <li>
@@ -158,7 +158,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
           <div className="flex items-center gap-4">
             <span className="font-light">ENGINE: AFTER EFFECTS 24</span>
             <span>•</span>
-            <span className="text-[#241812] font-semibold">CONCEPT. EXECUTION. IMPACT.</span>
+            <span className="text-[#9A7562] font-semibold">60.00 FPS DCI MASTER</span>
           </div>
         </div>
 

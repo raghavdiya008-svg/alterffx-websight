@@ -55,12 +55,12 @@ export const Testimonials: React.FC = () => {
                   <img
                     src={test.screenshotUrl}
                     alt={`${test.author} review`}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-top"
                     loading="lazy"
                   />
                   <div className="absolute top-2.5 right-2.5 liquid-glass-pill px-2.5 py-1 rounded-full text-[10px] font-mono text-[#241812] flex items-center gap-1 font-semibold">
                     <MessageSquare className="w-3 h-3 text-[#9A7562]" />
-                    <span>DISCORD / DM</span>
+                    <span>{test.platform || "VERIFIED // RECEIPT"}</span>
                   </div>
                 </div>
               )}

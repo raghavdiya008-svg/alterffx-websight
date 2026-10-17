@@ -78,7 +78,7 @@ export const CloakedVideoPlayer: React.FC<CloakedVideoPlayerProps> = ({
                 {title}
               </span>
               <span className="hidden md:inline text-white/40 font-mono text-xs">•</span>
-              <span className="hidden md:inline-block px-2.5 py-0.5 rounded-full bg-[#9A7562] text-[10px] font-mono text-white uppercase font-medium shrink-0">
+              <span className="hidden md:inline-block px-2.5 py-0.5 rounded-full bg-[#9A7562] text-[10px] font-sans text-white uppercase font-medium tracking-wider shrink-0">
                 {category}
               </span>
             </div>
