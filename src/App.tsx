@@ -14,6 +14,8 @@ import { Footer } from "./components/Footer"
 import { StudioAttribution } from "./components/StudioAttribution"
 import { Project } from "./types/editor"
 import { PROJECTS } from "./data/editorData"
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 export function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
@@ -152,6 +154,10 @@ export function App() {
           <span className="font-semibold">{toastMessage}</span>
         </div>
       )}
+
+      {/* Vercel Web Analytics & Real-Time Speed Insights (Free Tier) */}
+      <Analytics />
+      <SpeedInsights />
 
     </div>
   )

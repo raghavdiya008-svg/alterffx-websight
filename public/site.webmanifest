@@ -1,0 +1,17 @@
+{
+  "name": "ALTER // Motion Design & Editorial Suite",
+  "short_name": "ALTER",
+  "description": "Portfolio of Alter (alterffx) — Motion graphics artist and video editor specializing in After Effects & Premiere Pro.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EDCFB5",
+  "theme_color": "#EDCFB5",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
