@@ -1,23 +1,22 @@
-// Ultra-luxury subtle sound synthesis & cinematic ambient music engine via Web Audio API
+// Soft, pleasant ambient background music & micro-sound synthesis engine
 class AudioEngine {
   private ctx: AudioContext | null = null
   private masterGain: GainNode | null = null
-  private ambientGain: GainNode | null = null
-  private ambientFilter: BiquadFilterNode | null = null
-  private oscillators: OscillatorNode[] = []
-  private lfo: OscillatorNode | null = null
+  private bgmAudio: HTMLAudioElement | null = null
   private isMuted: boolean = true
   private isMusicPlaying: boolean = false
-  private chordInterval: ReturnType<typeof setInterval> | null = null
+  private fadeInterval: ReturnType<typeof setInterval> | null = null
+  private oscillators: OscillatorNode[] = []
 
   private initContext() {
     if (!this.ctx && typeof window !== "undefined") {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
-      this.ctx = new AudioCtx()
-      
-      this.masterGain = this.ctx.createGain()
-      this.masterGain.gain.setValueAtTime(1, this.ctx.currentTime)
-      this.masterGain.connect(this.ctx.destination)
+      if (AudioCtx) {
+        this.ctx = new AudioCtx()
+        this.masterGain = this.ctx.createGain()
+        this.masterGain.gain.setValueAtTime(1, this.ctx.currentTime)
+        this.masterGain.connect(this.ctx.destination)
+      }
     }
     if (this.ctx && this.ctx.state === "suspended") {
       this.ctx.resume()
@@ -41,118 +40,118 @@ class AudioEngine {
     return this.isMuted
   }
 
-  // Cinematic Ambient Background Music Generator (Warm Analog Cinema Drone)
+  // Soft, Pleasant, Warm Piano Lofi Background Music
   public startAmbientMusic() {
-    if (this.isMusicPlaying || !this.ctx || !this.masterGain) return
+    if (this.isMusicPlaying) return
     this.isMusicPlaying = true
 
-    try {
-      const now = this.ctx.currentTime
+    if (typeof window !== "undefined") {
+      try {
+        if (!this.bgmAudio) {
+          this.bgmAudio = new Audio("/audio/ambient-bgm.mp3")
+          this.bgmAudio.loop = true
+          this.bgmAudio.preload = "auto"
+        }
 
-      // Ambient Master Gain with smooth fade in
-      this.ambientGain = this.ctx.createGain()
-      this.ambientGain.gain.setValueAtTime(0.0001, now)
-      this.ambientGain.gain.exponentialRampToValueAtTime(0.035, now + 2.0)
+        if (this.fadeInterval) {
+          clearInterval(this.fadeInterval)
+          this.fadeInterval = null
+        }
 
-      // Warm analog lowpass filter (removes harsh highs, keeps it warm and deep)
-      this.ambientFilter = this.ctx.createBiquadFilter()
-      this.ambientFilter.type = "lowpass"
-      this.ambientFilter.frequency.setValueAtTime(420, now)
-      this.ambientFilter.Q.setValueAtTime(1.8, now)
-
-      // Slow LFO to breathe subtle movement into the filter cutoff
-      this.lfo = this.ctx.createOscillator()
-      const lfoGain = this.ctx.createGain()
-      this.lfo.frequency.setValueAtTime(0.12, now) // 0.12 Hz slow wave
-      lfoGain.gain.setValueAtTime(80, now) // Sweeps filter +/- 80Hz
-      this.lfo.connect(lfoGain)
-      lfoGain.connect(this.ambientFilter.frequency)
-      this.lfo.start()
-
-      // Connect nodes: Filter -> AmbientGain -> MasterGain
-      this.ambientFilter.connect(this.ambientGain)
-      this.ambientGain.connect(this.masterGain)
-
-      // Lush Chord notes (Warm Pentatonic Cinema Chords: F2, C3, Ab3, Eb4)
-      const chordFrequencies = [87.31, 130.81, 207.65, 311.13]
-      this.oscillators = []
-
-      chordFrequencies.forEach((freq, idx) => {
-        if (!this.ctx || !this.ambientFilter) return
-        const osc = this.ctx.createOscillator()
-        const voiceGain = this.ctx.createGain()
-
-        // Slight detune for analog warmth
-        const detuneCents = (idx % 2 === 0 ? 1 : -1) * (4 + idx * 2)
-        osc.type = idx === 0 ? "sawtooth" : "triangle"
-        osc.frequency.setValueAtTime(freq, now)
-        osc.detune.setValueAtTime(detuneCents, now)
-
-        voiceGain.gain.setValueAtTime(0.25, now)
-        osc.connect(voiceGain)
-        voiceGain.connect(this.ambientFilter)
-
-        osc.start()
-        this.oscillators.push(osc)
-      })
-
-      // Gentle sub-bass pulse every 4 seconds
-      this.chordInterval = setInterval(() => {
-        if (!this.isMusicPlaying || !this.ctx || !this.masterGain) return
-        try {
-          const t = this.ctx.currentTime
-          const subOsc = this.ctx.createOscillator()
-          const subGain = this.ctx.createGain()
-
-          subOsc.type = "sine"
-          subOsc.frequency.setValueAtTime(55, t) // A1 warm sub
-          subOsc.frequency.exponentialRampToValueAtTime(35, t + 0.6)
-
-          subGain.gain.setValueAtTime(0.02, t)
-          subGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.8)
-
-          subOsc.connect(subGain)
-          subGain.connect(this.masterGain)
-
-          subOsc.start(t)
-          subOsc.stop(t + 0.8)
-        } catch (_) {}
-      }, 4000)
-
-    } catch (e) {
-      console.warn("Ambient music init error:", e)
+        // Smooth gradual volume rise to a gentle, pleasant background level (0.25)
+        this.bgmAudio.volume = 0.01
+        const playPromise = this.bgmAudio.play()
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              let currentVol = 0.01
+              const targetVol = 0.25
+              this.fadeInterval = setInterval(() => {
+                if (!this.isMusicPlaying || !this.bgmAudio) {
+                  if (this.fadeInterval) clearInterval(this.fadeInterval)
+                  return
+                }
+                currentVol = Math.min(targetVol, currentVol + 0.02)
+                this.bgmAudio.volume = currentVol
+                if (currentVol >= targetVol) {
+                  if (this.fadeInterval) clearInterval(this.fadeInterval)
+                }
+              }, 60)
+            })
+            .catch(() => {
+              // Fallback to gentle harmonic sine chords if browser audio element policy restricts it
+              this.fallbackSoftGenerativeBgm()
+            })
+        }
+      } catch (_) {
+        this.fallbackSoftGenerativeBgm()
+      }
     }
   }
 
   public stopAmbientMusic() {
     this.isMusicPlaying = false
-    if (this.chordInterval) {
-      clearInterval(this.chordInterval)
-      this.chordInterval = null
+
+    if (this.fadeInterval) {
+      clearInterval(this.fadeInterval)
+      this.fadeInterval = null
     }
 
-    if (this.ambientGain && this.ctx) {
+    if (this.bgmAudio) {
+      let currentVol = this.bgmAudio.volume
+      this.fadeInterval = setInterval(() => {
+        currentVol = Math.max(0, currentVol - 0.03)
+        if (this.bgmAudio) this.bgmAudio.volume = currentVol
+        if (currentVol <= 0) {
+          if (this.fadeInterval) clearInterval(this.fadeInterval)
+          if (this.bgmAudio) {
+            this.bgmAudio.pause()
+            this.bgmAudio.currentTime = 0
+          }
+        }
+      }, 40)
+    }
+
+    this.stopGenerativeFallback()
+  }
+
+  // Pure gentle, peaceful sine-wave chord fallback (No harsh sawtooth, no heavy bass thumping)
+  private fallbackSoftGenerativeBgm() {
+    if (!this.ctx || !this.masterGain) return
+    try {
       const now = this.ctx.currentTime
-      this.ambientGain.gain.cancelScheduledValues(now)
-      this.ambientGain.gain.setValueAtTime(this.ambientGain.gain.value, now)
-      this.ambientGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.0)
+      const filter = this.ctx.createBiquadFilter()
+      filter.type = "lowpass"
+      filter.frequency.setValueAtTime(320, now)
 
-      setTimeout(() => {
-        this.oscillators.forEach(osc => {
-          try {
-            osc.stop()
-            osc.disconnect()
-          } catch (_) {}
-        })
-        this.oscillators = []
+      const gainNode = this.ctx.createGain()
+      gainNode.gain.setValueAtTime(0.0001, now)
+      gainNode.gain.exponentialRampToValueAtTime(0.015, now + 2.0)
 
-        try {
-          this.lfo?.stop()
-          this.lfo?.disconnect()
-          this.lfo = null
-        } catch (_) {}
-      }, 1000)
-    }
+      filter.connect(gainNode)
+      gainNode.connect(this.masterGain)
+
+      // Soft Major 9th peaceful chord: C3, G3, B3, E4
+      const notes = [130.81, 196.00, 246.94, 329.63]
+      this.oscillators = notes.map((freq) => {
+        const osc = this.ctx!.createOscillator()
+        osc.type = "sine"
+        osc.frequency.setValueAtTime(freq, now)
+        osc.connect(filter)
+        osc.start(now)
+        return osc
+      })
+    } catch (_) {}
+  }
+
+  private stopGenerativeFallback() {
+    this.oscillators.forEach(osc => {
+      try {
+        osc.stop()
+        osc.disconnect()
+      } catch (_) {}
+    })
+    this.oscillators = []
   }
 
   public playTick(frequency = 1200, duration = 0.03) {
