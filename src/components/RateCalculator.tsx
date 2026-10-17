@@ -89,14 +89,14 @@ export const RateCalculator: React.FC<RateCalculatorProps> = ({ prefilledProject
     {
       id: "commercial" as const,
       num: "01",
-      title: "3D Commercial & Product Motion",
-      subtitle: "30s–60s High-Octane Commercials",
-      idealFor: "Brands, product launches, 3D reveals & hardware animations",
+      title: "Short Form Videos",
+      subtitle: "30s–60s Viral Shorts, Reels & TikToks",
+      idealFor: "Creators, brands, TikTok, Instagram Reels & YouTube Shorts",
       deliverables: [
-        "Full 3D Element/C4D multi-pass compositing",
-        "Dynamic velocity speed ramps & camera tracking",
-        "Tactile sub-bass hits & organic foley sound design",
-        "Master ProRes 422 HQ + 9:16 vertical social cutdown"
+        "High-retention 1.5s hook design & dynamic transitions",
+        "Kinetic subtitle animations & visual punch-ins",
+        "Tactile sound design, risers, swooshes & trending audio sync",
+        "Master 9:16 vertical ProRes / MP4 export (1080p & 4K)"
       ],
       turnaround: "2–3 Days Turnaround"
     },
