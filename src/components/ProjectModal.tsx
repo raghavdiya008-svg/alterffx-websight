@@ -39,20 +39,20 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.96 }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           className="relative w-full max-w-5xl rounded-3xl border border-[#1C2618]/25 bg-[#E5EBD5] shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh] text-[#1C2618]"
         >
           
           {/* Header Bar */}
-          <div className="p-4 sm:p-6 border-b border-[#1C2618]/15 flex items-center justify-between bg-[#CBD4B1]">
-            <div className="flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#E8512A]"></span>
+          <div className="p-5 sm:p-6 border-b border-[#1C2618]/15 flex items-center justify-between bg-[#CBD4B1]">
+            <div className="flex items-center gap-3.5">
+              <span className="w-3 h-3 rounded-full bg-[#E8512A]"></span>
               <div>
-                <div className="font-mono text-[10px] text-[#5E6B4E] uppercase tracking-wider font-semibold">
+                <div className="font-mono text-xs text-[#5E6B4E] uppercase tracking-wider font-bold">
                   {project.client} • {project.category}
                 </div>
                 {/* Project Title in italic Boska */}
-                <h3 className="font-serif italic text-2xl font-normal text-[#1C2618]">
+                <h3 className="font-serif italic text-3xl sm:text-4xl font-normal text-[#1C2618]">
                   {project.title}
                 </h3>
               </div>
@@ -63,7 +63,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
                 soundFx.playTick(900)
                 onClose()
               }}
-              className="p-2 rounded-full border border-[#1C2618]/20 bg-[#D6DDBF] hover:bg-[#E0E6CE] hover:border-[#E8512A] text-[#1C2618] transition-all"
+              className="p-2.5 rounded-full border border-[#1C2618]/20 bg-[#D6DDBF] hover:bg-[#E0E6CE] hover:border-[#E8512A] text-[#1C2618] transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -77,7 +77,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               <img
                 src={project.stillImage}
                 alt={project.title}
-                className={`w-full h-full object-cover transition-all duration-700 ${isPlaying ? "scale-105" : "scale-100"}`}
+                className={`w-full h-full object-cover transition-all duration-500 ${isPlaying ? "scale-105" : "scale-100"}`}
               />
               
               {/* Dark Gradient Overlay */}
@@ -92,9 +92,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               </button>
 
               {/* Live Playback State HUD */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-mono text-white/95">
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-mono text-white/95 font-medium">
                 <span className="flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full ${isPlaying ? "bg-[#CBD4B1] animate-ping" : "bg-white/50"}`}></span>
+                  <span className={`w-2.5 h-2.5 rounded-full ${isPlaying ? "bg-[#CBD4B1] animate-ping" : "bg-white/50"}`}></span>
                   <span>{isPlaying ? "STREAMING PRORES PROXY" : "PAUSED AT 00:00:14:02"}</span>
                 </span>
 
@@ -103,19 +103,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
             </div>
 
             {/* Interactive Multi-Stem Audio Mixer Strip */}
-            <div className="p-4 sm:p-5 rounded-2xl border border-[#1C2618]/15 bg-[#CBD4B1] space-y-3">
+            <div className="p-5 rounded-2xl border border-[#1C2618]/15 bg-[#CBD4B1] space-y-3.5">
               <div className="flex items-center justify-between text-xs font-mono">
-                <span className="text-[#5E6B4E] font-semibold">MULTI-STEM AUDIO BUS (SOLO / MUTE)</span>
+                <span className="text-[#5E6B4E] font-bold">MULTI-STEM AUDIO BUS (SOLO / MUTE)</span>
                 <span className="text-[#1C2618] font-bold">LCR + SUB PREMIXED</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                 <button
                   onClick={() => {
                     soundFx.playTick(1000)
                     setDialogueActive(!dialogueActive)
                   }}
-                  className={`p-3 rounded-xl border text-xs font-mono flex items-center justify-between transition-all ${
+                  className={`p-3.5 rounded-xl border text-xs font-mono flex items-center justify-between transition-all ${
                     dialogueActive 
                       ? "border-[#1C2618] bg-[#D6DDBF] text-[#1C2618] font-bold shadow-2xs" 
                       : "border-[#1C2618]/15 bg-[#E0E6CE] text-[#5E6B4E]"
@@ -130,7 +130,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
                     soundFx.playTick(1100)
                     setFoleyActive(!foleyActive)
                   }}
-                  className={`p-3 rounded-xl border text-xs font-mono flex items-center justify-between transition-all ${
+                  className={`p-3.5 rounded-xl border text-xs font-mono flex items-center justify-between transition-all ${
                     foleyActive 
                       ? "border-[#E8512A] bg-[#D6DDBF] text-[#E8512A] font-bold shadow-2xs" 
                       : "border-[#1C2618]/15 bg-[#E0E6CE] text-[#5E6B4E]"
@@ -145,7 +145,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
                     soundFx.playTick(1200)
                     setMusicActive(!musicActive)
                   }}
-                  className={`p-3 rounded-xl border text-xs font-mono flex items-center justify-between transition-all ${
+                  className={`p-3.5 rounded-xl border text-xs font-mono flex items-center justify-between transition-all ${
                     musicActive 
                       ? "border-[#B59226] bg-[#D6DDBF] text-[#B59226] font-bold shadow-2xs" 
                       : "border-[#1C2618]/15 bg-[#E0E6CE] text-[#5E6B4E]"
@@ -159,7 +159,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
 
             {/* Dual Tabs: EDL Cut Marks vs Project Technical Specs */}
             <div className="space-y-4">
-              <div className="flex items-center gap-4 border-b border-[#1C2618]/15 pb-2 text-xs font-mono">
+              <div className="flex items-center gap-5 border-b border-[#1C2618]/15 pb-2 text-sm font-mono">
                 <button
                   onClick={() => setActiveTab("edl")}
                   className={`pb-2 border-b-2 transition-all ${
@@ -184,39 +184,39 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               </div>
 
               {activeTab === "edl" ? (
-                <div className="space-y-2 font-mono text-xs">
+                <div className="space-y-2.5 font-mono text-xs">
                   {sampleEdlCuts.map((cut, idx) => (
                     <div
                       key={idx}
-                      className="p-3 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1] flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+                      className="p-3.5 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3.5">
                         <span className="text-[#E8512A] font-bold">CUT {cut.num}</span>
                         <span className="text-[#1C2618] font-semibold">{cut.tc}</span>
-                        <span className="px-2 py-0.5 rounded bg-[#D6DDBF] text-[10px] text-[#5E6B4E]">
+                        <span className="px-2.5 py-0.5 rounded bg-[#D6DDBF] text-xs text-[#5E6B4E] font-medium">
                           {cut.type}
                         </span>
                       </div>
-                      <span className="text-[#1C2618] text-[11px] font-sans">{cut.desc}</span>
+                      <span className="text-[#1C2618] text-xs font-sans font-medium">{cut.desc}</span>
                     </div>
                   ))}
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono text-xs">
-                  <div className="p-3.5 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
-                    <span className="text-[#5E6B4E] text-[10px] block uppercase">Director</span>
+                  <div className="p-4 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
+                    <span className="text-[#5E6B4E] text-xs block uppercase font-medium">Director</span>
                     <span className="text-[#1C2618] font-bold mt-1 block">{project.director}</span>
                   </div>
-                  <div className="p-3.5 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
-                    <span className="text-[#5E6B4E] text-[10px] block uppercase">Turnaround</span>
+                  <div className="p-4 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
+                    <span className="text-[#5E6B4E] text-xs block uppercase font-medium">Turnaround</span>
                     <span className="text-[#1C2618] font-bold mt-1 block">{project.turnaroundDays} Business Days</span>
                   </div>
-                  <div className="p-3.5 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
-                    <span className="text-[#5E6B4E] text-[10px] block uppercase">Suite</span>
+                  <div className="p-4 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
+                    <span className="text-[#5E6B4E] text-xs block uppercase font-medium">Suite</span>
                     <span className="text-[#1C2618] font-bold mt-1 block">DaVinci Resolve Studio 19</span>
                   </div>
-                  <div className="p-3.5 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
-                    <span className="text-[#5E6B4E] text-[10px] block uppercase">Master</span>
+                  <div className="p-4 rounded-xl border border-[#1C2618]/15 bg-[#CBD4B1]">
+                    <span className="text-[#5E6B4E] text-xs block uppercase font-medium">Master</span>
                     <span className="text-[#E8512A] font-bold mt-1 block">ProRes 4444 XQ</span>
                   </div>
                 </div>
@@ -226,8 +226,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
           </div>
 
           {/* Modal Footer CTA */}
-          <div className="p-4 sm:p-6 border-t border-[#1C2618]/15 bg-[#CBD4B1] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="text-xs font-serif italic text-[#5E6B4E]">
+          <div className="p-5 sm:p-6 border-t border-[#1C2618]/15 bg-[#CBD4B1] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="text-sm font-serif italic text-[#5E6B4E]">
               Have a similar commercial or narrative project ready for dailies?
             </div>
 
@@ -236,10 +236,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
                 soundFx.playTick(1300)
                 onBookProject(project.title)
               }}
-              className="px-6 py-3 rounded-xl bg-[#E8512A] text-white text-xs font-sans font-medium uppercase tracking-wider hover:bg-[#CF401B] transition-all flex items-center justify-center gap-2 shadow-sm"
+              className="px-7 py-3.5 rounded-xl bg-[#E8512A] text-white text-xs font-sans font-semibold uppercase tracking-wider hover:bg-[#CF401B] transition-all flex items-center justify-center gap-2 shadow-sm"
             >
               <span>Book Edit for Project Like This</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
