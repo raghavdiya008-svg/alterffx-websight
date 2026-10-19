@@ -28,7 +28,7 @@ const InteractiveNLEMonitor = memo(({ onLaunchTheater }: { onLaunchTheater?: () 
       <div className="flex items-center justify-between border-b border-white/50 pb-3 text-xs font-mono">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-[#9A7562] animate-pulse"></span>
-          <span className="text-[#241812] font-semibold tracking-wide">CANONICAL REEL // 2026</span>
+          <span className="text-[#241812] font-semibold tracking-wide">OFFICIAL SHOWREEL // 2026</span>
         </div>
         <div className="flex items-center gap-2">
           {onLaunchTheater && (

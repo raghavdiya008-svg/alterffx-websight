@@ -1,7 +1,8 @@
 import { Project, Testimonial, ClientLogo } from "../types/editor"
 
 export const CLIENT_ROSTER: ClientLogo[] = [
-  { name: "Alternator Showreel", division: "3D Commercial Animation", projectCount: 4 },
+  { name: "Official Showreel", division: "High-Tempo Brand & Motion", projectCount: 6 },
+  { name: "Monster Showreel", division: "3D Commercial Animation", projectCount: 4 },
   { name: "YouTube Creator Network", division: "Long Form & Storytelling", projectCount: 18 },
   { name: "Apex Motion", division: "After Effects 24 Title Sequences", projectCount: 12 },
   { name: "The Dialogue Studio", division: "Podcast Multi-Cam Flow", projectCount: 9 },
@@ -33,6 +34,35 @@ export const PROJECTS: Project[] = [
     stillImage: "/thumbnails/showreel-thumb.png",
     logGradeImage: "/thumbnails/showreel-thumb.png",
     finishedGradeImage: "/thumbnails/showreel-thumb.png",
+    edlCutsCount: 72,
+    timelineStems: {
+      dialogue: false,
+      foley: true,
+      music: true
+    }
+  },
+  {
+    id: "proj-monster",
+    title: "Monster Commercial Showreel",
+    client: "Commercial & 3D Motion",
+    category: "Motion Graphics",
+    year: "2026",
+    youtubeId: "EPU8ivyiWHI",
+    aspectRatio: "16:9 DCI",
+    duration: "00:48",
+    resolution: "4K UHD 60fps",
+    fps: "60.00 fps",
+    director: "Alter (alterffx)",
+    colorist: "Alter (High Contrast Commercial Grade)",
+    soundDesigner: "Tactile Sound FX & Sub Hits",
+    views: "Featured Reel",
+    turnaroundDays: 2,
+    description: "Commercial showreel created in After Effects 24. Combines 3D product motion, dynamic speed ramps, and frame-synced sound design to lock in viewer attention from the first second.",
+    keyAccomplishment: "Demonstrates high-tempo commercial pacing, 3D camera tracking, and tactile sound design.",
+    tags: ["Motion Graphics", "3D Product Motion", "Speed Ramping", "Sound Design"],
+    stillImage: "https://img.youtube.com/vi/EPU8ivyiWHI/maxresdefault.jpg",
+    logGradeImage: "https://alterffx.carrd.co/assets/images/gallery04/d0c31d36.jpg?v=4342f943",
+    finishedGradeImage: "https://img.youtube.com/vi/EPU8ivyiWHI/maxresdefault.jpg",
     edlCutsCount: 72,
     timelineStems: {
       dialogue: false,

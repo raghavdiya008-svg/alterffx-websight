@@ -146,7 +146,7 @@ export const ColorGradeLoupe: React.FC = () => {
           {/* Base Layer: Raw Log (Stationary, 100% scale, no zoom) */}
           <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none">
             <img
-              src="/thumbnails/showreel-thumb.png"
+              src="https://img.youtube.com/vi/EPU8ivyiWHI/maxresdefault.jpg"
               alt="Raw Log Plate"
               draggable={false}
               className="w-full h-full object-cover filter contrast-75 brightness-110 saturate-25 pointer-events-none select-none transform-none transition-none scale-100"
@@ -166,7 +166,7 @@ export const ColorGradeLoupe: React.FC = () => {
             }}
           >
             <img
-              src="/thumbnails/showreel-thumb.png"
+              src="https://img.youtube.com/vi/EPU8ivyiWHI/maxresdefault.jpg"
               alt="Finished Master Grade"
               draggable={false}
               className={`w-full h-full object-cover pointer-events-none select-none transform-none transition-none scale-100 ${
