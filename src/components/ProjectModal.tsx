@@ -84,7 +84,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
             
             {/* Cloaked Video Player (Shields YouTube branding, channel links, and watermark clickouts) */}
             <CloakedVideoPlayer
-              youtubeId={project.youtubeId || "EPU8ivyiWHI"}
+              youtubeId={project.youtubeId || "7fP0N1iH9XU"}
               videoSrc={project.videoSrc}
               title={project.title}
               category={project.category}

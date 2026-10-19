@@ -46,7 +46,7 @@ export const CinematicTheater: React.FC<CinematicTheaterProps> = ({
 
   const activeProject = PROJECTS[currentProjectIndex] || PROJECTS[0]
 
-  const videoId = activeProject.youtubeId || "EPU8ivyiWHI"
+  const videoId = activeProject.youtubeId || "7fP0N1iH9XU"
   const videoTitle = activeProject.title
   const videoCategory = activeProject.category
   const videoDuration = activeProject.duration

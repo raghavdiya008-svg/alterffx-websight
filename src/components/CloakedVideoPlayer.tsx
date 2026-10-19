@@ -16,11 +16,11 @@ interface CloakedVideoPlayerProps {
 }
 
 export const CloakedVideoPlayer: React.FC<CloakedVideoPlayerProps> = ({
-  youtubeId = "EPU8ivyiWHI",
+  youtubeId = "7fP0N1iH9XU",
   videoSrc,
   title,
   category = "Motion Graphics",
-  duration = "00:48",
+  duration = "00:40",
   stillImage,
   aspectRatio = "16:9",
   autoPlay = false,
