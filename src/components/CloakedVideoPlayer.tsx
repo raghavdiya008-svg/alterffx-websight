@@ -51,6 +51,7 @@ export const CloakedVideoPlayer: React.FC<CloakedVideoPlayerProps> = ({
             <div className="relative w-full h-full bg-black flex items-center justify-center">
               <video
                 src={videoSrc}
+                poster={stillImage}
                 controls
                 autoPlay
                 playsInline

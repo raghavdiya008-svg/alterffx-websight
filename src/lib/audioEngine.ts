@@ -40,7 +40,7 @@ class AudioEngine {
     return this.isMuted
   }
 
-  // Soft, Pleasant, Warm Piano Lofi Background Music
+  // Background Music: Starboy by The Weeknd
   public startAmbientMusic() {
     if (this.isMusicPlaying) return
     this.isMusicPlaying = true
@@ -48,7 +48,7 @@ class AudioEngine {
     if (typeof window !== "undefined") {
       try {
         if (!this.bgmAudio) {
-          this.bgmAudio = new Audio("/audio/ambient-bgm.mp3")
+          this.bgmAudio = new Audio("/audio/starboy.mp3")
           this.bgmAudio.loop = true
           this.bgmAudio.preload = "auto"
         }

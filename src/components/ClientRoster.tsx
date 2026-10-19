@@ -40,7 +40,7 @@ export const ClientRoster: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.04 }}
-              className="p-5 rounded-2xl liquid-glass-card hover:border-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between group cursor-default"
+              className="p-5 rounded-2xl liquid-glass-card hover:border-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-center group cursor-default"
             >
               <div>
                 <div className="font-medium text-sm text-[#241812] tracking-tight group-hover:text-[#9A7562] transition-colors">
@@ -49,13 +49,6 @@ export const ClientRoster: React.FC = () => {
                 <div className="text-[11px] font-light text-[#6D5548] mt-1.5 leading-snug">
                   {client.division}
                 </div>
-              </div>
-
-              <div className="mt-4 pt-3 border-t border-white/40 flex items-center justify-between text-[10px] font-mono">
-                <span className="text-[#6D5548] font-light">DELIVERIES</span>
-                <span className="px-2 py-0.5 rounded-full bg-[#9A7562]/15 text-[#9A7562] font-semibold">
-                  {client.projectCount}
-                </span>
               </div>
             </motion.div>
           ))}

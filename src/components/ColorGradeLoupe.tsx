@@ -38,20 +38,20 @@ export const ColorGradeLoupe: React.FC = () => {
 
   const profiles = {
     kodak: {
-      name: "Commercial High-Contrast Finish",
-      logLabel: "After Effects Raw Render Pass",
-      gradeLabel: "3D Dynamic Grade Master",
-      desc: "Subtle specular glow, dense cinematic shadow rolls, high-vibrancy product reflections, and natural tactile textures."
+      name: "Saturated Commercial Punch",
+      logLabel: "Raw Uncompressed Plate",
+      gradeLabel: "Saturated Commercial Grade",
+      desc: "Rich teal water reflections, deep earthen rock tones, and high-dynamic range specular highlights."
     },
     technicolor: {
-      name: "Saturated Commercial Punch",
-      logLabel: "Flat Rec.709 Pass",
-      gradeLabel: "Vibrant Advertising Grade",
-      desc: "Deep rich contrast balanced with gold accents designed for maximum stopping power on digital feeds."
+      name: "Vibrant Advertising Grade",
+      logLabel: "Raw Uncompressed Plate",
+      gradeLabel: "Vibrant Color Saturation",
+      desc: "Deep rich contrast balanced with gold-amber accents designed for maximum stopping power on digital feeds."
     },
     monochrome: {
       name: "Silver Halide Monochrome",
-      logLabel: "Sony Venice / ARRI S-Log",
+      logLabel: "Raw Uncompressed Plate",
       gradeLabel: "Atmospheric Black & White",
       desc: "High-acutance grain structure with deep velvet blacks and luminous midtone separation."
     }
@@ -146,14 +146,14 @@ export const ColorGradeLoupe: React.FC = () => {
           {/* Base Layer: Raw Log (Stationary, 100% scale, no zoom) */}
           <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none">
             <img
-              src="https://img.youtube.com/vi/EPU8ivyiWHI/maxresdefault.jpg"
+              src="/grading/raw.png"
               alt="Raw Log Plate"
               draggable={false}
-              className="w-full h-full object-cover filter contrast-75 brightness-110 saturate-25 pointer-events-none select-none transform-none transition-none scale-100"
+              className="w-full h-full object-cover pointer-events-none select-none transform-none transition-none scale-100"
             />
             {/* Raw Tag */}
             <div className="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-black/80 border border-white/20 text-xs font-mono text-white backdrop-blur-md font-medium select-none pointer-events-none">
-              RAW LOG (UNGRADED 3D PASS)
+              RAW LOG (UNGRADED CAPTURE)
             </div>
           </div>
 
@@ -166,21 +166,21 @@ export const ColorGradeLoupe: React.FC = () => {
             }}
           >
             <img
-              src="https://img.youtube.com/vi/EPU8ivyiWHI/maxresdefault.jpg"
+              src="/grading/edited.png"
               alt="Finished Master Grade"
               draggable={false}
               className={`w-full h-full object-cover pointer-events-none select-none transform-none transition-none scale-100 ${
                 activeProfile === "monochrome" 
                   ? "filter grayscale contrast-125 brightness-95" 
                   : activeProfile === "technicolor"
-                  ? "filter saturate-150 contrast-110"
-                  : "filter contrast-110 saturate-110"
+                  ? "filter saturate-125 contrast-105"
+                  : ""
               }`}
             />
             
             {/* Graded Tag */}
             <div className="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-[#9A7562]/90 border border-white/40 text-xs font-mono text-white backdrop-blur-md font-medium shadow-md select-none pointer-events-none">
-              FINISHED COMMERCIAL GRADE
+              SATURATED MASTER GRADE
             </div>
           </div>
 

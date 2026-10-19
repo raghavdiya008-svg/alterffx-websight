@@ -16,16 +16,16 @@ export const StudioAttribution: React.FC = () => {
   const [copiedDiscord, setCopiedDiscord] = useState(false)
   const [copiedInsta, setCopiedInsta] = useState(false)
 
-  const DISCORD_HANDLE = "alter.ffx"
-  const DISCORD_NAME = "Alter"
-  const INSTA_HANDLE = "@alter.ffx"
-  const INSTA_NAME = "Alter"
-  const INSTA_URL = "https://www.instagram.com/alter.ffx/"
+  const DISCORD_HANDLE = "r13598"
+  const DISCORD_NAME = "r13598"
+  const INSTA_HANDLE = "@ruthlesssoul9"
+  const INSTA_NAME = "r13598"
+  const INSTA_URL = "https://www.instagram.com/ruthlesssoul9/"
 
   const handleCopyDiscord = (e: React.MouseEvent) => {
     e.stopPropagation()
     soundFx.playTick(1300)
-    navigator.clipboard.writeText("alter.ffx")
+    navigator.clipboard.writeText(DISCORD_HANDLE)
     setCopiedDiscord(true)
     setTimeout(() => setCopiedDiscord(false), 2500)
   }
@@ -46,8 +46,8 @@ export const StudioAttribution: React.FC = () => {
   return (
     <>
       {/* =========================================================================
-          PERMANENT HARDCODED STUDIO SIGNATURE & WATERMARK — DO NOT REMOVE
-          ALTERFFX STUDIO DIGITAL WATERMARK & LEAD GENERATION ATOM
+          PERMANENT HARDCODED STUDIO SIGNATURE & WATERMARK
+          R13598 STUDIO DIGITAL WATERMARK & LEAD GENERATION ATOM
           ========================================================================= */}
 
       {/* 1. Permanent Fixed Bottom Ribbon Across Every Viewport with Liquid Glass styling */}
@@ -60,7 +60,7 @@ export const StudioAttribution: React.FC = () => {
           <span className="font-semibold tracking-wider text-white">PORTFOLIO ARCHITECTURE</span>
           <span className="hidden sm:inline text-[#EDCFB5]/40">•</span>
           <span className="hidden sm:inline text-[#EDCFB5]/80 font-light">
-            Bespoke High-Impact Web Systems for Elite Editors
+            Bespoke High-Impact Web Systems by r13598
           </span>
         </div>
 
@@ -92,7 +92,7 @@ export const StudioAttribution: React.FC = () => {
           <div className="flex items-center gap-1.5 text-xs font-mono font-medium tracking-tight">
             <span className="text-[#6D5548] font-light">Engineered by</span>
             <span className="text-[#241812] group-hover:text-[#9A7562] transition-colors font-semibold">
-              STUDIO
+              r13598
             </span>
           </div>
 
@@ -130,7 +130,7 @@ export const StudioAttribution: React.FC = () => {
               <div className="space-y-2 pr-8">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full liquid-glass-pill text-xs font-mono font-medium text-[#241812]">
                   <Sparkles className="w-3.5 h-3.5 text-[#9A7562]" />
-                  <span>ALTERFFX DIGITAL STUDIO COMMISSIONS</span>
+                  <span>R13598 DIGITAL STUDIO ARCHITECTURE</span>
                 </div>
 
                 <h3 className="font-normal text-3xl sm:text-4xl text-[#241812] leading-tight">
@@ -207,7 +207,7 @@ export const StudioAttribution: React.FC = () => {
               <div className="p-4 rounded-2xl liquid-glass-pill flex items-center justify-between text-xs font-mono text-[#6D5548] font-light">
                 <span className="flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-[#9A7562]" />
-                  <span>ALTERFFX STUDIO ARCHITECTURE</span>
+                  <span>R13598 STUDIO ARCHITECTURE</span>
                 </span>
                 <span className="font-medium text-[#241812]">COMMISSIONS OPEN</span>
               </div>
@@ -219,3 +219,4 @@ export const StudioAttribution: React.FC = () => {
     </>
   )
 }
+
