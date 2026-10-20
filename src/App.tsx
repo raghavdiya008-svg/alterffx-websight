@@ -50,7 +50,7 @@ export function App() {
     setIsTheaterOpen(false)
     setPrefilledProjectForBooking(projectTitle)
     handleNavClick("rates")
-    showToast(`Docket initiated for ${projectTitle}.`)
+    showToast(`Connect directly with Alter on Discord or Instagram below to book ${projectTitle}.`)
   }
 
   return (
