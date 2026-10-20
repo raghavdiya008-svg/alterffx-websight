@@ -210,13 +210,13 @@ export const RateCalculator: React.FC<RateCalculatorProps> = () => {
               Reserve Your Edit Slot via Direct Message
             </h3>
             <p className="text-sm sm:text-base text-[#6D5548] font-light max-w-2xl">
-              Skip long web forms. Message Alter directly on Discord or Instagram with your video concept, references, or raw Google Drive footage link. Direct responses within 2 hours.
+              Skip long web forms. Message Alter directly on Discord or Instagram with your video concept, references, or raw Google Drive footage link.
             </p>
           </div>
 
           <div className="flex items-center gap-2 text-xs font-sans text-[#6D5548] liquid-glass-pill px-3.5 py-1.5 rounded-full shrink-0">
             <ShieldCheck className="w-4 h-4 text-[#9A7562]" />
-            <span className="font-medium text-[#241812]">2-Hour Response Guaranteed</span>
+            <span className="font-medium text-[#241812]">Direct Editor Collaboration</span>
           </div>
         </div>
 

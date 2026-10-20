@@ -145,7 +145,7 @@ export const StudioAttribution: React.FC = () => {
               {/* Direct Social Contact Cards (Discord & Instagram) */}
               <div className="space-y-3 pt-2 font-sans">
                 <div className="text-xs font-sans text-[#6D5548] uppercase tracking-wider font-semibold">
-                  DIRECT CONTACT CHANNELS (REPLY WITHIN 2 HOURS)
+                  DIRECT CONTACT CHANNELS
                 </div>
 
                 {/* Discord Channel Card */}

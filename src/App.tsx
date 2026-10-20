@@ -114,7 +114,7 @@ export function App() {
         {/* Rate Calculator & Booking Intake Engine */}
         <RateCalculator
           prefilledProject={prefilledProjectForBooking}
-          onBookingSuccess={() => showToast("Booking filed. Alter will review your footage and brief within 2 hours.")}
+          onBookingSuccess={() => showToast("Inquiry opened. Connect directly with Alter on Discord or Instagram below.")}
         />
 
       </main>
