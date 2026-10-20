@@ -55,10 +55,10 @@ export const CinematicTheater: React.FC<CinematicTheaterProps> = ({
 
   // Standardized technical editorial chapters
   const chapters = [
-    { tc: "00:00:00", name: "01 // Hook Opening & 3D Spatial Tracking" },
-    { tc: "00:00:14", name: "02 // Velocity Deceleration & Macro Particles" },
-    { tc: "00:00:28", name: "03 // Expression Typography & Sub-Bass Punch" },
-    { tc: "00:00:42", name: "04 // Final Grade & Master Out" }
+    { tc: "00:00:00", name: "01 • Hook Opening & 3D Spatial Tracking" },
+    { tc: "00:00:14", name: "02 • Velocity Deceleration & Macro Particles" },
+    { tc: "00:00:28", name: "03 • Expression Typography & Sub-Bass Punch" },
+    { tc: "00:00:42", name: "04 • Final Grade & Master Out" }
   ]
 
   // Keyboard navigation: Escape to exit, Left/Right for project reels

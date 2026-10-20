@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Sparkles, MessageSquare, Copy, Check, X, ArrowUpRight, Zap, ShieldCheck } from "lucide-react"
+import { MessageSquare, Copy, Check, X, ArrowUpRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { soundFx } from "../lib/audioEngine"
 
@@ -16,24 +16,49 @@ export const StudioAttribution: React.FC = () => {
   const [copiedDiscord, setCopiedDiscord] = useState(false)
   const [copiedInsta, setCopiedInsta] = useState(false)
 
-  const DISCORD_HANDLE = "r13598"
-  const DISCORD_NAME = "r13598"
+  const DISCORD_HANDLE = "R13598og"
+  const DISCORD_NAME = "R13598"
   const INSTA_HANDLE = "@ruthlesssoul9"
   const INSTA_NAME = "r13598"
   const INSTA_URL = "https://www.instagram.com/ruthlesssoul9/"
 
-  const handleCopyDiscord = (e: React.MouseEvent) => {
+  const copyToClipboard = async (text: string) => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text)
+      } else {
+        throw new Error("Fallback to execCommand")
+      }
+    } catch {
+      const textArea = document.createElement("textarea")
+      textArea.value = text
+      textArea.style.position = "fixed"
+      textArea.style.left = "-999999px"
+      textArea.style.top = "-999999px"
+      document.body.appendChild(textArea)
+      textArea.focus()
+      textArea.select()
+      try {
+        document.execCommand("copy")
+      } catch {
+        // Silently catch
+      }
+      textArea.remove()
+    }
+  }
+
+  const handleCopyDiscord = async (e: React.MouseEvent) => {
     e.stopPropagation()
     soundFx.playTick(1300)
-    navigator.clipboard.writeText(DISCORD_HANDLE)
+    await copyToClipboard(DISCORD_HANDLE)
     setCopiedDiscord(true)
     setTimeout(() => setCopiedDiscord(false), 2500)
   }
 
-  const handleCopyInsta = (e: React.MouseEvent) => {
+  const handleCopyInsta = async (e: React.MouseEvent) => {
     e.stopPropagation()
     soundFx.playTick(1300)
-    navigator.clipboard.writeText(INSTA_HANDLE)
+    await copyToClipboard(INSTA_HANDLE)
     setCopiedInsta(true)
     setTimeout(() => setCopiedInsta(false), 2500)
   }
@@ -45,65 +70,30 @@ export const StudioAttribution: React.FC = () => {
 
   return (
     <>
-      {/* =========================================================================
-          PERMANENT HARDCODED STUDIO SIGNATURE & WATERMARK
-          R13598 STUDIO DIGITAL WATERMARK & LEAD GENERATION ATOM
-          ========================================================================= */}
-
-      {/* 1. Permanent Fixed Bottom Ribbon Across Every Viewport with Liquid Glass styling */}
-      <div 
-        onClick={handleOpenModal}
-        className="fixed bottom-0 left-0 right-0 z-40 bg-[#241812]/90 backdrop-blur-xl text-[#EDCFB5] text-[11px] font-mono py-1.5 px-4 border-t border-white/20 flex items-center justify-between cursor-pointer hover:bg-[#2F2119] transition-colors select-none shadow-2xl"
-      >
-        <div className="flex items-center gap-2.5 overflow-hidden">
-          <span className="w-2 h-2 rounded-full bg-[#9A7562] animate-pulse"></span>
-          <span className="font-semibold tracking-wider text-white">PORTFOLIO ARCHITECTURE</span>
-          <span className="hidden sm:inline text-[#EDCFB5]/40">•</span>
-          <span className="hidden sm:inline text-[#EDCFB5]/80 font-light">
-            Bespoke High-Impact Web Systems by r13598
-          </span>
-        </div>
-
-        <div className="flex items-center gap-3 text-[10px] tracking-wide">
-          <span className="hidden md:inline text-[#EDCFB5] font-light">
-            Want a portfolio like this?
-          </span>
-          <span className="px-2.5 py-0.5 rounded-full bg-[#9A7562] text-white font-medium uppercase tracking-wider text-[9px] hover:bg-[#86614E] transition-colors flex items-center gap-1 border border-white/20 shadow-xs">
-            <span>Get Yours</span>
-            <ArrowUpRight className="w-2.5 h-2.5" />
-          </span>
-        </div>
-      </div>
-
-      {/* 2. Floating Bottom-Right Badge in Liquid Glass Finish */}
-      <div className="fixed bottom-8 right-4 sm:right-6 z-40 select-none">
+      {/* Floating Bottom-Right Badge in Subtle Liquid Glass Finish */}
+      <div className="fixed bottom-6 right-4 sm:right-6 z-40 select-none">
         <motion.button
           onClick={handleOpenModal}
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.96 }}
-          className="group relative flex items-center gap-2.5 pl-3.5 pr-4 py-2 rounded-full liquid-glass text-[#241812] border-2 border-white/80 shadow-2xl hover:border-white transition-all cursor-pointer"
+          className="group relative flex items-center gap-2.5 px-3.5 py-2 rounded-full liquid-glass text-[#241812] border border-white/80 shadow-xl hover:border-white transition-all cursor-pointer"
         >
-          {/* Animated Glowing Accent Dot in #9A7562 */}
+          {/* Subtle Glowing Accent Dot */}
           <div className="relative flex items-center justify-center">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#9A7562] animate-ping absolute opacity-75"></span>
-            <span className="w-2.5 h-2.5 rounded-full bg-[#9A7562] relative"></span>
+            <span className="w-2 h-2 rounded-full bg-[#9A7562] animate-ping absolute opacity-70"></span>
+            <span className="w-2 h-2 rounded-full bg-[#9A7562] relative"></span>
           </div>
 
-          <div className="flex items-center gap-1.5 text-xs font-mono font-medium tracking-tight">
-            <span className="text-[#6D5548] font-light">Engineered by</span>
+          <div className="flex items-center gap-1.5 text-xs font-sans tracking-tight">
+            <span className="text-[#6D5548] font-light">Site by</span>
             <span className="text-[#241812] group-hover:text-[#9A7562] transition-colors font-semibold">
               r13598
             </span>
           </div>
-
-          <div className="hidden sm:flex items-center text-[10px] font-mono text-[#6D5548] pl-1.5 border-l border-white/60">
-            <Zap className="w-3 h-3 text-[#9A7562] mr-0.5 fill-[#9A7562]" />
-            <span className="font-semibold">PRO</span>
-          </div>
         </motion.button>
       </div>
 
-      {/* 3. In-Website Lead Capture & Agency Showcase Modal in Liquid Glass */}
+      {/* Subtle Studio Info & Contact Modal in Liquid Glass */}
       <AnimatePresence>
         {isOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#241812]/70 backdrop-blur-xl overflow-y-auto">
@@ -112,7 +102,7 @@ export const StudioAttribution: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.94, y: 12 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-xl rounded-3xl liquid-glass-card shadow-2xl overflow-hidden my-auto p-6 sm:p-8 text-[#241812] space-y-6 border border-white/90"
+              className="relative w-full max-w-lg rounded-3xl liquid-glass-card shadow-2xl overflow-hidden my-auto p-6 sm:p-8 text-[#241812] space-y-6 border border-white/90"
             >
               {/* Close Button */}
               <button
@@ -127,18 +117,17 @@ export const StudioAttribution: React.FC = () => {
               </button>
 
               {/* Modal Header */}
-              <div className="space-y-2 pr-8">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full liquid-glass-pill text-xs font-mono font-medium text-[#241812]">
-                  <Sparkles className="w-3.5 h-3.5 text-[#9A7562]" />
-                  <span>R13598 DIGITAL STUDIO ARCHITECTURE</span>
+              <div className="space-y-2.5 pr-8">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full liquid-glass-pill text-[11px] font-sans font-medium text-[#6D5548]">
+                  <span>DIGITAL ARCHITECTURE</span>
                 </div>
 
-                <h3 className="font-normal text-3xl sm:text-4xl text-[#241812] leading-tight">
-                  Want a <span className="font-light italic text-[#9A7562]">bespoke $15k+ portfolio</span> that stands out immediately?
+                <h3 className="font-normal text-2xl sm:text-3xl text-[#241812] leading-tight">
+                  Crafted by <span className="font-medium text-[#9A7562]">r13598</span>
                 </h3>
 
-                <p className="text-sm sm:text-base text-[#6D5548] font-light leading-relaxed">
-                  We build high-retention, cinematic portfolios for editors, directors, cinematographers, and premium creative studios. No generic templates, no AI clichés—just custom liquid glass aesthetics, interactive NLE monitors, and flawless typography.
+                <p className="text-sm text-[#6D5548] font-light leading-relaxed">
+                  Design systems, cinematic web interfaces, and bespoke portfolios for creators and creative studios. Available for select collaborations and custom web engineering.
                 </p>
               </div>
 
@@ -203,13 +192,13 @@ export const StudioAttribution: React.FC = () => {
                 </div>
               </div>
 
-              {/* Security & Exclusivity Note */}
-              <div className="p-4 rounded-2xl liquid-glass-pill flex items-center justify-between text-xs font-mono text-[#6D5548] font-light">
+              {/* Status Note */}
+              <div className="p-3.5 rounded-2xl liquid-glass-pill flex items-center justify-between text-xs font-sans text-[#6D5548] font-light">
                 <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#9A7562]" />
-                  <span>R13598 STUDIO ARCHITECTURE</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="font-medium text-[#241812]">r13598</span>
                 </span>
-                <span className="font-medium text-[#241812]">COMMISSIONS OPEN</span>
+                <span className="text-[11px] font-mono text-[#9A7562]">AVAILABLE FOR SELECT COLLABORATIONS</span>
               </div>
 
             </motion.div>

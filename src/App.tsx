@@ -54,7 +54,7 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#EDCFB5] text-[#241812] flex flex-col font-sans selection:bg-[#9A7562]/20 selection:text-[#241812] antialiased overflow-x-hidden relative liquid-mesh pb-12 sm:pb-10">
+    <div className="min-h-screen bg-[#EDCFB5] text-[#241812] flex flex-col font-sans selection:bg-[#9A7562]/20 selection:text-[#241812] antialiased overflow-x-clip relative liquid-mesh pb-12 sm:pb-10">
       
       {/* Living Ambient Liquid Background Mesh */}
       <AmbientLiquidBackground />
@@ -62,9 +62,9 @@ export function App() {
       {/* Top Laboratory Registration Strip */}
       <div className="relative z-10 w-full bg-white/40 backdrop-blur-md border-b border-white/50 px-4 sm:px-6 py-1.5 text-[10px] font-mono text-[#6D5548] flex items-center justify-between shadow-2xs">
         <div className="flex items-center gap-3">
-          <span className="font-semibold text-[#241812]">ALTER_STUDIO // AE24</span>
+          <span className="font-semibold text-[#241812]">ALTER STUDIO</span>
           <span>•</span>
-          <span className="hidden sm:inline">60FPS 4K UHD</span>
+          <span className="hidden sm:inline">AFTER EFFECTS & PREMIERE PRO</span>
         </div>
         <div className="flex items-center gap-4">
           <TimecodeTicker />

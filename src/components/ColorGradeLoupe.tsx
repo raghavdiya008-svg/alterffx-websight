@@ -2,23 +2,35 @@ import React, { useState, useRef, useCallback } from "react"
 import { Sliders, Check } from "lucide-react"
 import { motion } from "framer-motion"
 import { soundFx } from "../lib/audioEngine"
+import { Magnetic } from "./motion/Magnetic"
 
 export const ColorGradeLoupe: React.FC = () => {
   const [sliderPos, setSliderPos] = useState(52) // percentage 0 - 100
+  const [isDragging, setIsDragging] = useState(false)
   const [activeProfile, setActiveProfile] = useState<"kodak" | "technicolor" | "monochrome">("kodak")
   const containerRef = useRef<HTMLDivElement>(null)
   const isDraggingRef = useRef(false)
+  const lastMidpointCrossRef = useRef(52)
 
   const updatePosition = useCallback((clientX: number) => {
     if (!containerRef.current) return
     const rect = containerRef.current.getBoundingClientRect()
     const x = clientX - rect.left
     const newPos = Math.max(2, Math.min(98, (x / rect.width) * 100))
+
+    // Audio haptic tick when crossing center 50%
+    if ((lastMidpointCrossRef.current < 50 && newPos >= 50) || (lastMidpointCrossRef.current > 50 && newPos <= 50)) {
+      soundFx.playTick(1400)
+    }
+    lastMidpointCrossRef.current = newPos
+
     setSliderPos(newPos)
   }, [])
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     isDraggingRef.current = true
+    setIsDragging(true)
+    soundFx.playTick(1100)
     e.currentTarget.setPointerCapture(e.pointerId)
     updatePosition(e.clientX)
   }
@@ -31,6 +43,7 @@ export const ColorGradeLoupe: React.FC = () => {
 
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
     isDraggingRef.current = false
+    setIsDragging(false)
     try {
       e.currentTarget.releasePointerCapture(e.pointerId)
     } catch (_) {}
@@ -72,11 +85,11 @@ export const ColorGradeLoupe: React.FC = () => {
           <div className="inline-flex items-center gap-2 mb-2">
             <Sliders className="w-4 h-4 text-[#9A7562]" />
             <span className="font-light text-base sm:text-lg text-[#6D5548]">
-              COLOR FINISHING & RENDER DEVELOPMENT
+              COLOR FINISHING & POST-PRODUCTION
             </span>
           </div>
           <h2 className="font-normal text-4xl sm:text-6xl text-[#241812] tracking-tight">
-            Before & After Color Science
+            Before & After Color Grading
           </h2>
           <p className="text-[#6D5548] text-base sm:text-lg mt-2 max-w-2xl font-light">
             Drag the loupe divider across the still frame. The picture stays stationary while revealing the before and after color grade.
@@ -86,20 +99,21 @@ export const ColorGradeLoupe: React.FC = () => {
         {/* Profile Selector Buttons in Liquid Glass */}
         <div className="flex items-center gap-2.5">
           {(["kodak", "technicolor", "monochrome"] as const).map((key) => (
-            <button
-              key={key}
-              onClick={() => {
-                soundFx.playTick(1000)
-                setActiveProfile(key)
-              }}
-              className={`px-4 py-2 rounded-xl text-xs font-medium tracking-wide transition-all cursor-pointer ${
-                activeProfile === key
-                  ? "bg-[#9A7562] text-white shadow-md shadow-[#9A7562]/20 border border-white/30"
-                  : "liquid-glass-pill text-[#6D5548] hover:text-[#241812] hover:border-white/90"
-              }`}
-            >
-              {profiles[key].name.split(" ")[0]}
-            </button>
+            <Magnetic key={key} strength={0.25}>
+              <button
+                onClick={() => {
+                  soundFx.playTick(1000)
+                  setActiveProfile(key)
+                }}
+                className={`px-4 py-2 rounded-xl text-xs font-medium tracking-wide transition-all cursor-pointer ${
+                  activeProfile === key
+                    ? "bg-[#9A7562] text-white shadow-md shadow-[#9A7562]/20 border border-white/30"
+                    : "liquid-glass-pill text-[#6D5548] hover:text-[#241812] hover:border-white/90"
+                }`}
+              >
+                {profiles[key].name.split(" ")[0]}
+              </button>
+            </Magnetic>
           ))}
         </div>
       </motion.div>
@@ -186,12 +200,20 @@ export const ColorGradeLoupe: React.FC = () => {
 
           {/* Divider Line & Touch Drag Handle */}
           <div
-            className="absolute top-0 bottom-0 w-0.5 bg-white z-20 pointer-events-none shadow-[0_0_16px_rgba(255,255,255,0.95)]"
+            className={`absolute top-0 bottom-0 w-0.5 z-20 pointer-events-none transition-shadow duration-200 ${
+              isDragging 
+                ? "bg-white shadow-[0_0_24px_rgba(154,117,98,0.95)]" 
+                : "bg-white/90 shadow-[0_0_14px_rgba(255,255,255,0.85)]"
+            }`}
             style={{ left: `${sliderPos}%` }}
           >
-            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-11 h-11 rounded-full bg-white/95 text-[#241812] border-2 border-[#9A7562] shadow-2xl flex items-center justify-center text-xs font-mono font-bold select-none">
+            <motion.div 
+              animate={{ scale: isDragging ? 1.15 : 1 }}
+              transition={{ type: "spring", stiffness: 350, damping: 25 }}
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-11 h-11 rounded-full bg-white text-[#241812] border-2 border-[#9A7562] shadow-2xl flex items-center justify-center text-xs font-mono font-bold select-none"
+            >
               ↔
-            </div>
+            </motion.div>
           </div>
         </div>
 

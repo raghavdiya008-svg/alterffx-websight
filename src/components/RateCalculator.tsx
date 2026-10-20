@@ -1,7 +1,9 @@
 import React, { useState } from "react"
-import { Calendar, Clock, Check, Copy, ArrowUpRight, ShieldCheck, Sparkles } from "lucide-react"
+import { Calendar, Clock, Check, Copy, ArrowUpRight } from "lucide-react"
 import { motion } from "framer-motion"
 import { soundFx } from "../lib/audioEngine"
+import { Magnetic } from "./motion/Magnetic"
+import { GlassGlowCard } from "./motion/GlassGlowCard"
 
 interface RateCalculatorProps {
   prefilledProject?: string
@@ -26,52 +28,52 @@ const TIERS = [
   {
     num: "01",
     title: "Short Form Videos",
-    subtitle: "30s–60s Viral Shorts, Reels & TikToks",
+    subtitle: "30s–60s Reels, Shorts & TikToks",
     idealFor: "Creators, brands, TikTok, Instagram Reels & YouTube Shorts",
     deliverables: [
-      "High-retention 1.5s hook design & dynamic transitions",
-      "Kinetic subtitle animations & visual punch-ins",
-      "Tactile sound design, risers, swooshes & trending audio sync",
-      "Master 9:16 vertical ProRes / MP4 export (1080p & 4K)"
+      "High-retention opening hooks & seamless transitions",
+      "Custom animated captions, kinetic text & punch-ins",
+      "Dynamic sound effects, risers, swooshes & trending music sync",
+      "Master vertical 9:16 exports in 1080p & 4K"
     ],
-    turnaround: "2–3 Days Turnaround"
+    turnaround: "2–3 Days"
   },
   {
     num: "02",
-    title: "High-Retention YouTube Long Form",
-    subtitle: "8–20 Minute Gaming, Faceless & Storytelling",
-    idealFor: "Top YouTube creators, gaming channels, faceless video essays",
+    title: "YouTube Long Form",
+    subtitle: "8–20 Minute Storytelling, Gaming & Video Essays",
+    idealFor: "YouTubers, gaming channels, and faceless video creators",
     deliverables: [
-      "Psychological pattern interrupt pacing every 4–6s",
-      "Custom kinetic infographics & paper texture animation",
-      "Dynamic speaker punch-ins & vocal compression",
-      "Full master render + textless stem version"
+      "Engaging story pacing designed to maintain viewer retention",
+      "Custom kinetic graphics, infographics & paper textures",
+      "Visual punch-ins, b-roll integration & audio balancing",
+      "Full master export ready for upload"
     ],
-    turnaround: "3–5 Days Turnaround"
+    turnaround: "3–5 Days"
   },
   {
     num: "03",
-    title: "Kinetic Typography & Motion Rig",
-    subtitle: "Bespoke Titles & Essential Graphics",
-    idealFor: "Music videos, editorial title sequences, motion packages",
+    title: "Kinetic Typography & Motion",
+    subtitle: "Custom Titles & Motion Sequences",
+    idealFor: "Music videos, title sequences & motion design packages",
     deliverables: [
-      "Expression-driven kinetic type with elastic overshoot",
-      "Custom glint, particle bursts & deep glow curves",
-      "Alpha channel ProRes 4444 transparent assets",
-      "Includes After Effects 24 project comps"
+      "Custom animated typography & fluid title sequences",
+      "Visual effects, glowing particle bursts & light sweeps",
+      "Transparent overlay exports (ProRes 4444) for any timeline",
+      "After Effects project comp files available upon request"
     ],
-    turnaround: "24–48 Hours Turnaround"
+    turnaround: "24–48 Hours"
   },
   {
     num: "04",
-    title: "Custom Scope & Specific Needs",
+    title: "Custom Projects & Retainers",
     subtitle: "Tailored Format, Retainer, or Bespoke Cut",
-    idealFor: "Podcasts, multi-cam flows, viral shorts batch, or monthly retainer",
+    idealFor: "Podcasts, multi-cam flows, monthly editing retainers",
     deliverables: [
-      "Custom workflow configured to your exact timeline & requirements",
-      "Direct 1-on-1 collaboration with Alter via Discord or Instagram",
-      "Tailored revisions & priority rush delivery options",
-      "Full master exports + raw .aep project comps upon request"
+      "Flexible workflow tailored to your format, style & release schedule",
+      "Direct 1-on-1 communication with Alter throughout the entire edit",
+      "Revisions & priority rush turnaround options available",
+      "Ongoing weekly or monthly retainers for active channels"
     ],
     turnaround: "Flexible / Rush Available"
   }
@@ -117,21 +119,21 @@ export const RateCalculator: React.FC<RateCalculatorProps> = () => {
           <div className="inline-flex items-center gap-2 mb-2">
             <Calendar className="w-4 h-4 text-[#9A7562]" />
             <span className="font-light text-sm sm:text-base text-[#6D5548] tracking-wide">
-              PRODUCTION TIMELINES & COMMISSION AVAILABILITY
+              SERVICES & TURNAROUND
             </span>
           </div>
           <h2 className="font-normal text-3xl sm:text-5xl lg:text-6xl text-[#241812] tracking-tight">
             Editing Scope & Turnaround
           </h2>
           <p className="text-[#6D5548] text-base sm:text-lg mt-2 max-w-2xl font-light">
-            Dedicated production pipeline with guaranteed turnaround times. Direct 1-on-1 collaboration with Alter from initial brief to final 4K master.
+            Fast, reliable turnaround with direct communication. From initial concept and footage review to final export.
           </p>
         </div>
 
         {/* Live Capacity Pill */}
-        <div className="flex items-center gap-2 text-xs font-sans text-[#241812] font-semibold liquid-glass-pill px-4 py-2 rounded-full self-start md:self-auto shadow-xs">
+        <div className="flex items-center gap-2 text-xs font-sans text-[#241812] font-medium liquid-glass-pill px-4 py-2 rounded-full self-start md:self-auto shadow-xs">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>CURRENT STATUS: 2 OF 4 PRODUCTION SLOTS OPEN</span>
+          <span>Accepting new projects this month</span>
         </div>
       </motion.div>
 
@@ -144,50 +146,50 @@ export const RateCalculator: React.FC<RateCalculatorProps> = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: idx * 0.08 }}
-            className="p-6 sm:p-7 rounded-3xl liquid-glass-card border border-white/70 hover:border-white transition-all shadow-xl flex flex-col justify-between space-y-5 group"
           >
-            <div className="space-y-4">
-              {/* Card Header & Turnaround Badge */}
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 font-mono text-xs text-[#9A7562] font-semibold">
-                    <span>{tier.num} //</span>
-                    <span className="uppercase tracking-wider">AFTER EFFECTS 24</span>
-                  </div>
-                  <h3 className="font-normal text-2xl sm:text-3xl text-[#241812] group-hover:text-[#9A7562] transition-colors leading-tight">
-                    {tier.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm font-sans text-[#6D5548] font-normal">
-                    {tier.subtitle}
-                  </p>
-                </div>
-
-                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#9A7562] text-white text-xs font-sans font-medium shrink-0 shadow-sm border border-white/20 self-start">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>{tier.turnaround}</span>
-                </div>
-              </div>
-
-              {/* Deliverables List */}
-              <div className="pt-4 border-t border-white/50 space-y-2.5 text-xs font-sans">
-                <div className="text-[11px] text-[#241812] font-semibold tracking-wide uppercase font-mono">
-                  INCLUDED DELIVERABLES & CRAFT:
-                </div>
-                <div className="grid grid-cols-1 gap-2">
-                  {tier.deliverables.map((item, dIdx) => (
-                    <div key={dIdx} className="flex items-start gap-2 text-xs text-[#4A372D]">
-                      <Check className="w-3.5 h-3.5 text-[#9A7562] shrink-0 mt-0.5" />
-                      <span className="font-normal leading-relaxed">{item}</span>
+            <GlassGlowCard className="p-6 sm:p-7 rounded-3xl liquid-glass-card border border-white/70 hover:border-white transition-all shadow-xl h-full flex flex-col justify-between space-y-5 group">
+              <div className="space-y-4">
+                {/* Card Header & Turnaround Badge */}
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-xs text-[#9A7562] font-semibold">
+                      <span>{tier.num}</span>
                     </div>
-                  ))}
+                    <h3 className="font-normal text-2xl sm:text-3xl text-[#241812] group-hover:text-[#9A7562] transition-colors leading-tight">
+                      {tier.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm font-sans text-[#6D5548] font-normal">
+                      {tier.subtitle}
+                    </p>
+                  </div>
+
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#9A7562] text-white text-xs font-sans font-medium shrink-0 shadow-sm border border-white/20 self-start">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>{tier.turnaround}</span>
+                  </div>
+                </div>
+
+                {/* Deliverables List */}
+                <div className="pt-4 border-t border-white/50 space-y-2.5 text-xs font-sans">
+                  <div className="text-[11px] text-[#241812] font-semibold tracking-wide uppercase font-sans">
+                    What&rsquo;s included:
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
+                    {tier.deliverables.map((item, dIdx) => (
+                      <div key={dIdx} className="flex items-start gap-2 text-xs text-[#4A372D]">
+                        <Check className="w-3.5 h-3.5 text-[#9A7562] shrink-0 mt-0.5" />
+                        <span className="font-normal leading-relaxed">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Target Audience / Ideal For Tag */}
-            <div className="pt-3 border-t border-white/40 text-[11px] font-sans text-[#6D5548] flex items-center justify-between">
-              <span className="truncate">Ideal for: {tier.idealFor}</span>
-            </div>
+              {/* Target Audience / Ideal For Tag */}
+              <div className="pt-3 border-t border-white/40 text-[11px] font-sans text-[#6D5548] flex items-center justify-between">
+                <span className="truncate">Ideal for: {tier.idealFor}</span>
+              </div>
+            </GlassGlowCard>
           </motion.div>
         ))}
       </div>
@@ -202,20 +204,18 @@ export const RateCalculator: React.FC<RateCalculatorProps> = () => {
       >
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/50 pb-6">
           <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-glass-pill text-xs font-mono font-medium text-[#241812]">
-              <Sparkles className="w-3.5 h-3.5 text-[#9A7562]" />
-              <span>DIRECT COMMISSION CHANNELS // INSTANT BOOKING</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full liquid-glass-pill text-xs font-sans font-medium text-[#6D5548]">
+              <span>GET IN TOUCH</span>
             </div>
             <h3 className="font-normal text-2xl sm:text-4xl text-[#241812]">
-              Reserve Your Edit Slot via Direct Message
+              Start a Project via Direct Message
             </h3>
             <p className="text-sm sm:text-base text-[#6D5548] font-light max-w-2xl">
-              Skip long web forms. Message Alter directly on Discord or Instagram with your video concept, references, or raw Google Drive footage link.
+              Skip long web forms. Message Alter directly on Discord or Instagram with your project details, references, or raw Google Drive footage link.
             </p>
           </div>
 
           <div className="flex items-center gap-2 text-xs font-sans text-[#6D5548] liquid-glass-pill px-3.5 py-1.5 rounded-full shrink-0">
-            <ShieldCheck className="w-4 h-4 text-[#9A7562]" />
             <span className="font-medium text-[#241812]">Direct Editor Collaboration</span>
           </div>
         </div>
@@ -243,26 +243,30 @@ export const RateCalculator: React.FC<RateCalculatorProps> = () => {
             </div>
 
             <div className="flex items-center gap-2.5 pt-2 border-t border-white/40">
-              <a
-                href={DISCORD_DM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => soundFx.playNeuralBurst()}
-                className="flex-1 py-3 px-4 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white text-xs font-sans font-medium uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 shadow-md active:scale-98 cursor-pointer border border-white/20"
-              >
-                <span>Direct Message on Discord</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
+              <Magnetic strength={0.2} className="flex-1 flex">
+                <a
+                  href={DISCORD_DM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => soundFx.playNeuralBurst()}
+                  className="w-full py-3 px-4 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white text-xs font-sans font-medium uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 shadow-md active:scale-98 cursor-pointer border border-white/20"
+                >
+                  <span>Direct Message on Discord</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </Magnetic>
 
-              <button
-                type="button"
-                onClick={handleCopyDiscord}
-                className="py-3 px-3.5 rounded-xl liquid-glass hover:bg-white/70 text-[#241812] text-xs font-sans font-medium uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer border border-white/60 shrink-0"
-                title="Copy Discord Tag"
-              >
-                {copiedDiscord ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-[#9A7562]" />}
-                <span className="hidden sm:inline">{copiedDiscord ? "Copied!" : "Copy"}</span>
-              </button>
+              <Magnetic strength={0.15}>
+                <button
+                  type="button"
+                  onClick={handleCopyDiscord}
+                  className="py-3 px-3.5 rounded-xl liquid-glass hover:bg-white/70 text-[#241812] text-xs font-sans font-medium uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer border border-white/60 shrink-0"
+                  title="Copy Discord Tag"
+                >
+                  {copiedDiscord ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-[#9A7562]" />}
+                  <span className="hidden sm:inline">{copiedDiscord ? "Copied!" : "Copy"}</span>
+                </button>
+              </Magnetic>
             </div>
           </div>
 
@@ -286,39 +290,43 @@ export const RateCalculator: React.FC<RateCalculatorProps> = () => {
             </div>
 
             <div className="flex items-center gap-2.5 pt-2 border-t border-white/40">
-              <a
-                href={INSTA_DM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => soundFx.playNeuralBurst()}
-                className="flex-1 py-3 px-4 rounded-xl bg-[#9A7562] hover:bg-[#86614E] text-white text-xs font-sans font-medium uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 shadow-md active:scale-98 cursor-pointer border border-white/20"
-              >
-                <span>Direct Message on Instagram</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
+              <Magnetic strength={0.2} className="flex-1 flex">
+                <a
+                  href={INSTA_DM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => soundFx.playNeuralBurst()}
+                  className="w-full py-3 px-4 rounded-xl bg-[#9A7562] hover:bg-[#86614E] text-white text-xs font-sans font-medium uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 shadow-md active:scale-98 cursor-pointer border border-white/20"
+                >
+                  <span>Direct Message on Instagram</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </Magnetic>
 
-              <button
-                type="button"
-                onClick={handleCopyInsta}
-                className="py-3 px-3.5 rounded-xl liquid-glass hover:bg-white/70 text-[#241812] text-xs font-sans font-medium uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer border border-white/60 shrink-0"
-                title="Copy Instagram Handle"
-              >
-                {copiedInsta ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-[#9A7562]" />}
-                <span className="hidden sm:inline">{copiedInsta ? "Copied!" : "Copy"}</span>
-              </button>
+              <Magnetic strength={0.15}>
+                <button
+                  type="button"
+                  onClick={handleCopyInsta}
+                  className="py-3 px-3.5 rounded-xl liquid-glass hover:bg-white/70 text-[#241812] text-xs font-sans font-medium uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer border border-white/60 shrink-0"
+                  title="Copy Instagram Handle"
+                >
+                  {copiedInsta ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-[#9A7562]" />}
+                  <span className="hidden sm:inline">{copiedInsta ? "Copied!" : "Copy"}</span>
+                </button>
+              </Magnetic>
             </div>
           </div>
 
         </div>
 
         {/* Commitment Badge Footer */}
-        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-[#6D5548] border-t border-white/40">
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-sans text-[#6D5548] border-t border-white/40">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>COMMISSIONS ACCEPTED GLOBALLY // DCI-P3 4K 60FPS</span>
+            <span>Available for projects worldwide • 4K 60FPS delivery</span>
           </div>
           <span className="text-[11px] font-sans font-normal text-[#9A7562]">
-            Ready to edit? Click any channel above to open direct chat.
+            Ready to get started? Reach out on Discord or Instagram above.
           </span>
         </div>
       </motion.div>

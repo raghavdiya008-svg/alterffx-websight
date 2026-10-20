@@ -1,13 +1,12 @@
 import { Project, Testimonial, ClientLogo } from "../types/editor"
 
 export const CLIENT_ROSTER: ClientLogo[] = [
-  { name: "Official Showreel", division: "High-Tempo Brand & Motion", projectCount: 6 },
-  { name: "Monster Showreel", division: "3D Commercial Animation", projectCount: 4 },
-  { name: "YouTube Creator Network", division: "Long Form & Storytelling", projectCount: 18 },
-  { name: "Apex Motion", division: "After Effects 24 Title Sequences", projectCount: 12 },
-  { name: "The Dialogue Studio", division: "Podcast Multi-Cam Flow", projectCount: 9 },
-  { name: "Kinetic Velocity", division: "Viral Short Form & Hooks", projectCount: 24 },
-  { name: "Horizon Visuals", division: "Atmospheric Narrative Cuts", projectCount: 7 }
+  { name: "Commercial & 3D Motion", division: "Product Animations & Camera Passes", projectCount: 6 },
+  { name: "YouTube Long Form", division: "Retention Storytelling & Faceless Cuts", projectCount: 18 },
+  { name: "Kinetic Typography", division: "Custom Titles & Motion Sequences", projectCount: 12 },
+  { name: "Shorts & Viral Reels", division: "High-Retention 9:16 Vertical Cutdowns", projectCount: 24 },
+  { name: "Gaming Montages", division: "1-Frame Beat Snapping & Speed Ramps", projectCount: 14 },
+  { name: "Color & Sound Mix", division: "ACEScc Commercial Grade & Foley", projectCount: 16 }
 ]
 
 export const PROJECTS: Project[] = [
@@ -196,7 +195,7 @@ export const TESTIMONIALS: Testimonial[] = [
     project: "Monster Commercial Animation",
     year: "2026",
     screenshotUrl: "https://alterffx.carrd.co/assets/images/gallery02/81cdf72d.jpg?v=4342f943",
-    platform: "DISCORD // DM"
+    platform: "Discord DM"
   },
   {
     id: "test-02",
@@ -207,7 +206,7 @@ export const TESTIMONIALS: Testimonial[] = [
     project: "Long Form Content Mastercut",
     year: "2026",
     screenshotUrl: "https://alterffx.carrd.co/assets/images/gallery02/e05f9bc8.jpg?v=4342f943",
-    platform: "TELEGRAM // DM"
+    platform: "Telegram DM"
   },
   {
     id: "test-03",
@@ -218,7 +217,7 @@ export const TESTIMONIALS: Testimonial[] = [
     project: "Attention-Grabbing Shorts",
     year: "2026",
     screenshotUrl: "https://alterffx.carrd.co/assets/images/gallery02/90506993.jpg?v=4342f943",
-    platform: "DISCORD // DM"
+    platform: "Discord DM"
   },
   {
     id: "test-04",
@@ -229,7 +228,7 @@ export const TESTIMONIALS: Testimonial[] = [
     project: "Podcast Editorial & Visual Flow",
     year: "2026",
     screenshotUrl: "https://alterffx.carrd.co/assets/images/gallery02/6f89d8ab.jpg?v=4342f943",
-    platform: "TELEGRAM // DM"
+    platform: "Telegram DM"
   }
 ]
 

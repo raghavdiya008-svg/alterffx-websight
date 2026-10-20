@@ -100,7 +100,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavClick, onOpenBooking }) => 
                 </li>
                 <li>
                   <button onClick={() => onNavClick("rates")} className="hover:text-[#241812] transition-colors cursor-pointer">
-                    Rates & Intake
+                    Turnaround & Contact
                   </button>
                 </li>
               </ul>

@@ -78,7 +78,7 @@ const NAV_ITEMS = [
   { id: "works", label: "Sample Videos", freq: 900 },
   { id: "color-grade", label: "Color Grade Loupe", freq: 1000 },
   { id: "philosophy", label: "What I Offer", freq: 1100 },
-  { id: "rates", label: "Rates & Intake", freq: 1200 },
+  { id: "rates", label: "Turnaround & Contact", freq: 1200 },
 ]
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onNavClick, onOpenTheater }) => {

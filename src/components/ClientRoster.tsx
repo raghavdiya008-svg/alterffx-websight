@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { CLIENT_ROSTER } from "../data/editorData"
-import { Sparkles, Layers } from "lucide-react"
+import { GlassGlowCard } from "./motion/GlassGlowCard"
 
 export const ClientRoster: React.FC = () => {
   return (
@@ -40,16 +40,20 @@ export const ClientRoster: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.04 }}
-              className="p-5 rounded-2xl liquid-glass-card hover:border-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-center group cursor-default"
             >
-              <div>
-                <div className="font-medium text-sm text-[#241812] tracking-tight group-hover:text-[#9A7562] transition-colors">
-                  {client.name}
+              <GlassGlowCard
+                glowColor="rgba(154, 117, 98, 0.22)"
+                className="h-full p-5 rounded-2xl liquid-glass-card hover:border-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-center group cursor-default"
+              >
+                <div className="relative z-10">
+                  <div className="font-medium text-sm text-[#241812] tracking-tight group-hover:text-[#9A7562] transition-colors">
+                    {client.name}
+                  </div>
+                  <div className="text-[11px] font-light text-[#6D5548] mt-1.5 leading-snug">
+                    {client.division}
+                  </div>
                 </div>
-                <div className="text-[11px] font-light text-[#6D5548] mt-1.5 leading-snug">
-                  {client.division}
-                </div>
-              </div>
+              </GlassGlowCard>
             </motion.div>
           ))}
         </div>
