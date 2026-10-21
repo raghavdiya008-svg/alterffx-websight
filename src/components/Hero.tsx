@@ -97,7 +97,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
             {/* Eyebrow Label in Liquid Glass Pill */}
             <motion.div variants={heroItemVariants} className="flex flex-wrap items-center gap-2 sm:gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-[#9A7562] animate-pulse"></span>
-              <span className="font-mono text-xs font-medium text-[#241812] uppercase tracking-wider liquid-glass-pill px-3 py-1 rounded-full border border-white/70 shadow-2xs">
+              <span className="font-sans text-xs font-semibold text-[#241812] uppercase tracking-wider liquid-glass-pill px-3 py-1 rounded-full border border-white/70 shadow-2xs">
                 ALTERFFX
               </span>
               <span className="text-[#B79F93] hidden xs:inline">•</span>
@@ -123,7 +123,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
             </motion.p>
 
             {/* Studio Guarantee & Capacity Pill */}
-            <motion.div variants={heroItemVariants} className="flex items-center gap-2 text-xs font-mono text-[#6D5548]">
+            <motion.div variants={heroItemVariants} className="flex items-center gap-2 text-xs font-sans font-medium text-[#6D5548]">
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
               <span className="font-medium text-[#241812]">IMMEDIATE CAPACITY:</span>
               <span>24-48H FIRST CUT TURNAROUND</span>
@@ -201,13 +201,13 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
             <div className="w-full rounded-3xl liquid-glass-card p-3 sm:p-4.5 shadow-2xl space-y-2.5 border border-white/90 relative overflow-hidden transform-gpu">
               
               {/* Registration Corner Marks */}
-              <div className="absolute top-2 left-2 text-xs font-mono text-[#241812]/20 select-none pointer-events-none">+</div>
-              <div className="absolute top-2 right-2 text-xs font-mono text-[#241812]/20 select-none pointer-events-none">+</div>
-              <div className="absolute bottom-2 left-2 text-xs font-mono text-[#241812]/20 select-none pointer-events-none">+</div>
-              <div className="absolute bottom-2 right-2 text-xs font-mono text-[#241812]/20 select-none pointer-events-none">+</div>
+              <div className="absolute top-2 left-2 text-xs font-sans text-[#241812]/20 select-none pointer-events-none">+</div>
+              <div className="absolute top-2 right-2 text-xs font-sans text-[#241812]/20 select-none pointer-events-none">+</div>
+              <div className="absolute bottom-2 left-2 text-xs font-sans text-[#241812]/20 select-none pointer-events-none">+</div>
+              <div className="absolute bottom-2 right-2 text-xs font-sans text-[#241812]/20 select-none pointer-events-none">+</div>
 
               {/* Minimalist Top Console Slate Bar */}
-              <div className="flex items-center justify-between border-b border-white/50 pb-2 text-xs font-mono px-1">
+              <div className="flex items-center justify-between border-b border-white/50 pb-2 text-xs font-sans font-medium px-1">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#9A7562] animate-pulse"></span>
                   <span className="text-[#241812] font-semibold tracking-wide text-xs sm:text-sm">
@@ -260,7 +260,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
               </div>
 
               {/* Clean Bottom Status Strip */}
-              <div className="flex items-center justify-between text-xs font-mono pt-1 text-[#6D5548] text-[10px] sm:text-[11px] px-1">
+              <div className="flex items-center justify-between text-xs font-sans font-medium pt-1 text-[#6D5548] text-[10px] sm:text-[11px] px-1">
                 <span className="flex items-center gap-1.5 font-light">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span className="font-medium text-[#241812]">NATIVE 4K STREAM READY</span>
@@ -281,7 +281,7 @@ export const Hero: React.FC<HeroProps> = ({ onWatchReel, onExploreWorks, onOpenB
         {/* Ambient Bottom Scroll Prompt Indicator */}
         <motion.div 
           style={isDesktop && !shouldReduceMotion ? { opacity: scrollPromptOpacity } : undefined}
-          className="hidden lg:flex items-center justify-center gap-2 pt-1 text-xs font-mono text-[#6D5548] select-none"
+          className="hidden lg:flex items-center justify-center gap-2 pt-1 text-xs font-sans font-medium text-[#6D5548] select-none"
         >
           <motion.div
             animate={{ y: [0, 4, 0] }}

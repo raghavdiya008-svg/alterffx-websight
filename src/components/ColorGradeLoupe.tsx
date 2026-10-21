@@ -127,11 +127,11 @@ export const ColorGradeLoupe: React.FC = () => {
         className="rounded-3xl liquid-glass-card p-6 sm:p-8 shadow-2xl space-y-6 relative"
       >
         {/* Registration Crosshairs */}
-        <div className="absolute top-3 left-3 text-xs font-mono text-[#241812]/20 select-none">+</div>
-        <div className="absolute top-3 right-3 text-xs font-mono text-[#241812]/20 select-none">+</div>
+        <div className="absolute top-3 left-3 text-xs font-sans text-[#241812]/20 select-none">+</div>
+        <div className="absolute top-3 right-3 text-xs font-sans text-[#241812]/20 select-none">+</div>
         
         {/* Top Grade Metadata HUD */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/50 pb-4 text-xs font-mono">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/50 pb-4 text-xs font-sans font-medium">
           <div className="flex items-center gap-4">
             <span className="text-[#6D5548]">
               DAILIES LOG: <span className="text-[#241812] font-semibold">{profiles[activeProfile].logLabel}</span>
@@ -166,7 +166,7 @@ export const ColorGradeLoupe: React.FC = () => {
               className="w-full h-full object-cover pointer-events-none select-none transform-none transition-none scale-100"
             />
             {/* Raw Tag */}
-            <div className="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-black/80 border border-white/20 text-xs font-mono text-white backdrop-blur-md font-medium select-none pointer-events-none">
+            <div className="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-black/80 border border-white/20 text-xs font-sans text-white backdrop-blur-md font-medium select-none pointer-events-none">
               RAW LOG (UNGRADED CAPTURE)
             </div>
           </div>
@@ -218,7 +218,7 @@ export const ColorGradeLoupe: React.FC = () => {
         </div>
 
         {/* Profile Technical Footnote */}
-        <div className="p-5 rounded-2xl liquid-glass-pill border border-white/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-[#6D5548]">
+        <div className="p-5 rounded-2xl liquid-glass-pill border border-white/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-sans font-medium text-[#6D5548]">
           <div className="max-w-2xl font-light">
             <span className="font-semibold text-[#241812]">{profiles[activeProfile].name}: </span>
             {profiles[activeProfile].desc}
